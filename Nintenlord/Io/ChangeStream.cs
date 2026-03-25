@@ -95,7 +95,7 @@ namespace Nintenlord.IO
 
         public void WriteToFile(Stream stream)
         {
-            BinaryWriter writer = new BinaryWriter(stream);
+            var writer = new BinaryWriter(stream);
 
             foreach (var item in (IEnumerable<KeyValuePair<int, byte[]>>)changes)
             {

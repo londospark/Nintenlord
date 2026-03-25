@@ -7,7 +7,7 @@ namespace Nintenlord.Parser.CharacterParsers
     {
         protected override char ParseMain(IScanner<char> scanner, out Match<char> match)
         {
-            char c = scanner.Current;
+            var c = scanner.Current;
             if (Char.IsDigit(c))
             {
                 match = new Match<char>(scanner, 1);

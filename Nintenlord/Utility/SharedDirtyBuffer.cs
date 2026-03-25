@@ -59,7 +59,7 @@ namespace Nintenlord.Utility
 
             public IEnumerator<T> GetEnumerator()
             {
-                for (int i = 0; i < listToUse.array.Length; i++)
+                for (var i = 0; i < listToUse.array.Length; i++)
                 {
                     yield return listToUse.array[i];
                 }

@@ -22,10 +22,10 @@ namespace Nintenlord.Utility.Primitives
             }
             min = (float)Math.Ceiling(min);
             max = (float)Math.Floor(max);
-            int minI = (int)min;
-            int maxI = (int)max;
+            var minI = (int)min;
+            var maxI = (int)max;
 
-            for (int i = minI; i <= maxI; i++)
+            for (var i = minI; i <= maxI; i++)
             {
                 yield return i;
             }
@@ -38,7 +38,7 @@ namespace Nintenlord.Utility.Primitives
 
         public static IEnumerable<float> GetFloats(int n)
         {
-            for (int i = 0; i <= n; i++)
+            for (var i = 0; i <= n; i++)
             {
                 yield return (float)i / (float)n;
             }

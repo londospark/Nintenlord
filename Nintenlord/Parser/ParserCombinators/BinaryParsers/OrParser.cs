@@ -21,7 +21,7 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
         protected override TOut ParseMain(IScanner<TIn> scanner, out Match<TIn> match)
         {
             var currentOffset = scanner.Offset;
-            TOut result = first.Parse(scanner, out match);
+            var result = first.Parse(scanner, out match);
 
             if (!match.Success)
             {

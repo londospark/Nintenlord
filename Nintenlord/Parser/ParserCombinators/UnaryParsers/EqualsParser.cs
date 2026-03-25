@@ -13,7 +13,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 
         protected override T ParseMain(IO.Scanners.IScanner<T> scanner, out Match<T> match)
         {
-            T result = scanner.Current;
+            var result = scanner.Current;
             if (!item.Equals(result))
             {
                 match = new Match<T>(scanner, "Expected {0}, got {1}", item, result);

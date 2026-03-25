@@ -23,7 +23,7 @@ namespace Nintenlord.Drawing
         public static unsafe Rectangle FindMatch2D(byte* bigImage, Size bigSize, Rectangle findIn,
             byte* smallImage, Size smallSize, Rectangle findWhat)
         {
-            Rectangle result = Rectangle.Empty;
+            var result = Rectangle.Empty;
             if (findIn.IsEmpty)
             {
                 findIn = new Rectangle(Point.Empty, bigSize);
@@ -44,15 +44,15 @@ namespace Nintenlord.Drawing
 
             //add test for small rect not fitting to big rect here
 
-            for (int y = findIn.Y; y < findIn.Bottom - findWhat.Height + 1; y++)
+            for (var y = findIn.Y; y < findIn.Bottom - findWhat.Height + 1; y++)
             {
-                byte* rowPointer = bigImage + y * bigSize.Width + findIn.X;
-                for (int x = findIn.X; x < findIn.Right - findWhat.Width + 1; x++)
+                var rowPointer = bigImage + y * bigSize.Width + findIn.X;
+                for (var x = findIn.X; x < findIn.Right - findWhat.Width + 1; x++)
                 {
                     //inner loops, could use some optimation
-                    for (int y2 = findWhat.Y; y2 < findWhat.Bottom; y2++)
+                    for (var y2 = findWhat.Y; y2 < findWhat.Bottom; y2++)
                     {
-                        for (int x2 = findWhat.X; x2 < findWhat.Right; x2++)
+                        for (var x2 = findWhat.X; x2 < findWhat.Right; x2++)
                         {
                             //do the comparing
                             if (rowPointer[y2 * bigSize.Width + x2]
@@ -93,18 +93,18 @@ namespace Nintenlord.Drawing
                 findWhat = new Rectangle(Point.Empty, smallImage.Size);
             }
 
-            Rectangle result = Rectangle.Empty;
+            var result = Rectangle.Empty;
 
-            BitmapData bmpdBig = bigImage.LockBits(findIn, ImageLockMode.ReadOnly, bigImage.PixelFormat);
-            BitmapData bmpdSmall = smallImage.LockBits(findWhat, ImageLockMode.ReadOnly, smallImage.PixelFormat);
+            var bmpdBig = bigImage.LockBits(findIn, ImageLockMode.ReadOnly, bigImage.PixelFormat);
+            var bmpdSmall = smallImage.LockBits(findWhat, ImageLockMode.ReadOnly, smallImage.PixelFormat);
 
-            byte* pointerBig = (byte*)bmpdBig.Scan0;
-            byte* pointerSmall = (byte*)bmpdSmall.Scan0;
+            var pointerBig = (byte*)bmpdBig.Scan0;
+            var pointerSmall = (byte*)bmpdSmall.Scan0;
 
-            int bpp = Image.GetPixelFormatSize(bigImage.PixelFormat);
-            Size bigSize = bigImage.Size;
+            var bpp = Image.GetPixelFormatSize(bigImage.PixelFormat);
+            var bigSize = bigImage.Size;
             bigSize.Width = bigSize.Width * bpp / 8;
-            Size smallSize = smallImage.Size;
+            var smallSize = smallImage.Size;
             smallSize.Width = smallSize.Width * bpp / 8;
 
             findIn.X = findIn.X * bpp / 8;
@@ -128,7 +128,7 @@ namespace Nintenlord.Drawing
 
         public static void Transpose(ref Rectangle rect)
         {
-            int temp = rect.Y;
+            var temp = rect.Y;
             rect.Y = rect.X;
             rect.X = temp;
 
@@ -139,14 +139,14 @@ namespace Nintenlord.Drawing
 
         public static void Transpose(ref Point point)
         {
-            int temp = point.Y;
+            var temp = point.Y;
             point.Y = point.X;
             point.X = temp;
         }
 
         public static void Transpose(ref RectangleF rect)
         {
-            float temp = rect.Y;
+            var temp = rect.Y;
             rect.Y = rect.X;
             rect.X = temp;
 
@@ -157,7 +157,7 @@ namespace Nintenlord.Drawing
 
         public static void Transpose(ref PointF point)
         {
-            float temp = point.Y;
+            var temp = point.Y;
             point.Y = point.X;
             point.X = temp;
         }
@@ -182,7 +182,7 @@ namespace Nintenlord.Drawing
 
         public static HashSet<Color> GetColors(this Bitmap bitmap)
         {
-            HashSet<Color> palette = new HashSet<Color>();
+            var palette = new HashSet<Color>();
 
             if ((bitmap.PixelFormat & PixelFormat.Indexed) == PixelFormat.Indexed)
             {
@@ -193,11 +193,11 @@ namespace Nintenlord.Drawing
             }
             else
             {
-                for (int i = 0; i < bitmap.Width; i++)
+                for (var i = 0; i < bitmap.Width; i++)
                 {
-                    for (int j = 0; j < bitmap.Height; j++)
+                    for (var j = 0; j < bitmap.Height; j++)
                     {
-                        Color color = bitmap.GetPixel(i, j);
+                        var color = bitmap.GetPixel(i, j);
                         if (!palette.Contains(color))
                         {
                             palette.Add(color);
@@ -220,11 +220,11 @@ namespace Nintenlord.Drawing
             if (palette == null)
                 throw new ArgumentNullException();
 
-            for (int i = 0; i < palette.Length && i < original.Entries.Length; i++)
+            for (var i = 0; i < palette.Length && i < original.Entries.Length; i++)
             {
                 original.Entries[i] = palette[i];
             }
-            for (int i = palette.Length; i < original.Entries.Length; i++)
+            for (var i = palette.Length; i < original.Entries.Length; i++)
             {
                 original.Entries[i] = Color.FromArgb(0, 0, 0);
             }
@@ -242,7 +242,7 @@ namespace Nintenlord.Drawing
             if (bitmap.PixelFormat == PixelFormat.Format8bppIndexed)
                 return bitmap;
 
-            Bitmap result = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format8bppIndexed);
+            var result = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format8bppIndexed);
             Bitmap trueColorBitmap;
 
             if (bitmap is Bitmap && bitmap.PixelFormat == PixelFormat.Format32bppArgb)
@@ -253,7 +253,7 @@ namespace Nintenlord.Drawing
             {
                 trueColorBitmap = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
 
-                using (Graphics g = Graphics.FromImage(trueColorBitmap))
+                using (var g = Graphics.FromImage(trueColorBitmap))
                 {
                     g.PageUnit = GraphicsUnit.Pixel;
                     g.DrawImage(bitmap, 0, 0, bitmap.Width, bitmap.Height);
@@ -295,7 +295,7 @@ namespace Nintenlord.Drawing
             {
                 throw new ArgumentException("Out of bitmap's area", "rect");
             }
-            Bitmap subBitmap = new Bitmap(rect.Width, rect.Height, bitmap.PixelFormat);
+            var subBitmap = new Bitmap(rect.Width, rect.Height, bitmap.PixelFormat);
             bitmap.Copy(subBitmap, rect, Point.Empty);
 
             return subBitmap;
@@ -318,13 +318,13 @@ namespace Nintenlord.Drawing
                 throw new ArgumentException("Out of bitmaps area", "destPos");
             }
 
-            using (BitmapLocker sourceLock = new BitmapLocker(source, ImageLockMode.ReadOnly))
+            using (var sourceLock = new BitmapLocker(source, ImageLockMode.ReadOnly))
             {
-                using (BitmapLocker destLock = new BitmapLocker(dest, ImageLockMode.WriteOnly))
+                using (var destLock = new BitmapLocker(dest, ImageLockMode.WriteOnly))
                 {
-                    int copyLength = sourceLock.PixelSize * sourceRect.Width;
+                    var copyLength = sourceLock.PixelSize * sourceRect.Width;
 
-                    for (int i = 0; i < sourceRect.Height; i++)
+                    for (var i = 0; i < sourceRect.Height; i++)
                     {
                         MemCopy(
                             sourceLock[sourceRect.X, sourceRect.Y + i],
@@ -338,8 +338,8 @@ namespace Nintenlord.Drawing
 
         private static unsafe void MemCopy(IntPtr source, IntPtr destination, int length)
         {
-            int* intSource = (int*)source.ToPointer();
-            int* intDest = (int*)destination.ToPointer();
+            var intSource = (int*)source.ToPointer();
+            var intDest = (int*)destination.ToPointer();
             while (length >= 4)
             {
                 intDest[0] = intSource[0];
@@ -347,8 +347,8 @@ namespace Nintenlord.Drawing
                 intDest++;
                 length -= 4;
             }
-            byte* byteSource = (byte*)intSource;
-            byte* byteDest = (byte*)intDest;
+            var byteSource = (byte*)intSource;
+            var byteDest = (byte*)intDest;
             while (length > 0)
             {
                 byteDest[0] = byteSource[0];
@@ -373,9 +373,9 @@ namespace Nintenlord.Drawing
                 throw new ArgumentException("Out of bitmap's area", "area");
             }
 
-            for (int y = area.Top; y < area.Bottom; y++)
+            for (var y = area.Top; y < area.Bottom; y++)
             {
-                for (int x = area.Left; x < area.Right; x++)
+                for (var x = area.Left; x < area.Right; x++)
                 {
                     yield return bitmap.GetPixel(x, y);
                 }
@@ -391,15 +391,15 @@ namespace Nintenlord.Drawing
                 throw new ArgumentException("Out of bitmap's area", "area");
             }
 
-            for (int rectY = area.Top; rectY < area.Bottom; rectY++)
+            for (var rectY = area.Top; rectY < area.Bottom; rectY++)
             {
-                for (int rectX = area.Left; rectX < area.Right; rectX++)
+                for (var rectX = area.Left; rectX < area.Right; rectX++)
                 {
-                    int sx = rectX * tileSize.Width;
-                    int sy = rectY * tileSize.Height;
-                    for (int y = 0; y < tileSize.Height; y++)
+                    var sx = rectX * tileSize.Width;
+                    var sy = rectY * tileSize.Height;
+                    for (var y = 0; y < tileSize.Height; y++)
                     {
-                        for (int x = 0; x < tileSize.Width; x++)
+                        for (var x = 0; x < tileSize.Width; x++)
                         {
                             yield return bitmap.GetPixel(sx + x, sy + y);
                         }
@@ -422,9 +422,9 @@ namespace Nintenlord.Drawing
                 throw new ArgumentException("Out of bitmap's area", "area");
             }
 
-            for (int y = area.Top; y < area.Bottom; y++)
+            for (var y = area.Top; y < area.Bottom; y++)
             {
-                for (int x = area.Left; x < area.Right; x++)
+                for (var x = area.Left; x < area.Right; x++)
                 {
                     yield return Tuple.Create(new Point(x, y), bitmap.GetPixel(x, y));
                 }
@@ -440,15 +440,15 @@ namespace Nintenlord.Drawing
                 throw new ArgumentException("Out of bitmap's area", "area");
             }
 
-            for (int rectY = area.Top; rectY < area.Bottom; rectY++)
+            for (var rectY = area.Top; rectY < area.Bottom; rectY++)
             {
-                for (int rectX = area.Left; rectX < area.Right; rectX++)
+                for (var rectX = area.Left; rectX < area.Right; rectX++)
                 {
-                    int sx = rectX * rectSize.Width;
-                    int sy = rectY * rectSize.Height;
-                    for (int y = 0; y < rectSize.Height; y++)
+                    var sx = rectX * rectSize.Width;
+                    var sy = rectY * rectSize.Height;
+                    for (var y = 0; y < rectSize.Height; y++)
                     {
-                        for (int x = 0; x < rectSize.Width; x++)
+                        for (var x = 0; x < rectSize.Width; x++)
                         {
                             yield return Tuple.Create(new Point(x, y), bitmap.GetPixel(x, y));
                         }
@@ -541,8 +541,8 @@ namespace Nintenlord.Drawing
 
         public IEnumerator<IntPtr> GetEnumerator()
         {
-            IntPtr currentLine = BitmapData.Scan0;
-            for (int i = 0; i < bitmap.Height; i++)
+            var currentLine = BitmapData.Scan0;
+            for (var i = 0; i < bitmap.Height; i++)
             {
                 yield return currentLine;
                 currentLine += BitmapData.Stride;
@@ -551,8 +551,8 @@ namespace Nintenlord.Drawing
 
         public IEnumerator<IntPtr> GetEnumerator(int y, int height)
         {
-            IntPtr currentLine = BitmapData.Scan0 + y * BitmapData.Stride;
-            for (int i = 0; i < height; i++)
+            var currentLine = BitmapData.Scan0 + y * BitmapData.Stride;
+            for (var i = 0; i < height; i++)
             {
                 yield return currentLine;
                 currentLine += BitmapData.Stride;

@@ -38,16 +38,16 @@ namespace Nintenlord.Utility.Strings
         public static string[] ShuntingYardAlgorithm(string s, IComparer<string> operatorComparer,
             Predicate<string> isOperator, Predicate<char> isValue)
         {
-            Stack<string> operators = new Stack<string>();
-            List<string> output = new List<string>();
-            bool wasValue = false;
-            bool isNegative = false;
-            for (int i = 0; i < s.Length; i++)
+            var operators = new Stack<string>();
+            var output = new List<string>();
+            var wasValue = false;
+            var isNegative = false;
+            for (var i = 0; i < s.Length; i++)
             {
-                char c = s[i];
+                var c = s[i];
                 if (isValue(c))
                 {
-                    int length = 1;
+                    var length = 1;
                     while (i + length < s.Length && isValue(s[i + length]))
                     {
                         length++;
@@ -102,7 +102,7 @@ namespace Nintenlord.Utility.Strings
 
             while (operators.Count > 0)
             {
-                string c = operators.Pop();
+                var c = operators.Pop();
                 if (c != "(")
                 {
                     output.Add(c);
@@ -194,8 +194,8 @@ namespace Nintenlord.Utility.Strings
             IDictionary<TInput, Func<TOutput, TOutput>> unaryOperators,
             Func<TInput, TOutput> conversion)
         {
-            Stack<TOutput> values = new Stack<TOutput>();
-            for (int i = index; i < index + length; i++)
+            var values = new Stack<TOutput>();
+            for (var i = index; i < index + length; i++)
             {
                 if (binaryOperators.ContainsKey(s[i]))
                 {
@@ -205,8 +205,8 @@ namespace Nintenlord.Utility.Strings
                     }
                     else
                     {
-                        TOutput arg2 = values.Pop();
-                        TOutput arg1 = values.Pop();
+                        var arg2 = values.Pop();
+                        var arg1 = values.Pop();
                         values.Push(binaryOperators[s[i]](arg1, arg2));
                     }
                 }
@@ -218,7 +218,7 @@ namespace Nintenlord.Utility.Strings
                     }
                     else
                     {
-                        TOutput arg1 = values.Pop();
+                        var arg1 = values.Pop();
                         values.Push(unaryOperators[s[i]](arg1));
                     }
                 }
@@ -244,17 +244,17 @@ namespace Nintenlord.Utility.Strings
             {
                 return new string[] { };
             }
-            List<string> elements = new List<string>();
-            StringBuilder newElement = new StringBuilder(code.Length, code.Length);
+            var elements = new List<string>();
+            var newElement = new StringBuilder(code.Length, code.Length);
 
-            int parenthDepth = 0;
-            bool quote = false;
-            int vectorDepth = 0;
+            var parenthDepth = 0;
+            var quote = false;
+            var vectorDepth = 0;
 
-            for (int i = 0; i < code.Length; i++)
+            for (var i = 0; i < code.Length; i++)
             {
-                char c = code[i];
-                bool split = false;
+                var c = code[i];
+                var split = false;
                 if (c == '[') vectorDepth++;
                 else if (c == ']') vectorDepth--;
                 else if (c == '(') parenthDepth++;
@@ -295,9 +295,9 @@ namespace Nintenlord.Utility.Strings
             if (line.Length == 0)
                 return true;
 
-            bool cool = true;
-            int[] commentDepths = new int[line.Length];
-            int endOfLine = line.Length;
+            var cool = true;
+            var commentDepths = new int[line.Length];
+            var endOfLine = line.Length;
 
             {
                 int i;
@@ -334,10 +334,10 @@ namespace Nintenlord.Utility.Strings
             }
             else
             {
-                StringBuilder newLine = new StringBuilder(endOfLine, line.Length);
+                var newLine = new StringBuilder(endOfLine, line.Length);
 
-                bool firstRemoved = true;
-                for (int i = 0; i < endOfLine; i++)
+                var firstRemoved = true;
+                for (var i = 0; i < endOfLine; i++)
                 {
                     if (commentDepths[i] == 0) //Not in comment
                     {
@@ -363,9 +363,9 @@ namespace Nintenlord.Utility.Strings
             int[] commentDepths;
             int endOfLine;
 
-            bool cool = FindComments(line, ref blockCommentDepth, out commentDepths, out endOfLine);
+            var cool = FindComments(line, ref blockCommentDepth, out commentDepths, out endOfLine);
 
-            int i = 0;
+            var i = 0;
             for (; i < endOfLine; i++)
             {
                 if (commentDepths[i] > 0)
@@ -389,13 +389,13 @@ namespace Nintenlord.Utility.Strings
             int[] commentDepths;
             int endOfLine;
 
-            bool cool = FindComments(line, ref blockCommentDepth, out commentDepths, out endOfLine);
+            var cool = FindComments(line, ref blockCommentDepth, out commentDepths, out endOfLine);
 
             if (endOfLine < line.Length)
             {
                 line.Remove(endOfLine, line.Length - endOfLine);
             }
-            for (int i = endOfLine - 1; i >= 0; i--)
+            for (var i = endOfLine - 1; i >= 0; i--)
             {
                 if (commentDepths[i] > 0)
                 {
@@ -408,7 +408,7 @@ namespace Nintenlord.Utility.Strings
 
         private static bool FindComments(StringBuilder line, ref int blockCommentDepth, out int[] commentDepths, out int endOfLine)
         {
-            bool cool = true;
+            var cool = true;
             commentDepths = new int[line.Length];
             endOfLine = line.Length;
 

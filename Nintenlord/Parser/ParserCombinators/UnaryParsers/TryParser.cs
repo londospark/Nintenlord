@@ -21,8 +21,8 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
                 throw new ArgumentException("Scanner can't seek.");
             }
 
-            long offset = scanner.Offset;
-            TOut result = parserToTry.Parse(scanner, out match);
+            var offset = scanner.Offset;
+            var result = parserToTry.Parse(scanner, out match);
             if (!match.Success)
             {
                 scanner.Offset = offset;

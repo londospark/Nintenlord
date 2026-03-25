@@ -19,7 +19,7 @@ namespace Nintenlord.Utility
 
         public CanCauseError HandleArgs(IEnumerable<string> args)
         {
-            int parameterNumber = 0;
+            var parameterNumber = 0;
             foreach (var arg in args)
             {
                 if (arg[0] == '-')

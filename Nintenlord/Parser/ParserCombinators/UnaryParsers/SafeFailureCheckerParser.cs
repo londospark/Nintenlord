@@ -21,7 +21,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 
         protected override TOut ParseMain(IScanner<TIn> scanner, out Match<TIn> match)
         {
-            long start = scanner.Offset;
+            var start = scanner.Offset;
             var result = parser.Parse(scanner, out match);
 
             if ((match.Success && match.Length != scanner.Offset - start) ||

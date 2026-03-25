@@ -7,7 +7,7 @@ namespace Nintenlord.Utility
     {
         public static bool TryGetEnum<T>(this string name, out T result)
         {
-            Type type = typeof(T);
+            var type = typeof(T);
             if (!Enum.GetNames(type).Contains(name))
             {
                 result = default(T);

@@ -9,9 +9,9 @@
             this IGraph<TNode> graph,
             TNode startNode)
         {
-            HashSet<TNode> travelledNodes = new HashSet<TNode>();
+            var travelledNodes = new HashSet<TNode>();
 
-            Queue<TNode> queue = new Queue<TNode>(graph.NodeCount);
+            var queue = new Queue<TNode>(graph.NodeCount);
 
             queue.Enqueue(startNode);
 
@@ -44,7 +44,7 @@
             TNode startNode,
             DepthFirstTraversalOrdering ordering)
         {
-            HashSet<TNode> travelledNodes = new HashSet<TNode>();
+            var travelledNodes = new HashSet<TNode>();
 
             switch (ordering)
             {
@@ -94,7 +94,7 @@
             this IGraph<TNode> graph,
             DepthFirstTraversalOrdering ordering)
         {
-            HashSet<TNode> travelledNodes = new HashSet<TNode>();
+            var travelledNodes = new HashSet<TNode>();
 
             switch (ordering)
             {

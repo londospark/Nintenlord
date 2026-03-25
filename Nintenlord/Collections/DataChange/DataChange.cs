@@ -18,7 +18,7 @@ namespace Nintenlord.Collections.DataChange
         {
             get
             {
-                int lastKey = dataToChange.Keys[dataToChange.Count - 1];
+                var lastKey = dataToChange.Keys[dataToChange.Count - 1];
                 return lastKey + dataToChange[lastKey].Length;
             }
         }
@@ -27,7 +27,7 @@ namespace Nintenlord.Collections.DataChange
         {
             get
             {
-                int firstKey = dataToChange.Keys[0];
+                var firstKey = dataToChange.Keys[0];
                 return firstKey;
             }
 
@@ -63,7 +63,7 @@ namespace Nintenlord.Collections.DataChange
             if (index + count > data.Length)
                 throw new IndexOutOfRangeException();
 
-            List<int> intersectedKeys = GetIntersectingKeys(offset, count).ToList();
+            var intersectedKeys = GetIntersectingKeys(offset, count).ToList();
 
             int newOffset;
             int newLastOffset;
@@ -71,7 +71,7 @@ namespace Nintenlord.Collections.DataChange
             if (intersectedKeys.Count > 0)
             {
                 newOffset = Math.Min(intersectedKeys[0], offset);
-                int lastKey = intersectedKeys[intersectedKeys.Count - 1];
+                var lastKey = intersectedKeys[intersectedKeys.Count - 1];
                 newLastOffset = Math.Max(lastKey + dataToChange[lastKey].Length, offset + count);
             }
             else
@@ -80,10 +80,10 @@ namespace Nintenlord.Collections.DataChange
                 newLastOffset = offset + count;
             }
 
-            T[] newData = new T[newLastOffset - newOffset];
-            foreach (int item in intersectedKeys)
+            var newData = new T[newLastOffset - newOffset];
+            foreach (var item in intersectedKeys)
             {
-                T[] oldData = dataToChange[item];
+                var oldData = dataToChange[item];
                 Array.Copy(oldData, 0, newData, item - newOffset, oldData.Length);
                 dataToChange.Remove(item);
             }
@@ -120,7 +120,7 @@ namespace Nintenlord.Collections.DataChange
 
         private void ApplyTo(T[] data)
         {
-            foreach (KeyValuePair<int, T[]> item in dataToChange)
+            foreach (var item in dataToChange)
             {
                 Array.Copy(item.Value, 0, data, item.Key, item.Value.Length);
             }
@@ -132,11 +132,11 @@ namespace Nintenlord.Collections.DataChange
         /// <returns>The string representation of this instance.</returns>
         public override string ToString()
         {
-            StringBuilder text = new StringBuilder();
-            foreach (KeyValuePair<int, T[]> item in dataToChange)
+            var text = new StringBuilder();
+            foreach (var item in dataToChange)
             {
                 text.Append(item.Key + ": ");
-                foreach (T item2 in item.Value)
+                foreach (var item2 in item.Value)
                 {
                     text.Append(item2 + " ");
                 }
@@ -153,13 +153,14 @@ namespace Nintenlord.Collections.DataChange
             }
         }
 
-        public bool Equals(IDataChange<T> other)
+        public bool Equals(IDataChange<T>? other)
         {
             throw new NotImplementedException();
         }
 
-        public bool Equals(T[] other)
+        public bool Equals(T[]? other)
         {
+            if (other is null) return false;
             IEqualityComparer<T> comp = EqualityComparer<T>.Default;
 
             return !(from item in dataToChange
@@ -278,10 +279,10 @@ namespace Nintenlord.Collections.DataChange
                 throw new IndexOutOfRangeException();
             }
 
-            DataChange<T> result = new DataChange<T>();
+            var result = new DataChange<T>();
             foreach (var item in (overlay as IEnumerable<KeyValuePair<int, int>>))
             {
-                T[] temp = new T[item.Value];
+                var temp = new T[item.Value];
                 Array.Copy(array, item.Key, temp, 0, temp.Length);
                 result.AddChangedData(item.Key, array);
             }

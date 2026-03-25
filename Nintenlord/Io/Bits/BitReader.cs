@@ -26,7 +26,7 @@ namespace Nintenlord.IO.Bits
                 index = index % 8;
             }
 
-            bool result = (buffer & (1 << index)) != 0;
+            var result = (buffer & (1 << index)) != 0;
             //bool result = (buffer & (0x80 >> index)) != 0;
             index++;
             return result;

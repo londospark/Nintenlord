@@ -49,7 +49,7 @@ namespace Nintenlord.Collections
             this.count = 0;
             this.version = 0;
             this.head = new SkipListNode<TPriority, TValue>(maxLevel);
-            for (int i = 0; i < maxLevel; i++)
+            for (var i = 0; i < maxLevel; i++)
             {
                 this.head[i] = head;
             }
@@ -57,7 +57,7 @@ namespace Nintenlord.Collections
 
         private int NewLevel()
         {
-            int level = 1;
+            var level = 1;
             while (level < currentMaxLevel && random.NextDouble() < propability)
             {
                 level++;
@@ -96,11 +96,11 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException();
             }
 
-            SkipListNode<TPriority, TValue> currentNode = head;
-            SkipListNode<TPriority, TValue>[] toUpdate =
+            var currentNode = head;
+            var toUpdate =
                 new SkipListNode<TPriority, TValue>[currentMaxLevel];
 
-            for (int level = currentMaxLevel - 1; level >= 0; level--)
+            for (var level = currentMaxLevel - 1; level >= 0; level--)
             {
                 while (currentNode[level] != head &&
                     comparer.Compare(priority, currentNode[level].Key) > 0)
@@ -110,8 +110,8 @@ namespace Nintenlord.Collections
 
             currentNode = currentNode[0];
 
-            int newLevel = this.NewLevel();
-            SkipListNode<TPriority, TValue> newNode =
+            var newLevel = this.NewLevel();
+            var newNode =
                 new SkipListNode<TPriority, TValue>(priority, value, newLevel);
 
             if (newLevel == currentMaxLevel)
@@ -120,7 +120,7 @@ namespace Nintenlord.Collections
                 currentMaxLevel++;
             }
 
-            for (int i = 0; i < newLevel; i++)
+            for (var i = 0; i < newLevel; i++)
             {
                 newNode[i] = toUpdate[i][i];
                 toUpdate[i][i] = newNode;
@@ -140,8 +140,8 @@ namespace Nintenlord.Collections
             {
                 throw new InvalidOperationException("Empty");
             }
-            SkipListNode<TPriority, TValue> first = head[0];
-            for (int i = 0; i < first.AmountOfNodes; i++)
+            var first = head[0];
+            for (var i = 0; i < first.AmountOfNodes; i++)
             {
                 head[i] = first[i];
             }
@@ -182,9 +182,9 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException();
             }
 
-            SkipListNode<TPriority, TValue> currentNode = head;
+            var currentNode = head;
 
-            for (int level = currentMaxLevel - 1; level >= 0; level--)
+            for (var level = currentMaxLevel - 1; level >= 0; level--)
             {
                 while (currentNode[level] != head &&
                     comparer.Compare(priority, currentNode[level].Key) > 0)
@@ -206,7 +206,7 @@ namespace Nintenlord.Collections
 
         public bool Contains(TValue value)
         {
-            SkipListNode<TPriority, TValue> currentNode = head;
+            var currentNode = head;
             while (currentNode[0] != head)
             {
                 if (EqualityComparer<TValue>.Default.Equals(value, currentNode.Value))
@@ -220,7 +220,7 @@ namespace Nintenlord.Collections
 
         public bool Contains(TValue value, out TPriority priority)
         {
-            SkipListNode<TPriority, TValue> currentNode = head;
+            var currentNode = head;
             while (currentNode[0] != head)
             {
                 if (EqualityComparer<TValue>.Default.Equals(value, currentNode.Value))
@@ -240,11 +240,11 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException();
             }
 
-            SkipListNode<TPriority, TValue> currentNode = head;
-            SkipListNode<TPriority, TValue>[] toUpdate =
+            var currentNode = head;
+            var toUpdate =
                 new SkipListNode<TPriority, TValue>[currentMaxLevel];
 
-            for (int level = currentMaxLevel - 1; level >= 0; level--)
+            for (var level = currentMaxLevel - 1; level >= 0; level--)
             {
                 while (currentNode[level] != head &&
                     comparer.Compare(priority, currentNode[level].Key) > 0)
@@ -258,7 +258,7 @@ namespace Nintenlord.Collections
             {
                 if (EqualityComparer<TValue>.Default.Equals(value, currentNode.Value))
                 {
-                    for (int i = 0; i < currentNode.AmountOfNodes; i++)
+                    for (var i = 0; i < currentNode.AmountOfNodes; i++)
                     {
                         toUpdate[i][i] = currentNode[i];
                         currentNode[i] = null;
@@ -268,7 +268,7 @@ namespace Nintenlord.Collections
                     this.version++;
                     return true;
                 }
-                for (int i = 0; i < currentNode.AmountOfNodes; i++)
+                for (var i = 0; i < currentNode.AmountOfNodes; i++)
                 {
                     toUpdate[i] = currentNode;
                 }
@@ -280,7 +280,7 @@ namespace Nintenlord.Collections
 
         public void Clear()
         {
-            for (int i = 0; i < head.AmountOfNodes; i++)
+            for (var i = 0; i < head.AmountOfNodes; i++)
             {
                 head[i] = head;
             }
@@ -319,7 +319,7 @@ namespace Nintenlord.Collections
 
         public void CopyTo(Array array, int index)
         {
-            foreach (KeyValuePair<TPriority, TValue> item in this)
+            foreach (var item in this)
             {
                 array.SetValue(item.Value, index++);
             }

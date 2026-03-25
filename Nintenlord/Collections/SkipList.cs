@@ -35,7 +35,7 @@ namespace Nintenlord.Collections
             comparer = Comparer<TKey>.Default;
 
             head = new SkipListNode<TKey, TValue>(maxLevel);
-            for (int i = 0; i < maxLevel; i++)
+            for (var i = 0; i < maxLevel; i++)
             {
                 head[i] = head;
             }
@@ -46,7 +46,7 @@ namespace Nintenlord.Collections
 
         private int NewLevel()
         {
-            int level = 0;
+            var level = 0;
             while (level < currentMaxLevel && random.NextDouble() < propability)
             {
                 level++;
@@ -138,7 +138,7 @@ namespace Nintenlord.Collections
 
         public void Clear()
         {
-            for (int i = 0; i < maxLevel; i++)
+            for (var i = 0; i < maxLevel; i++)
             {
                 head[i] = null;
             }
@@ -148,8 +148,8 @@ namespace Nintenlord.Collections
 
         void ICollection<KeyValuePair<TKey, TValue>>.CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            SkipListNode<TKey, TValue> current = this.head[0];
-            for (int i = 0; i < this.count; i++)
+            var current = this.head[0];
+            for (var i = 0; i < this.count; i++)
             {
                 array[i + arrayIndex] = (KeyValuePair<TKey, TValue>)current;
                 current = current[0];
@@ -208,10 +208,10 @@ namespace Nintenlord.Collections
                 throw new ArgumentNullException();
             }
 
-            SkipListNode<TKey, TValue> currentNode = head;
-            SkipListNode<TKey, TValue>[] toUpdate = new SkipListNode<TKey, TValue>[currentMaxLevel];
+            var currentNode = head;
+            var toUpdate = new SkipListNode<TKey, TValue>[currentMaxLevel];
 
-            for (int level = currentMaxLevel - 1; level >= 0; level--)
+            for (var level = currentMaxLevel - 1; level >= 0; level--)
             {
                 while (currentNode[level].Key != null &&
                     comparer.Compare(key, currentNode[level].Key) > 0)
@@ -230,15 +230,15 @@ namespace Nintenlord.Collections
             }
             else
             {
-                int newLevel = this.NewLevel();
-                SkipListNode<TKey, TValue> newNode = new SkipListNode<TKey, TValue>(key, value, newLevel);
+                var newLevel = this.NewLevel();
+                var newNode = new SkipListNode<TKey, TValue>(key, value, newLevel);
                 if (newLevel == currentMaxLevel)
                 {
                     head[newLevel - 1] = newNode;//Necessary?
                     currentMaxLevel++;
                 }
 
-                for (int i = 0; i < newLevel; i++)
+                for (var i = 0; i < newLevel; i++)
                 {
                     newNode[i] = toUpdate[i][i];
                     toUpdate[i][i] = newNode;
@@ -253,9 +253,9 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentNullException();
             }
-            SkipListNode<TKey, TValue> currentNode = head;
+            var currentNode = head;
 
-            for (int level = currentMaxLevel - 1; level >= 0; level--)
+            for (var level = currentMaxLevel - 1; level >= 0; level--)
             {
                 while (currentNode[level].Key != null &&
                     comparer.Compare(key, currentNode[level].Key) > 0)
@@ -276,10 +276,10 @@ namespace Nintenlord.Collections
             if (key == null)
                 throw new ArgumentNullException();
 
-            SkipListNode<TKey, TValue> currentNode = head;
-            SkipListNode<TKey, TValue>[] toUpdate = new SkipListNode<TKey, TValue>[currentMaxLevel];
+            var currentNode = head;
+            var toUpdate = new SkipListNode<TKey, TValue>[currentMaxLevel];
 
-            for (int level = currentMaxLevel - 1; level >= 0; level--)
+            for (var level = currentMaxLevel - 1; level >= 0; level--)
             {
                 while (currentNode[level].Key != null &&
                     comparer.Compare(key, currentNode[level].Key) > 0)
@@ -291,7 +291,7 @@ namespace Nintenlord.Collections
 
             if (comparer.Compare(currentNode.Key, key) == 0)
             {
-                for (int i = 0; i < currentMaxLevel; i++)
+                for (var i = 0; i < currentMaxLevel; i++)
                 {
                     if (toUpdate[i][i] != currentNode)
                         break;
@@ -309,7 +309,7 @@ namespace Nintenlord.Collections
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            SkipListNode<TKey, TValue> node = GetNode(key);
+            var node = GetNode(key);
             if (node != null)
             {
                 value = node.Value;
@@ -327,7 +327,7 @@ namespace Nintenlord.Collections
             get
             {
                 ICollection<TKey> collection = new LinkedList<TKey>();
-                SkipListNode<TKey, TValue> node = head[0];
+                var node = head[0];
                 while (node != head)
                 {
                     collection.Add(node.Key);
@@ -342,7 +342,7 @@ namespace Nintenlord.Collections
             get
             {
                 ICollection<TValue> collection = new LinkedList<TValue>();
-                SkipListNode<TKey, TValue> node = head[0];
+                var node = head[0];
                 while (node != head)
                 {
                     collection.Add(node.Value);
@@ -356,7 +356,7 @@ namespace Nintenlord.Collections
         {
             get
             {
-                SkipListNode<TKey, TValue> node = GetNode(key);
+                var node = GetNode(key);
                 if (node != null)
                 {
                     return node.Value;

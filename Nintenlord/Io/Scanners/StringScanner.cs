@@ -48,8 +48,8 @@ namespace Nintenlord.IO.Scanners
 
         public bool MoveNext()
         {
-            int oldIndex = i;
-            int newIndex = oldIndex + 1;
+            var oldIndex = i;
+            var newIndex = oldIndex + 1;
             i = newIndex;
             return newIndex < startIndex + length;
         }

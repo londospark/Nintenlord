@@ -5,7 +5,7 @@ using System.Linq;
 namespace Nintenlord.Collections.Trees
 {
     /// <typeparam name="T">Type of the values to hold.</typeparam>
-    public class BinaryTree2<T> : IEnumerable<T>
+    public class BinaryTree2<T> : IEnumerable<T> where T : notnull
     {
         public int Count
         {
@@ -82,7 +82,7 @@ namespace Nintenlord.Collections.Trees
 
         public static implicit operator Dictionary<T, bool[]>(BinaryTree2<T> tree)
         {
-            Dictionary<T, bool[]> dict = new Dictionary<T, bool[]>();
+            var dict = new Dictionary<T, bool[]>();
             tree.Head.AddLeafValues(dict, new bool[] { });
             return dict;
         }

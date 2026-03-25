@@ -37,7 +37,7 @@ namespace Nintenlord.Parser.ParserCombinators
                     throw new InvalidOperationException(string.Format("Parser {0} advanced the stream.", ender));
                 }
 
-                TOut outRes = results.Parse(scanner, out latestMatch);
+                var outRes = results.Parse(scanner, out latestMatch);
                 InnerMatch += latestMatch;
 
                 if (latestMatch.Success)

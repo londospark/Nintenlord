@@ -7,7 +7,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
         protected override T ParseMain(IScanner<T> scanner, out Match<T> match)
         {
             match = new Match<T>(scanner, 1);
-            T result = scanner.Current;
+            var result = scanner.Current;
             scanner.MoveNext();
             return result;
         }

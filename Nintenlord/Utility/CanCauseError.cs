@@ -127,7 +127,7 @@ namespace Nintenlord.Utility
 
         public static CanCauseError<T> NoError(T result)
         {
-            CanCauseError<T> results = new CanCauseError<T> { result = result, error = false };
+            var results = new CanCauseError<T> { result = result, error = false };
             return results;
         }
 
@@ -148,7 +148,7 @@ namespace Nintenlord.Utility
 
         public static CanCauseError<T> Error(string errorMessages, params object[] objects)
         {
-            CanCauseError<T> result = new CanCauseError<T>
+            var result = new CanCauseError<T>
             {
                 error = true,
                 errorMessage = new Lazy<string>(() => string.Format(errorMessages, objects))
@@ -421,7 +421,7 @@ namespace Nintenlord.Utility
 
         public static CanCauseError<T[]> Flatten<T>(this IEnumerable<CanCauseError<T>> results)
         {
-            List<T> builder = new List<T>();
+            var builder = new List<T>();
 
             foreach (var item in results)
             {
@@ -439,7 +439,7 @@ namespace Nintenlord.Utility
 
         public static CanCauseError<T> Bind<T>(this Func<CanCauseError<T>> first, Func<T, CanCauseError<T>> second)
         {
-            CanCauseError<T> firstResult = first();
+            var firstResult = first();
             return firstResult.CausedError ? firstResult : second(firstResult.Result);
         }
 
@@ -454,7 +454,7 @@ namespace Nintenlord.Utility
 
         public static CanCauseError<T> Bind<T>(this IEnumerable<Func<T, CanCauseError<T>>> functions, T start)
         {
-            CanCauseError<T> result = CanCauseError<T>.NoError(start);
+            var result = CanCauseError<T>.NoError(start);
             foreach (var func in functions)
             {
                 result = func(result.Result);
@@ -468,7 +468,7 @@ namespace Nintenlord.Utility
 
         public static CanCauseError Bind(this Func<CanCauseError> first, Func<CanCauseError> second)
         {
-            CanCauseError firstResult = first();
+            var firstResult = first();
             return firstResult.CausedError ? firstResult : second();
         }
 

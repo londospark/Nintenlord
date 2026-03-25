@@ -6,12 +6,9 @@ namespace Nintenlord.Collections
 {
     public static class LinkedListHelpers
     {
-        public static IEnumerable<T> GetEnumerator<T>(LinkedListNode<T> start, LinkedListNode<T> end = null)
+        public static IEnumerable<T> GetEnumerator<T>(LinkedListNode<T>? start, LinkedListNode<T>? end = null)
         {
-            if (start == null)
-            {
-                throw new ArgumentNullException();
-            }
+            ArgumentNullException.ThrowIfNull(start);
             if (end != null && start.List != end.List)
             {
                 throw new ArgumentException();
@@ -19,7 +16,7 @@ namespace Nintenlord.Collections
 
             while (start != end)
             {
-                yield return start.Value;
+                yield return start!.Value;
                 start = start.Next;
             }
         }
@@ -35,7 +32,7 @@ namespace Nintenlord.Collections
         public static IEnumerable<T> EnumerateLast<T>(this LinkedList<T> item, int amount)
         {
             var start = item.Last;
-            for (int i = 1; i < amount; i++)
+            for (var i = 1; i < amount; i++)
             {
                 start = start.Previous;
             }

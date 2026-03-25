@@ -32,9 +32,9 @@ namespace Nintenlord.Collections.Dictionaries
 
         public SerializableDictionary(SerializationInfo info, StreamingContext context)
         {
-            Type dictType = info.GetValue(TypeName, typeof(Type)) as Type;
+            var dictType = info.GetValue(TypeName, typeof(Type)) as Type;
             baseDictionary = dictType.TypeInitializer.Invoke(null) as IDictionary<Tkey, TValue>;
-            KeyValuePair<Tkey, TValue>[] values = info.GetValue(ValuesName,
+            var values = info.GetValue(ValuesName,
                 typeof(KeyValuePair<Tkey, TValue>[])) as KeyValuePair<Tkey, TValue>[];
             foreach (var item in values)
             {

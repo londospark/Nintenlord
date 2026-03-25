@@ -65,8 +65,8 @@ namespace Nintenlord.Collections.DataChange
             int left;
             int right;
             FindClosestIndexes(index, out left, out right);
-            bool touchesRight = right - 1 == index;
-            bool touchesLeft = left != -1 && LastIndexOf(left) == index;
+            var touchesRight = right - 1 == index;
+            var touchesLeft = left != -1 && LastIndexOf(left) == index;
 
             if (touchesLeft)
             {
@@ -102,8 +102,8 @@ namespace Nintenlord.Collections.DataChange
 
             if (touchingIndexes.Count > 0)
             {
-                int newStart = Math.Min(touchingIndexes[0], index);
-                int newEnd = Math.Max(
+                var newStart = Math.Min(touchingIndexes[0], index);
+                var newEnd = Math.Max(
                     LastIndexOf(touchingIndexes[touchingIndexes.Count - 1]),
                     index + length);
 
@@ -134,9 +134,9 @@ namespace Nintenlord.Collections.DataChange
             int left;
             int right;
             FindClosestIndexes(index, out left, out right);
-            bool touchesRight = right - 1 == index;
-            bool touchesLeft = left != -1 && LastIndexOf(left) == index;
-            bool result = false;
+            var touchesRight = right - 1 == index;
+            var touchesLeft = left != -1 && LastIndexOf(left) == index;
+            var result = false;
 
             if (left != -1)
             {
@@ -154,7 +154,7 @@ namespace Nintenlord.Collections.DataChange
                 }
                 else if (index < LastIndexOf(left))
                 {
-                    int lengthToSplit = indexes[left];
+                    var lengthToSplit = indexes[left];
                     indexes[left] = left - index;
                     indexes[index + 1] = lengthToSplit - 1 - (left + index);
                     result = true;
@@ -182,7 +182,7 @@ namespace Nintenlord.Collections.DataChange
 
             var touchingIndexes = FindAllIndexes(index, length);
 
-            bool result = touchingIndexes.Count == 1;
+            var result = touchingIndexes.Count == 1;
 
             if (touchingIndexes.Count > 0)
             {
@@ -197,17 +197,17 @@ namespace Nintenlord.Collections.DataChange
 
                 if (touchingIndexes.Count > 1)
                 {
-                    for (int i = 1; i < touchingIndexes.Count - 1; i++)
+                    for (var i = 1; i < touchingIndexes.Count - 1; i++)
                     {
                         indexes.Remove(touchingIndexes[i]);
                     }
 
-                    int lastIndex = touchingIndexes[touchingIndexes.Count - 1];
-                    int oldLength = indexes[lastIndex];
+                    var lastIndex = touchingIndexes[touchingIndexes.Count - 1];
+                    var oldLength = indexes[lastIndex];
                     indexes.Remove(lastIndex);
 
-                    int toRemove = (length + index - lastIndex);
-                    int newLength = oldLength - toRemove;
+                    var toRemove = (length + index - lastIndex);
+                    var newLength = oldLength - toRemove;
 
                     indexes[lastIndex + toRemove] = newLength;
                 }
@@ -268,9 +268,9 @@ namespace Nintenlord.Collections.DataChange
         {
             foreach (var range in indexes)
             {
-                int start = Math.Max(min, range.Key);
-                int end = Math.Min(max, range.Key + range.Value);
-                for (int i = start; i < end; i++)
+                var start = Math.Max(min, range.Key);
+                var end = Math.Min(max, range.Key + range.Value);
+                for (var i = start; i < end; i++)
                 {
                     yield return i;
                 }
@@ -331,7 +331,7 @@ namespace Nintenlord.Collections.DataChange
 
         private List<int> FindAllIndexes(int start, int length)
         {
-            List<int> items = new List<int>();
+            var items = new List<int>();
 
             foreach (var item in indexes.Keys)
             {
@@ -369,7 +369,7 @@ namespace Nintenlord.Collections.DataChange
 
         public override string ToString()
         {
-            StringBuilder output = new StringBuilder("{\n");
+            var output = new StringBuilder("{\n");
             foreach (var item in indexes)
             {
                 output.AppendFormat("{0}: {1},\n", item.Key, item.Value);

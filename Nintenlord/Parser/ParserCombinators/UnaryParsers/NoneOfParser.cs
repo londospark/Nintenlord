@@ -18,7 +18,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 
         protected override T ParseMain(IO.Scanners.IScanner<T> scanner, out Match<T> match)
         {
-            T val = scanner.Current;
+            var val = scanner.Current;
 
             if (!invalidValues.Contains(val))
             {

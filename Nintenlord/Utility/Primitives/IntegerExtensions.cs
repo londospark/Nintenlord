@@ -99,7 +99,7 @@ namespace Nintenlord.Utility.Primitives
         {
             if (value == 0) return 32;
 
-            int result = 0;
+            var result = 0;
 
             if ((value & 0x0000FFFF) == 0)
             {
@@ -134,7 +134,7 @@ namespace Nintenlord.Utility.Primitives
         {
             if (value == 0) return 32;
 
-            int result = 0;
+            var result = 0;
 
             if ((value & 0xFFFF0000) == 0)
             {
@@ -169,7 +169,7 @@ namespace Nintenlord.Utility.Primitives
         {
             if (value == 0) return 64;
 
-            int result = 0;
+            var result = 0;
 
             if ((value & 0x00000000FFFFFFFF) == 0)
             {
@@ -209,7 +209,7 @@ namespace Nintenlord.Utility.Primitives
         {
             if (value == 0) return 64;
 
-            int result = 0;
+            var result = 0;
 
             if ((value & 0xFFFFFFFF00000000) == 0)
             {
@@ -247,7 +247,7 @@ namespace Nintenlord.Utility.Primitives
 
         public static IEnumerable<int> GetIntegers(int start, int end)
         {
-            for (int i = start; i <= end; i++)
+            for (var i = start; i <= end; i++)
             {
                 yield return i;
             }
@@ -256,7 +256,7 @@ namespace Nintenlord.Utility.Primitives
         [Obsolete("Use System.Linq.Enumerable.Range instead", true)]
         public static IEnumerable<int> GetRange(int start, int length)
         {
-            for (int i = start; i < start + length; i++)
+            for (var i = start; i < start + length; i++)
             {
                 yield return i;
             }
@@ -264,7 +264,7 @@ namespace Nintenlord.Utility.Primitives
 
         public static IEnumerable<int> GetIntegersNear(this int x, int range)
         {
-            for (int i = x - range; i <= x + range; i++)
+            for (var i = x - range; i <= x + range; i++)
             {
                 yield return i;
             }

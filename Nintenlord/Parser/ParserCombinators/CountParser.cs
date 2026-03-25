@@ -19,7 +19,7 @@ namespace Nintenlord.Parser.ParserCombinators
 
         protected override IEnumerable<TOut> Enumerate(IScanner<TIn> scanner)
         {
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 Match<TIn> latestMatch;
                 var temp = parser.Parse(scanner, out latestMatch);

@@ -85,16 +85,16 @@ namespace Nintenlord.Grammars.RegularExpression
 
         public static DeterministicFiniteAutomaton<bool[], TLetter> GetDFA<TLetter>(IRegExExpressionTree<TLetter> exp, IEnumerable<TLetter> alphabet)
         {
-            int n = 0;
+            var n = 0;
             var epsNFA = GetNFA(exp, () => n++);
 
-            bool[] startState = new bool[n];
+            var startState = new bool[n];
             startState[epsNFA.startState] = true;
 
             var finalState = epsNFA.finalState;
             Predicate<bool[]> isFinal = x => x[finalState];
 
-            List<Tuple<bool[], TLetter, bool[]>> transitions = new List<Tuple<bool[], TLetter, bool[]>>();
+            var transitions = new List<Tuple<bool[], TLetter, bool[]>>();
 
             foreach (var letter in alphabet)
             {
@@ -107,8 +107,8 @@ namespace Nintenlord.Grammars.RegularExpression
         private static IEnumerable<Tuple<bool[], TLetter, bool[]>> GetPWSTransitionsWithLetter<TLetter>(
             int n, EpsilonDFA<int, TLetter> epsNFA, TLetter letter)
         {
-            bool[][] reachable = new bool[n][];
-            for (int i = 0; i < n; i++)
+            var reachable = new bool[n][];
+            for (var i = 0; i < n; i++)
             {
                 var states = epsNFA.ReachableStates(i, letter);
                 reachable[i] = new bool[n];
@@ -120,12 +120,12 @@ namespace Nintenlord.Grammars.RegularExpression
 
             foreach (var powerSet in AllStates(n))
             {
-                bool[] endPowerSet = new bool[n];
-                for (int i = 0; i < n; i++)
+                var endPowerSet = new bool[n];
+                for (var i = 0; i < n; i++)
                 {
                     if (powerSet[i])
                     {
-                        for (int j = 0; j < n; j++)
+                        for (var j = 0; j < n; j++)
                         {
                             endPowerSet[j] |= reachable[i][j];//So many things can go wrong here.
                         }
@@ -137,28 +137,28 @@ namespace Nintenlord.Grammars.RegularExpression
 
         public static IEnumerable<bool[]> AllStates(int length)
         {
-            bool[] values = new bool[length];
+            var values = new bool[length];
 
             if (length < 32)
             {
-                int pow = 1 << length;
+                var pow = 1 << length;
                 yield return values.Clone() as bool[];
 
-                for (int i = 1; i <= pow; i++)
+                for (var i = 1; i <= pow; i++)
                 {
-                    int index = i.TrailingZeroCount();
+                    var index = i.TrailingZeroCount();
                     values[index] ^= true;
                     yield return values.Clone() as bool[];
                 }
             }
             else if (length <= 64)
             {
-                long pow = (long)1 << length;
+                var pow = (long)1 << length;
                 yield return values.Clone() as bool[];
 
                 for (long i = 1; i <= pow; i++)
                 {
-                    int index = i.TrailingZeroCount();
+                    var index = i.TrailingZeroCount();
                     values[index] ^= true;
                     yield return values.Clone() as bool[];
                 }

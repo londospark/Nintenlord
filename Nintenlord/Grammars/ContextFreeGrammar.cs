@@ -15,10 +15,10 @@ namespace Nintenlord.Grammars
     /// </summary>
     public sealed class ContextFreeGrammar<T>
     {
-        IDictionary<T, T[][]> productions;
-        T startingSymbol;
-        T[] variables;
-        T[] terminals;
+        IDictionary<T, T[][]> productions = default!;
+        T startingSymbol = default!;
+        T[] variables = default!;
+        T[] terminals = default!;
 
         public T[][] this[T variable]
         {
@@ -45,7 +45,7 @@ namespace Nintenlord.Grammars
 
         public T[] DeriveRandom(Random random)
         {
-            List<T> word = new List<T>(20) { startingSymbol };
+            var word = new List<T>(20) { startingSymbol };
             while (true)
             {
                 int i;

@@ -19,9 +19,9 @@ namespace Nintenlord.Graph.PathFinding
         {
             IPriorityQueue<int, TNode> open =
                 new SkipListPriorityQueue<int, TNode>(10);
-            HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
-            ICostCollection<TNode> gCosts = map.GetTempCostCollection();
-            ICostCollection<TNode> hCosts = map.GetTempCostCollection();
+            var closed = new HashSet<TNode>(nodeComparer);
+            var gCosts = map.GetTempCostCollection();
+            var hCosts = map.GetTempCostCollection();
             IDictionary<TNode, TNode> parents = new Dictionary<TNode, TNode>(nodeComparer);
 
             open.Enqueue(start, 0);
@@ -29,16 +29,16 @@ namespace Nintenlord.Graph.PathFinding
             hCosts[start] = 0;
             while (open.Count > 0 && !nodeComparer.Equals(open.Peek(), goal))
             {
-                TNode current = open.Dequeue();
+                var current = open.Dequeue();
                 closed.Add(current);
 
-                foreach (TNode neighbour in map.GetNeighbours(current))
+                foreach (var neighbour in map.GetNeighbours(current))
                 {
-                    int gCost = gCosts[current] + map.GetMovementCost(current, neighbour);
+                    var gCost = gCosts[current] + map.GetMovementCost(current, neighbour);
                     int oldGcost;
                     if (gCosts.TryGetValue(neighbour, out oldGcost) && gCost < oldGcost)
                     {//If we found a better route to neighbour 
-                        int hCost = hCosts[neighbour];
+                        var hCost = hCosts[neighbour];
                         open.Remove(neighbour, oldGcost + hCost);
                         closed.Remove(neighbour);
 
@@ -49,7 +49,7 @@ namespace Nintenlord.Graph.PathFinding
                     }
                     else if (!closed.Contains(neighbour) && !open.Contains(neighbour))
                     {//If we got here the first time
-                        int hCost = heurestics.GetCostEstimate(neighbour);
+                        var hCost = heurestics.GetCostEstimate(neighbour);
                         hCosts[neighbour] = hCost;
 
                         gCosts[neighbour] = gCost;
@@ -67,10 +67,10 @@ namespace Nintenlord.Graph.PathFinding
                 return new List<TNode>();
             }
 
-            TNode last = open.Dequeue();
+            var last = open.Dequeue();
             open.Clear();
 
-            List<TNode> result = new List<TNode>();
+            var result = new List<TNode>();
             while (parents.ContainsKey(last))
             {
                 result.Add(last);

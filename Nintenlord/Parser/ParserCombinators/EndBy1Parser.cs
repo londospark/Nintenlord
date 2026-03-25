@@ -22,7 +22,7 @@ namespace Nintenlord.Parser.ParserCombinators
         protected override IEnumerable<TOut> Enumerate(IScanner<TIn> scanner)
         {
             Match<TIn> latestMatch;
-            TOut prim = results.Parse(scanner, out latestMatch);
+            var prim = results.Parse(scanner, out latestMatch);
             InnerMatch += latestMatch;
             if (latestMatch.Success)
             {

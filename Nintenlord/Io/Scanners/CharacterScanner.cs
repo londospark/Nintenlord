@@ -12,7 +12,7 @@ namespace Nintenlord.IO.Scanners
         public CharacterScanner(Stream stream)
         {
             this.stream = stream;
-            int val = stream.ReadByte();
+            var val = stream.ReadByte();
             if (val != -1)
             {
                 current = Convert.ToChar(val);
@@ -40,7 +40,7 @@ namespace Nintenlord.IO.Scanners
 
         public bool MoveNext()
         {
-            int val = stream.ReadByte();
+            var val = stream.ReadByte();
             if (val != -1)
             {
                 current = Convert.ToChar(val);

@@ -34,7 +34,7 @@ namespace Nintenlord.Parser.ParserCombinators
                 return default(TOut);
             }
 
-            TOut result = valueParser.Parse(scanner, out latestMatch);
+            var result = valueParser.Parse(scanner, out latestMatch);
             match += latestMatch;
             if (!match.Success)
             {

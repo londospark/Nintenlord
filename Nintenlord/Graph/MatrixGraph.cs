@@ -57,7 +57,7 @@ namespace Nintenlord.Graph
 
         public IEnumerable<int> GetNeighbours(int node)
         {
-            for (int i = 0; i < NodeCount; i++)
+            for (var i = 0; i < NodeCount; i++)
             {
                 if (neighbours[node, i])
                 {
@@ -77,7 +77,7 @@ namespace Nintenlord.Graph
 
         public IEnumerator<int> GetEnumerator()
         {
-            for (int i = 0; i < NodeCount; i++)
+            for (var i = 0; i < NodeCount; i++)
             {
                 yield return i;
             }

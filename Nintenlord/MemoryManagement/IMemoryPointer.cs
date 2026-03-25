@@ -13,8 +13,10 @@ namespace Nintenlord.MemoryManagement
     {
         #region IComparer<GBAPointer> Members
 
-        public int Compare(IMemoryPointer x, IMemoryPointer y)
+        public int Compare(IMemoryPointer? x, IMemoryPointer? y)
         {
+            if (x is null) return y is null ? 0 : -1;
+            if (y is null) return 1;
             return x.Size - y.Size;
         }
 
@@ -22,14 +24,16 @@ namespace Nintenlord.MemoryManagement
 
         #region IEqualityComparer<IMemoryPointer> Members
 
-        public bool Equals(IMemoryPointer x, IMemoryPointer y)
+        public bool Equals(IMemoryPointer? x, IMemoryPointer? y)
         {
+            if (x is null) return y is null;
+            if (y is null) return false;
             return x.Size - y.Size == 0;
         }
 
         public int GetHashCode(IMemoryPointer obj)
         {
-            return obj.Size;
+            return obj?.Size ?? 0;
         }
 
         #endregion
@@ -39,8 +43,10 @@ namespace Nintenlord.MemoryManagement
     {
         #region IComparer<GBAPointer> Members
 
-        public int Compare(IMemoryPointer x, IMemoryPointer y)
+        public int Compare(IMemoryPointer? x, IMemoryPointer? y)
         {
+            if (x is null) return y is null ? 0 : -1;
+            if (y is null) return 1;
             return x.Offset - y.Offset;
         }
 
@@ -48,14 +54,16 @@ namespace Nintenlord.MemoryManagement
 
         #region IEqualityComparer<IMemoryPointer> Members
 
-        public bool Equals(IMemoryPointer x, IMemoryPointer y)
+        public bool Equals(IMemoryPointer? x, IMemoryPointer? y)
         {
+            if (x is null) return y is null;
+            if (y is null) return false;
             return x.Offset - y.Offset == 0;
         }
 
         public int GetHashCode(IMemoryPointer obj)
         {
-            return obj.Offset;
+            return obj?.Offset ?? 0;
         }
 
         #endregion

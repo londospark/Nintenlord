@@ -14,9 +14,9 @@ namespace Nintenlord.Utility
 
         #region IComparer<Node> Members
 
-        public int Compare(T x, T y)
+        public int Compare(T? x, T? y)
         {
-            return valueFunction(x) - valueFunction(y);
+            return valueFunction(x!) - valueFunction(y!);
         }
 
         #endregion

@@ -121,9 +121,9 @@ namespace Nintenlord.Drawing
             double max;
             double delta;
 
-            double r = (double)color.R / 255;
-            double g = (double)color.G / 255;
-            double b = (double)color.B / 255;
+            var r = (double)color.R / 255;
+            var g = (double)color.G / 255;
+            var b = (double)color.B / 255;
 
             double h;
             double s;

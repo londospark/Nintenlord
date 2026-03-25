@@ -8,8 +8,10 @@ namespace Nintenlord.Utility.Strings
     {
         #region IEqualityComparer<string> Members
 
-        public bool Equals(string x, string y)
+        public bool Equals(string? x, string? y)
         {
+            if (x is null) return y is null;
+            if (y is null) return false;
             if (x.Length != y.Length)
             {
                 return false;
@@ -19,10 +21,11 @@ namespace Nintenlord.Utility.Strings
 
         public int GetHashCode(string obj)
         {
+            if (obj is null) return 0;
             const int max = 16;
-            int result = 0;
-            int min = Math.Min(max, obj.Length);
-            for (int i = 0; i < min; i++)
+            var result = 0;
+            var min = Math.Min(max, obj.Length);
+            for (var i = 0; i < min; i++)
             {
                 result |= obj[i].GetHashCode() >> ((16 / max) * i);
             }

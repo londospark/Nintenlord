@@ -20,7 +20,7 @@ namespace Nintenlord.Parser.ParserCombinators
 
         protected override TOut ParseMain(IO.Scanners.IScanner<TIn> scanner, out Match<TIn> match)
         {
-            TMiddle middle = parser.Parse(scanner, out match);
+            var middle = parser.Parse(scanner, out match);
             return match.Success ? converter(middle) : default(TOut);
         }
 

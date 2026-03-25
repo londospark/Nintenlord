@@ -67,7 +67,7 @@ namespace Nintenlord.Collections.Dictionaries
         {
             get
             {
-                List<TKey> keys = new List<TKey>(this.Count);
+                var keys = new List<TKey>(this.Count);
                 keys.AddRange(this.Select(item => item.Key));
                 return keys;
             }
@@ -75,7 +75,7 @@ namespace Nintenlord.Collections.Dictionaries
 
         public bool Remove(TKey key)
         {
-            int index = this.FindIndex(x => comparer.Equals(key, x.Key));
+            var index = this.FindIndex(x => comparer.Equals(key, x.Key));
             if (index == -1)
             {
                 return false;
@@ -105,7 +105,7 @@ namespace Nintenlord.Collections.Dictionaries
         {
             get
             {
-                List<TValue> values = new List<TValue>(this.Count);
+                var values = new List<TValue>(this.Count);
                 values.AddRange(this.Select(item => item.Value));
                 return values;
             }

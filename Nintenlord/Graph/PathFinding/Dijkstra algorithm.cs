@@ -10,8 +10,8 @@ namespace Nintenlord.Graph.PathFinding
             IEqualityComparer<TNode> nodeComparer, int movementLimit)
         {
             IPriorityQueue<int, TNode> open = new SkipListPriorityQueue<int, TNode>(10);
-            HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
-            ICostCollection<TNode> costs = map.GetTempCostCollection();
+            var closed = new HashSet<TNode>(nodeComparer);
+            var costs = map.GetTempCostCollection();
 
             costs[toStartFrom] = 0;
             open.Enqueue(toStartFrom, 0);
@@ -19,14 +19,14 @@ namespace Nintenlord.Graph.PathFinding
             while (open.Count > 0)
             {
                 int cost;
-                TNode node = open.Dequeue(out cost);
+                var node = open.Dequeue(out cost);
                 closed.Add(node);
 
                 if (cost < movementLimit)
                 {
-                    foreach (TNode neighbour in map.GetNeighbours(node))
+                    foreach (var neighbour in map.GetNeighbours(node))
                     {
-                        int newCost = cost + map.GetMovementCost(node, neighbour);
+                        var newCost = cost + map.GetMovementCost(node, neighbour);
                         int oldCost;
                         if (!costs.TryGetValue(neighbour, out oldCost))
                         {
@@ -43,7 +43,7 @@ namespace Nintenlord.Graph.PathFinding
                 }
             }
 
-            List<TNode> result = new List<TNode>(closed.Count);
+            var result = new List<TNode>(closed.Count);
             result.AddRange(closed.Where(node => costs[node] < movementLimit));
             costs.Release();
             return result;
@@ -53,8 +53,8 @@ namespace Nintenlord.Graph.PathFinding
             IWeighedGraph<TNode> map, IEqualityComparer<TNode> nodeComparer)
         {
             IPriorityQueue<int, TNode> open = new SkipListPriorityQueue<int, TNode>(10);
-            HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
-            ICostCollection<TNode> costs = map.GetTempCostCollection();
+            var closed = new HashSet<TNode>(nodeComparer);
+            var costs = map.GetTempCostCollection();
 
             costs[toStartFrom] = 0;
             open.Enqueue(toStartFrom, 0);
@@ -62,14 +62,14 @@ namespace Nintenlord.Graph.PathFinding
             while (open.Count > 0)
             {
                 int cost;
-                TNode node = open.Dequeue(out cost);
+                var node = open.Dequeue(out cost);
                 closed.Add(node);
                 int endCost;
                 if (!costs.TryGetValue(toEnd, out endCost) || cost < endCost)
                 {
-                    foreach (TNode neighbour in map.GetNeighbours(node))
+                    foreach (var neighbour in map.GetNeighbours(node))
                     {
-                        int newCost = cost + map.GetMovementCost(node, neighbour);
+                        var newCost = cost + map.GetMovementCost(node, neighbour);
                         int oldCost;
                         if (!costs.TryGetValue(neighbour, out oldCost))
                         {
@@ -93,7 +93,7 @@ namespace Nintenlord.Graph.PathFinding
             IWeighedGraph<TNode> map, IEqualityComparer<TNode> nodeComparer)
         {
             IPriorityQueue<int, TNode> open = new SkipListPriorityQueue<int, TNode>(10);
-            HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
+            var closed = new HashSet<TNode>(nodeComparer);
             IDictionary<TNode, int> costs = new Dictionary<TNode, int>(nodeComparer);
 
             costs[toStartFrom] = 0;
@@ -102,12 +102,12 @@ namespace Nintenlord.Graph.PathFinding
             while (open.Count > 0)
             {
                 int cost;
-                TNode node = open.Dequeue(out cost);
+                var node = open.Dequeue(out cost);
                 closed.Add(node);
 
-                foreach (TNode neighbour in map.GetNeighbours(node))
+                foreach (var neighbour in map.GetNeighbours(node))
                 {
-                    int newCost = cost + map.GetMovementCost(node, neighbour);
+                    var newCost = cost + map.GetMovementCost(node, neighbour);
                     int oldCost;
                     if (!costs.TryGetValue(neighbour, out oldCost))
                     {
@@ -128,17 +128,17 @@ namespace Nintenlord.Graph.PathFinding
         public static HashSet<TNode> GetConnectedNodes<TNode>(TNode toStartFrom,
             IGraph<TNode> map, IEqualityComparer<TNode> nodeComparer)
         {
-            LinkedList<TNode> open = new LinkedList<TNode>();
-            HashSet<TNode> closed = new HashSet<TNode>(nodeComparer);
+            var open = new LinkedList<TNode>();
+            var closed = new HashSet<TNode>(nodeComparer);
 
             open.AddLast(toStartFrom);
 
             while (open.Count > 0)
             {
-                TNode node = open.First.Value;
+                var node = open.First.Value;
                 closed.Add(node);
 
-                foreach (TNode neighbour in map.GetNeighbours(node))
+                foreach (var neighbour in map.GetNeighbours(node))
                 {
                     if (!closed.Contains(neighbour))
                     {

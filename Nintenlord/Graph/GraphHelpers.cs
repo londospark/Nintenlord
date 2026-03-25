@@ -33,9 +33,9 @@
         /// <returns>List of top nodes</returns>
         public static List<TNode> GetTopNodes<TNode>(this IGraph<TNode> graph)
         {
-            List<TNode> nodes = graph.ToList();
+            var nodes = graph.ToList();
 
-            for (int i = nodes.Count - 1; i >= 0; i--)
+            for (var i = nodes.Count - 1; i >= 0; i--)
             {
                 if (graph.Any(node => graph.IsEdge(node, nodes[i])))
                 {
@@ -63,7 +63,7 @@
             var dfs = transpose.DepthFirstTraversalAllNodes(
                 GraphTraversal.DepthFirstTraversalOrdering.PostOrdering).ToList();
 
-            int index = 0;
+            var index = 0;
 
             while (index < graph.NodeCount)
             {

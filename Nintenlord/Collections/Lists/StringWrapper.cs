@@ -63,7 +63,7 @@ namespace Nintenlord.Collections.Lists
 
         public void CopyTo(char[] array, int arrayIndex)
         {
-            for (int i = 0; i < baseString.Length; i++)
+            for (var i = 0; i < baseString.Length; i++)
             {
                 array[arrayIndex + i] = baseString[i];
             }

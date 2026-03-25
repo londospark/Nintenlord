@@ -184,8 +184,8 @@ namespace Nintenlord.Parser
             if (this.Disjoint(anotherMatch))
             {
                 string error;
-                int index1 = (int)this.Offset;
-                int index2 = (int)anotherMatch.Offset;
+                var index1 = (int)this.Offset;
+                var index2 = (int)anotherMatch.Offset;
 
                 var scanner2 = this.Scanner as IStoringScanner<T>;
                 if (scanner2 != null
@@ -203,8 +203,8 @@ namespace Nintenlord.Parser
 
                 throw new ArgumentException(error);
             }
-            long newFirstOffset = Math.Min(this.Offset, anotherMatch.Offset);
-            long newLastOffset = Math.Max(this.OffsetAfter, anotherMatch.OffsetAfter);
+            var newFirstOffset = Math.Min(this.Offset, anotherMatch.Offset);
+            var newLastOffset = Math.Max(this.OffsetAfter, anotherMatch.OffsetAfter);
 
             this.Offset = newFirstOffset;
             this.Length = (int)(newLastOffset - newFirstOffset);
@@ -268,7 +268,7 @@ namespace Nintenlord.Parser
             }
             else
             {
-                Match<T> result = a.Clone() as Match<T>;
+                var result = a.Clone() as Match<T>;
                 result.Concat(b);
                 return result;
             }
@@ -284,8 +284,8 @@ namespace Nintenlord.Parser
         {
             if (a.Success)
             {
-                Match<T> result = a.Clone() as Match<T>;
-                result.Length++;
+                var result = a.Clone() as Match<T>;
+                result!.Length++;
                 return result;
             }
             else
@@ -309,9 +309,10 @@ namespace Nintenlord.Parser
 
         #region IEquatable<Match<T>> Members
 
-        public bool Equals(Match<T> other)
+        public bool Equals(Match<T>? other)
         {
-            return other.Scanner == this.Scanner
+            return other is not null
+                && other.Scanner == this.Scanner
                 && other.Success == this.Success
                 && other.Offset == this.Offset
                 && other.Length == this.Length
@@ -327,8 +328,8 @@ namespace Nintenlord.Parser
         public override string ToString()
         {
             return Success
-                       ? string.Format("Success at {0} size {1}", Offset, Length)
-                       : string.Format("Error {0} at {1}", this.Error, Offset);
+                       ? $"Success at {Offset} size {Length}"
+                       : $"Error {this.Error} at {Offset}";
         }
     }
 }

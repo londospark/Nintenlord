@@ -22,7 +22,7 @@ namespace Nintenlord.Parser.CharacterParsers
 
         protected override char ParseMain(IO.Scanners.IScanner<char> scanner, out Match<char> match)
         {
-            char c = scanner.Current;
+            var c = scanner.Current;
             if (c == character)
             {
                 match = new Match<char>(scanner, 1);

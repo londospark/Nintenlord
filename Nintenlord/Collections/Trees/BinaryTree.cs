@@ -8,7 +8,7 @@ namespace Nintenlord.Collections.Trees
     /// Contains values in leafs only.
     /// </summary>
     /// <typeparam name="T">Type of the values to hold.</typeparam>
-    public class BinaryTree<T> : ICollection<T>
+    public class BinaryTree<T> : ICollection<T> where T : notnull
     {
         public int Count
         {
@@ -98,7 +98,7 @@ namespace Nintenlord.Collections.Trees
 
         public static implicit operator Dictionary<T, bool[]>(BinaryTree<T> tree)
         {
-            Dictionary<T, bool[]> dict = new Dictionary<T, bool[]>();
+            var dict = new Dictionary<T, bool[]>();
             tree.Head.AddLeafValues(dict, new bool[] { });
             return dict;
         }

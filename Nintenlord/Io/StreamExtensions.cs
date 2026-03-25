@@ -14,7 +14,7 @@ namespace Nintenlord.IO
         {
             while (true)
             {
-                string line = reader.ReadLine();
+                var line = reader.ReadLine();
                 if (line == null)
                 {
                     break;

@@ -117,7 +117,7 @@ namespace Nintenlord.Geometry
         public static KeyValuePair<RectangleEdges, RectangleEdges>[]
             WhichEdgesAreClose(ref Rectangle area1, ref Rectangle area2, int distance)
         {
-            RectangleEdges result = RectangleEdges.None;
+            var result = RectangleEdges.None;
 
             if ((Math.Abs(area1.Top - area2.Top) <= distance ||
                 Math.Abs(area1.Top - area2.Bottom) <= distance) &&

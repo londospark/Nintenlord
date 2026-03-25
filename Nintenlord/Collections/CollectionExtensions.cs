@@ -28,10 +28,10 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentException("Empty IEnumerable", "collection");
             }
-            T max = enumerator.Current;
+            var max = enumerator.Current;
             while (enumerator.MoveNext())
             {
-                T current = enumerator.Current;
+                var current = enumerator.Current;
                 if (current.CompareTo(max) > 0)
                 {
                     max = current;
@@ -47,10 +47,10 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentException("Empty IEnumerable", "collection");
             }
-            T max = enumerator.Current;
+            var max = enumerator.Current;
             while (enumerator.MoveNext())
             {
-                T current = enumerator.Current;
+                var current = enumerator.Current;
                 if (comp.Compare(current, max) > 0)
                 {
                     max = current;
@@ -66,10 +66,10 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentException("Empty IEnumerable", "collection");
             }
-            T min = enumerator.Current;
+            var min = enumerator.Current;
             while (enumerator.MoveNext())
             {
-                T current = enumerator.Current;
+                var current = enumerator.Current;
                 if (current.CompareTo(min) < 0)
                 {
                     min = current;
@@ -85,10 +85,10 @@ namespace Nintenlord.Collections
             {
                 throw new ArgumentException("Empty IEnumerable", "collection");
             }
-            T min = enumerator.Current;
+            var min = enumerator.Current;
             while (enumerator.MoveNext())
             {
-                T current = enumerator.Current;
+                var current = enumerator.Current;
                 if (comp.Compare(current, min) < 0)
                 {
                     min = current;
@@ -99,9 +99,9 @@ namespace Nintenlord.Collections
 
         public static string ToElementWiseString<T>(this IEnumerable<T> collection)
         {
-            StringBuilder text = new StringBuilder("{");
+            var text = new StringBuilder("{");
 
-            foreach (T item in collection)
+            foreach (var item in collection)
             {
                 text.AppendFormat("{0}, ", item);
             }
@@ -117,9 +117,9 @@ namespace Nintenlord.Collections
 
         public static string ToElementWiseString<T>(this IEnumerable<T> collection, string separator, string beginning, string end)
         {
-            StringBuilder text = new StringBuilder(beginning);
+            var text = new StringBuilder(beginning);
 
-            foreach (T item in collection)
+            foreach (var item in collection)
             {
                 text.Append(item + separator);
             }
@@ -137,7 +137,7 @@ namespace Nintenlord.Collections
         {
             TValue result = default(TValue);
 
-            foreach (Dictionary<TKey, TValue> item in scopes)
+            foreach (var item in scopes)
             {
                 if (item.TryGetValue(kay, out result))
                 {
@@ -154,10 +154,10 @@ namespace Nintenlord.Collections
 
         public static bool TryGetKey<TKey, TValue>(this IEnumerable<Dictionary<TKey, TValue>> scopes, TKey kay, out TValue value)
         {
-            bool result = false;
+            var result = false;
             value = default(TValue);
 
-            foreach (Dictionary<TKey, TValue> item in scopes)
+            foreach (var item in scopes)
             {
                 if (item.TryGetValue(kay, out value))
                 {
@@ -195,11 +195,11 @@ namespace Nintenlord.Collections
 
         public static string ToHumanString<T>(this IEnumerable<T> list)
         {
-            T[] array = list.ToArray();
+            var array = list.ToArray();
             if (array.Length > 1)
             {
-                StringBuilder bldr = new StringBuilder();
-                for (int i = 0; i < array.Length - 2; i++)
+                var bldr = new StringBuilder();
+                for (var i = 0; i < array.Length - 2; i++)
                 {
                     bldr.Append(array[i]);
                     bldr.Append(", ");
@@ -230,11 +230,11 @@ namespace Nintenlord.Collections
         /// <returns>Ordered enumerable containing all items of passed enumerators.</returns>
         public static IEnumerable<T> OrderedUnion<T>(this IEnumerable<T> list1, IEnumerable<T> list2, IComparer<T> comp)
         {
-            IEnumerator<T> enume1 = list1.GetEnumerator();
-            IEnumerator<T> enume2 = list2.GetEnumerator();
+            var enume1 = list1.GetEnumerator();
+            var enume2 = list2.GetEnumerator();
 
-            bool moveFirstToNext = true;
-            bool moveSecondToNext = true;
+            var moveFirstToNext = true;
+            var moveSecondToNext = true;
 
             while (true)
             {
@@ -304,11 +304,11 @@ namespace Nintenlord.Collections
         /// <returns>Ordered enumerable containing all items of passed enumerators.</returns>
         public static IEnumerable<T> OrderedUnion<T>(this IEnumerable<T> list1, IEnumerable<T> list2, Func<T, T, int> comp)
         {
-            IEnumerator<T> enume1 = list1.GetEnumerator();
-            IEnumerator<T> enume2 = list2.GetEnumerator();
+            var enume1 = list1.GetEnumerator();
+            var enume2 = list2.GetEnumerator();
 
-            bool moveFirstToNext = true;
-            bool moveSecondToNext = true;
+            var moveFirstToNext = true;
+            var moveSecondToNext = true;
 
             while (true)
             {
@@ -415,7 +415,7 @@ namespace Nintenlord.Collections
 
         public static IEnumerable<Tuple<int, T>> Index<T>(this IEnumerable<T> items)
         {
-            int index = 0;
+            var index = 0;
             foreach (var item in items)
             {
                 yield return Tuple.Create(index, item);
@@ -425,7 +425,7 @@ namespace Nintenlord.Collections
 
         public static int GetEqualsInBeginning<T>(this IList<T> a, IList<T> b, IEqualityComparer<T> comp)
         {
-            int max = Math.Min(a.Count, b.Count);
+            var max = Math.Min(a.Count, b.Count);
             int count;
             for (count = 0; count < max; count++)
             {
@@ -444,11 +444,11 @@ namespace Nintenlord.Collections
 
         public static IndexOverlay GetOverlay<T>(this IDictionary<int, T> dict, Func<T, int> measurement)
         {
-            IndexOverlay result = new IndexOverlay();
+            var result = new IndexOverlay();
 
             foreach (var item in dict)
             {
-                int length = measurement(item.Value);
+                var length = measurement(item.Value);
                 result.AddIndexes(item.Key, length);
             }
 
@@ -458,16 +458,16 @@ namespace Nintenlord.Collections
         public static bool CanFit<T>(this IDictionary<int, T> dict, Func<T, int> measurement,
             int index, T item)
         {
-            int lastIndex = index + measurement(item);
+            var lastIndex = index + measurement(item);
 
-            for (int i = index; i < lastIndex; i++)
+            for (var i = index; i < lastIndex; i++)
             {
                 if (dict.ContainsKey(i))
                 {
                     return false;
                 }
             }
-            for (int i = index - 1; i >= 0; i--)
+            for (var i = index - 1; i >= 0; i--)
             {
                 T oldItem;
                 if (dict.TryGetValue(i, out oldItem) && i + measurement(oldItem) > index)
@@ -509,11 +509,11 @@ namespace Nintenlord.Collections
                 yield break;
             }
 
-            T first = enumerator.Current;
+            var first = enumerator.Current;
 
             while (enumerator.MoveNext())
             {
-                T second = enumerator.Current;
+                var second = enumerator.Current;
                 yield return Tuple.Create(first, second);
                 first = second;
             }

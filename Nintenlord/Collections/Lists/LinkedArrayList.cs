@@ -160,7 +160,7 @@ namespace Nintenlord.Collections.Lists
             }
             else if (firstReservedIndex < firstFreeIndex)
             {
-                for (int i = firstReservedIndex; i < firstFreeIndex; i++)
+                for (var i = firstReservedIndex; i < firstFreeIndex; i++)
                 {
                     if (comparer.Equals(items[i], item))
                     {
@@ -171,14 +171,14 @@ namespace Nintenlord.Collections.Lists
             }
             else
             {
-                for (int i = firstReservedIndex; i < items.Length; i++)
+                for (var i = firstReservedIndex; i < items.Length; i++)
                 {
                     if (comparer.Equals(items[i], item))
                     {
                         return i;
                     }
                 }
-                for (int i = 0; i < firstFreeIndex; i++)
+                for (var i = 0; i < firstFreeIndex; i++)
                 {
                     if (comparer.Equals(items[i], item))
                     {
@@ -199,7 +199,7 @@ namespace Nintenlord.Collections.Lists
                 if (firstReservedIndex == 0)
                 {
                     //Expand at the end
-                    T[] temp = new T[firstFreeIndex - internalIndex];
+                    var temp = new T[firstFreeIndex - internalIndex];
                     Array.Copy(items, internalIndex, temp, 0, temp.Length);
                     Array.Copy(temp, 0, items, internalIndex + 1, temp.Length);
 
@@ -209,7 +209,7 @@ namespace Nintenlord.Collections.Lists
                 else
                 {
                     //Expand at the start
-                    T[] temp = new T[internalIndex - firstReservedIndex + 1];
+                    var temp = new T[internalIndex - firstReservedIndex + 1];
                     Array.Copy(items, firstReservedIndex, temp, 0, temp.Length);
                     Array.Copy(temp, 0, items, firstReservedIndex - 1, temp.Length);
 
@@ -222,7 +222,7 @@ namespace Nintenlord.Collections.Lists
                 if (internalIndex < firstFreeIndex)
                 {
                     //Expand at the end
-                    T[] temp = new T[firstFreeIndex - internalIndex];
+                    var temp = new T[firstFreeIndex - internalIndex];
                     Array.Copy(items, internalIndex, temp, 0, temp.Length);
                     Array.Copy(temp, 0, items, internalIndex + 1, temp.Length);
 
@@ -232,7 +232,7 @@ namespace Nintenlord.Collections.Lists
                 else//if ()
                 {
                     //Expand at the start
-                    T[] temp = new T[internalIndex - firstReservedIndex + 1];
+                    var temp = new T[internalIndex - firstReservedIndex + 1];
                     Array.Copy(items, firstReservedIndex, temp, 0, temp.Length);
                     Array.Copy(temp, 0, items, firstReservedIndex - 1, temp.Length);
 
@@ -259,7 +259,7 @@ namespace Nintenlord.Collections.Lists
                 {
                     if (firstReservedIndex < firstFreeIndex)
                     {
-                        for (int i = internalIndex; i < firstFreeIndex; i++)
+                        for (var i = internalIndex; i < firstFreeIndex; i++)
                         {
                             items[i] = items[i + 1];
                         }
@@ -270,7 +270,7 @@ namespace Nintenlord.Collections.Lists
                     {
                         if (internalIndex < firstReservedIndex)
                         {
-                            for (int i = internalIndex; i < firstFreeIndex; i++)
+                            for (var i = internalIndex; i < firstFreeIndex; i++)
                             {
                                 items[i] = items[i + 1];
                             }
@@ -279,7 +279,7 @@ namespace Nintenlord.Collections.Lists
                         }
                         else
                         {
-                            for (int i = internalIndex; i >= firstReservedIndex; i--)
+                            for (var i = internalIndex; i >= firstReservedIndex; i--)
                             {
                                 items[i] = items[i - 1];
                             }
@@ -294,7 +294,7 @@ namespace Nintenlord.Collections.Lists
 
         private void Resize(int newLength)
         {
-            T[] newItems = new T[newLength];
+            var newItems = new T[newLength];
             if (count > 0)
             {
                 if (firstReservedIndex < firstFreeIndex) //Items do not loop
@@ -303,7 +303,7 @@ namespace Nintenlord.Collections.Lists
                 }
                 else
                 {
-                    int interMediateIndex = items.Length;
+                    var interMediateIndex = items.Length;
                     Array.Copy(items, firstReservedIndex, newItems, 0, items.Length - firstReservedIndex);
                     Array.Copy(items, 0, newItems, items.Length - firstReservedIndex, firstFreeIndex);
                 }
@@ -346,18 +346,18 @@ namespace Nintenlord.Collections.Lists
         {
             if (start < end)
             {
-                for (int i = start; i < end; i++)
+                for (var i = start; i < end; i++)
                 {
                     yield return items[i];
                 }
             }
             else
             {
-                for (int i = start; i < items.Length; i++)
+                for (var i = start; i < items.Length; i++)
                 {
                     yield return items[i];
                 }
-                for (int i = 0; i < end; i++)
+                for (var i = 0; i < end; i++)
                 {
                     yield return items[i];
                 }
@@ -405,7 +405,7 @@ namespace Nintenlord.Collections.Lists
 
         public bool Remove(T item)
         {
-            int index = Find(item);
+            var index = Find(item);
             if (index >= 0)
                 RemoveAtInternal(index);
             return index >= 0;

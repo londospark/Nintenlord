@@ -11,8 +11,8 @@ namespace Nintenlord.Utility.Strings
 
         public static string[] Substrings(this CaptureCollection collection)
         {
-            string[] result = new string[collection.Count];
-            for (int i = 0; i < result.Length; i++)
+            var result = new string[collection.Count];
+            for (var i = 0; i < result.Length; i++)
             {
                 result[i] = collection[i].Value;
             }

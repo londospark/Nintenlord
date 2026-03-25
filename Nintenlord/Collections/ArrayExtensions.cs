@@ -24,10 +24,10 @@ namespace Nintenlord.Collections
 
         public static int IndexOf<T>(this T[] array, T[] toFind, IEqualityComparer<T> eq)
         {
-            for (int i = 0; i < array.Length - toFind.Length; i++)
+            for (var i = 0; i < array.Length - toFind.Length; i++)
             {
-                bool found = true;
-                for (int j = 0; j < toFind.Length; j++)
+                var found = true;
+                for (var j = 0; j < toFind.Length; j++)
                 {
                     if (!eq.Equals(array[i + j], toFind[j]))
                     {
@@ -69,7 +69,7 @@ namespace Nintenlord.Collections
                 throw new IndexOutOfRangeException();
             }
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 if (!eq.Equals(array1[i + index1], array2[i + index2]))
                 {
@@ -86,7 +86,7 @@ namespace Nintenlord.Collections
             {
                 throw new IndexOutOfRangeException();
             }
-            T[] temp = new T[length];
+            var temp = new T[length];
             Array.Copy(array, from, temp, 0, length);
             Array.Copy(temp, 0, array, to, length);
         }
@@ -108,14 +108,14 @@ namespace Nintenlord.Collections
 
         public static T[] GetRange<T>(this T[] array, int index, int length)
         {
-            T[] result = new T[length];
+            var result = new T[length];
             Array.Copy(array, index, result, 0, length);
             return result;
         }
 
         public static IEnumerable<T> EnumerateSublist<T>(this T[] array, int index, int length)
         {
-            for (int i = index; i < index + length; i++)
+            for (var i = index; i < index + length; i++)
             {
                 yield return array[i];
             }
@@ -128,7 +128,7 @@ namespace Nintenlord.Collections
 
         public static int AmountOfSame<T>(T[] array1, int index1, T[] array2, int index2)
         {
-            int length = Math.Min(array1.Length - index1, array2.Length - index2);
+            var length = Math.Min(array1.Length - index1, array2.Length - index2);
             int i;
             for (i = 0; i < length; i++)
             {

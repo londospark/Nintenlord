@@ -32,7 +32,7 @@ namespace Nintenlord.Collections.Lists
 
         public int IndexOf(T item)
         {
-            for (int i = Index; i < Length; i++)
+            for (var i = Index; i < Length; i++)
             {
                 if (EqualityComparer<T>.Default.Equals(MainList[i], item))
                 {
@@ -89,7 +89,7 @@ namespace Nintenlord.Collections.Lists
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            for (int i = Index; i < Length; i++)
+            for (var i = Index; i < Length; i++)
             {
                 array[arrayIndex + i] = MainList[Index + i];
             }
@@ -139,20 +139,20 @@ namespace Nintenlord.Collections.Lists
                 throw new InvalidOperationException();
             }
 
-            SubList<T> result = new SubList<T>(first.MainList,
+            var result = new SubList<T>(first.MainList,
                 Math.Min(first.Index, second.Index),
                 first.Length + second.Length);
 
             var mainList = first.MainList;
-            for (int i = Math.Max(first.Index, second.Index); i < result.Length; i++)
+            for (var i = Math.Max(first.Index, second.Index); i < result.Length; i++)
             {
-                for (int j = i - 1; j >= 0; j--)
+                for (var j = i - 1; j >= 0; j--)
                 {
                     if (comp.Compare(mainList[j], mainList[i]) < 0)
                     {
                         if (i != j + 1)
                         {
-                            T temp = mainList[i];
+                            var temp = mainList[i];
                             mainList.RemoveAt(i);
                             mainList.Insert(j + 1, temp);
                         }

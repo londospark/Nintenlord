@@ -24,7 +24,7 @@ namespace Nintenlord.Parser.ParserCombinators
             while (true)
             {
                 Match<TIn> latestMatch;
-                TOut prim = results.Parse(scanner, out latestMatch);
+                var prim = results.Parse(scanner, out latestMatch);
                 InnerMatch += latestMatch;
 
                 if (latestMatch.Success)

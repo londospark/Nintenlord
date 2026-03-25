@@ -39,7 +39,7 @@ namespace Nintenlord.MemoryManagement
 
         public IEnumerator<int> GetEnumerator()
         {
-            for (int i = 0; i < Size; i++)
+            for (var i = 0; i < Size; i++)
             {
                 yield return Offset + i;
             }
@@ -57,20 +57,11 @@ namespace Nintenlord.MemoryManagement
         #endregion
 
 
-        public override bool Equals(object obj)
-        {
-            return obj is OffsetSizePair && this.Equals((OffsetSizePair)obj);
-        }
+        public override bool Equals(object? obj) => obj is OffsetSizePair pair && Equals(pair);
 
-        public override int GetHashCode()
-        {
-            return Offset ^ Size;
-        }
+        public override int GetHashCode() => Offset ^ Size;
 
-        public override string ToString()
-        {
-            return string.Format("Offset: ${0} Size: 0x{1}", Offset.ToHexString(""), Size.ToHexString(""));
-        }
+        public override string ToString() => $"Offset: ${Offset.ToHexString("")} Size: 0x{Size.ToHexString("")}";
 
         /// <summary>
         /// 
@@ -79,9 +70,9 @@ namespace Nintenlord.MemoryManagement
         /// <returns></returns>
         public static IEnumerable<OffsetSizePair> EnumerateAsPairs(IEnumerable<int> memory)
         {
-            int previous = -2;
+            var previous = -2;
 
-            int start = -1;
+            var start = -1;
             foreach (var item in memory)
             {
                 if (previous + 1 != item)

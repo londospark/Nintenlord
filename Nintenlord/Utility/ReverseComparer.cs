@@ -21,7 +21,7 @@ namespace Nintenlord.Utility
 
         #region IComparer<T> Members
 
-        public int Compare(T x, T y)
+        public int Compare(T? x, T? y)
         {
             return baseComparer.Compare(y, x);
         }

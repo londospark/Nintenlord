@@ -28,8 +28,8 @@ namespace Nintenlord.Parser
             Predicate<T> isParameterSeparator,
             IEqualityComparer<T> eq)
         {
-            Stack<T> operatorStack = new Stack<T>();
-            List<T> output = new List<T>();
+            var operatorStack = new Stack<T>();
+            var output = new List<T>();
             foreach (var token in tokens)
             {
                 if (parenthesis.ContainsKey(token))
@@ -38,7 +38,7 @@ namespace Nintenlord.Parser
                 }
                 else if (parenthesis.Values.Contains(token))
                 {
-                    bool found = false;
+                    var found = false;
                     while (operatorStack.Count > 0)
                     {
                         T temp;
@@ -73,7 +73,7 @@ namespace Nintenlord.Parser
                     {
                         while (operatorStack.Count > 0)
                         {
-                            T operatorToken = operatorStack.Peek();
+                            var operatorToken = operatorStack.Peek();
                             OperatorInfo<T> info;
                             if (operators.TryGetValue(operatorToken, out info))
                             {
@@ -98,7 +98,7 @@ namespace Nintenlord.Parser
                     }
                     else if (isParameterSeparator(token))
                     {
-                        bool found = false;
+                        var found = false;
                         while (operatorStack.Count > 0)
                         {
                             if (parenthesis.ContainsKey(operatorStack.Peek()))
@@ -136,7 +136,7 @@ namespace Nintenlord.Parser
 
         public static T Evaluate<T>(IEnumerable<T> rpnValue, IDictionary<T, OperatorInfo<T>> operators)
         {
-            Stack<T> stack = new Stack<T>(10);
+            var stack = new Stack<T>(10);
             OperatorInfo<T> info;
             foreach (var token in rpnValue)
             {
@@ -146,8 +146,8 @@ namespace Nintenlord.Parser
                     {
                         throw new ArgumentException("Not enough parameters for a function");
                     }
-                    T[] parameters = new T[info.ArgumentCount];
-                    for (int i = stack.Count - 1; i >= 0; i--)
+                    var parameters = new T[info.ArgumentCount];
+                    for (var i = stack.Count - 1; i >= 0; i--)
                     {
                         parameters[i] = stack.Pop();
                     }

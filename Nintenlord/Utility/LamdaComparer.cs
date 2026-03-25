@@ -13,23 +13,23 @@ namespace Nintenlord.Utility
         }
         #region IComparer<T> Members
 
-        public int Compare(T x, T y)
+        public int Compare(T? x, T? y)
         {
-            return f(x, y);
+            return f(x!, y!);
         }
 
         #endregion
 
         #region IEqualityComparer<T> Members
 
-        public bool Equals(T x, T y)
+        public bool Equals(T? x, T? y)
         {
-            return f(x, y) == 0;
+            return f(x!, y!) == 0;
         }
 
         public int GetHashCode(T obj)
         {
-            return f(default(T), obj);
+            return f(default(T)!, obj);
         }
 
         #endregion

@@ -9,11 +9,13 @@ namespace Nintenlord.Utility.Strings
 
         #region IComparer<string> Members
 
-        public int Compare(string x, string y)
+        public int Compare(string? x, string? y)
         {
-            int length = Math.Min(x.Length, y.Length);
+            if (x is null) return y is null ? 0 : -1;
+            if (y is null) return 1;
+            var length = Math.Min(x.Length, y.Length);
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 if (x[i] != y[i])
                 {

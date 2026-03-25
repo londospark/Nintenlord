@@ -17,8 +17,8 @@ namespace Nintenlord.Grammars
         Stack<TStackSymbol> stack;
         Dictionary<Tuple<TState, TLetter, TStackSymbol>, Tuple<TState, TStackSymbol[]>> transitions;
         Dictionary<Tuple<TState, TStackSymbol>, Tuple<TState, TStackSymbol[]>> epsilonTransitions;
-        TStackSymbol stackStartSymbol;
-        TState startingState;
+        TStackSymbol stackStartSymbol = default!;
+        TState startingState = default!;
 
         public DeterministicPushdownAutomata()
         {
@@ -29,15 +29,15 @@ namespace Nintenlord.Grammars
 
         public bool IsAccepted(TLetter[] word)
         {
-            int index = 0;
+            var index = 0;
             stack.Clear();
             stack.Push(stackStartSymbol);
-            TState currentState = startingState;
+            var currentState = startingState;
 
             while (stack.Count > 0)
             {
                 Tuple<TState, TStackSymbol[]> transition;
-                TStackSymbol top = stack.Pop();
+                var top = stack.Pop();
 
                 if (epsilonTransitions.TryGetValue(Tuple.Create(currentState, top), out transition))
                 {

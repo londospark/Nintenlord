@@ -38,7 +38,7 @@ namespace Nintenlord.Utility.Strings
             {
                 return false;
             }
-            bool hex = false;
+            var hex = false;
             if (parameter.IsHexByte())
             {
                 hex = true;
@@ -52,7 +52,7 @@ namespace Nintenlord.Utility.Strings
 
             if (hex)
             {
-                for (int i = 0; i < parameter.Length; i++)
+                for (var i = 0; i < parameter.Length; i++)
                 {
                     if (!parameter[i].IsHexDigit())
                     {
@@ -62,7 +62,7 @@ namespace Nintenlord.Utility.Strings
             }
             else if (parameter.IsBinary())
             {
-                for (int i = 0; i < parameter.Length - 1; i++)
+                for (var i = 0; i < parameter.Length - 1; i++)
                 {
                     if (!(parameter[i] == '0' || parameter[i] == '1'))
                     {
@@ -72,7 +72,7 @@ namespace Nintenlord.Utility.Strings
             }
             else
             {
-                for (int i = 0; i < parameter.Length; i++)
+                for (var i = 0; i < parameter.Length; i++)
                 {
                     if (!char.IsNumber(parameter, i))
                     {
@@ -118,7 +118,7 @@ namespace Nintenlord.Utility.Strings
             {
                 throw new IndexOutOfRangeException();
             }
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 if (a[index1 + i] != b[index2 + i])
                 {
@@ -130,7 +130,7 @@ namespace Nintenlord.Utility.Strings
 
         public static int GetValue(this string parameter)
         {
-            int code = 0;
+            var code = 0;
             if (parameter.IsHexNumber())
             {
                 if (parameter.StartsWith("$"))
@@ -165,8 +165,8 @@ namespace Nintenlord.Utility.Strings
         }
         public static int[] GetIndexes(this string text, string toFind)
         {
-            List<int> results = new List<int>(text.Length);
-            int lastIndex = text.IndexOf(toFind);
+            var results = new List<int>(text.Length);
+            var lastIndex = text.IndexOf(toFind);
             while (lastIndex >= 0)
             {
                 results.Add(lastIndex);
@@ -181,7 +181,7 @@ namespace Nintenlord.Utility.Strings
 
         public static int IndexOf(this string text, Predicate<char> match)
         {
-            for (int i = 0; i < text.Length; i++)
+            for (var i = 0; i < text.Length; i++)
             {
                 if (match(text[i]))
                 {
@@ -199,10 +199,10 @@ namespace Nintenlord.Utility.Strings
 
         public static string[] Split(this string text, params int[] indexes)
         {
-            string[] result = new string[indexes.Length + 1];
+            var result = new string[indexes.Length + 1];
 
             result[0] = text.Substring(0, indexes[0]);
-            for (int i = 0; i < indexes.Length - 1; i++)
+            for (var i = 0; i < indexes.Length - 1; i++)
             {
                 result[i + 1] = text.Substring(indexes[i] + 1, indexes[i + 1] - indexes[i] - 1);
             }
@@ -212,14 +212,14 @@ namespace Nintenlord.Utility.Strings
         }
         public static string[] Split(this string line, char[] separators, char[][] uniters)
         {
-            List<string> parameters = new List<string>();
+            var parameters = new List<string>();
 
-            int begIndex = 0;
-            Stack<int> uniterIndexs = new Stack<int>();
+            var begIndex = 0;
+            var uniterIndexs = new Stack<int>();
 
-            for (int i = 0; i < line.Length; i++)
+            for (var i = 0; i < line.Length; i++)
             {
-                for (int j = 0; j < uniters.Length; j++)
+                for (var j = 0; j < uniters.Length; j++)
                 {
                     if (line[i] == uniters[j][0])
                     {
@@ -257,12 +257,12 @@ namespace Nintenlord.Utility.Strings
         }
         public static string[] Split(this string line, ICollection<char> separators, Dictionary<char, char> uniters, out int nonClosedParenthesis)
         {
-            List<string> parameters = new List<string>();
-            int startIndex = 0;
-            Stack<char> uniterStack = new Stack<char>();
-            for (int j = 0; j < line.Length; j++)
+            var parameters = new List<string>();
+            var startIndex = 0;
+            var uniterStack = new Stack<char>();
+            for (var j = 0; j < line.Length; j++)
             {
-                char currChar = line[j];
+                var currChar = line[j];
                 if (separators.Contains(currChar))
                 {
                     if (uniterStack.Count == 0)
@@ -311,7 +311,7 @@ namespace Nintenlord.Utility.Strings
             }
 
             //The laxy way
-            for (int i = 0; i < toReplace.Length; i++)
+            for (var i = 0; i < toReplace.Length; i++)
             {
                 text = text.Replace(toReplace[i], with[i]);
             }
@@ -321,7 +321,7 @@ namespace Nintenlord.Utility.Strings
 
         public static int AmountInTheBeginning(this string text, char value)
         {
-            int i = 0;
+            var i = 0;
             while (i < text.Length && text[i] == value)
             {
                 i++;
@@ -331,7 +331,7 @@ namespace Nintenlord.Utility.Strings
 
         public static int AmountInTheEnd(this string text, char value)
         {
-            int i = text.Length - 1;
+            var i = text.Length - 1;
             while (i >= 0 && text[i] == value)
             {
                 i--;
@@ -347,8 +347,8 @@ namespace Nintenlord.Utility.Strings
 
         public static int Amount(this string text, char value, int start, int length)
         {
-            int result = 0;
-            for (int i = start; i < start + length; i++)
+            var result = 0;
+            for (var i = start; i < start + length; i++)
             {
                 if (text[i] == value)
                 {
@@ -360,8 +360,8 @@ namespace Nintenlord.Utility.Strings
 
         public static string Repeat(this string text, int toLength)
         {
-            char[] rawText = new char[toLength];
-            for (int i = 0; i < toLength; i++)
+            var rawText = new char[toLength];
+            for (var i = 0; i < toLength; i++)
             {
                 rawText[i] = text[i % text.Length];
             }
@@ -370,9 +370,9 @@ namespace Nintenlord.Utility.Strings
 
         public static string ToLinedString(this string[] lines)
         {
-            StringBuilder builder = new StringBuilder(lines.Length * 40);
+            var builder = new StringBuilder(lines.Length * 40);
 
-            foreach (string line in lines)
+            foreach (var line in lines)
             {
                 builder.AppendLine(line);
             }
@@ -382,7 +382,7 @@ namespace Nintenlord.Utility.Strings
 
         public static int AmountOfLines(this string text)
         {
-            int lineAmount = Math.Max(text.Amount('\r'), text.Amount('\n'));
+            var lineAmount = Math.Max(text.Amount('\r'), text.Amount('\n'));
             return lineAmount;
         }
 
@@ -397,7 +397,7 @@ namespace Nintenlord.Utility.Strings
             {
                 try
                 {
-                    string[] temp = Parser.ShuntingYardAlgorithm(s);
+                    var temp = Parser.ShuntingYardAlgorithm(s);
                     result = Parser.EvaluateReversePolishNotation(temp);
                     return true;
                 }
@@ -437,8 +437,8 @@ namespace Nintenlord.Utility.Strings
         }
         public static StringBuilder Substring(this StringBuilder bldr, int index, int length)
         {
-            StringBuilder subBldr = new StringBuilder(length);
-            for (int i = index; i < index + length; i++)
+            var subBldr = new StringBuilder(length);
+            for (var i = index; i < index + length; i++)
             {
                 subBldr.Append(bldr[i]);
             }

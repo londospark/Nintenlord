@@ -10,8 +10,8 @@ namespace Nintenlord.Utility
         static FixedPointInteger()
         {
             masks = new int[sizeof(int) * 8];
-            int mask = 0;
-            for (int i = 0; i < masks.Length; i++)
+            var mask = 0;
+            for (var i = 0; i < masks.Length; i++)
             {
                 masks[i] = mask;
                 mask <<= 1;
@@ -51,9 +51,9 @@ namespace Nintenlord.Utility
 
         public static implicit operator FixedPointInteger(float val)
         {
-            int rawval = (int)val;
+            var rawval = (int)val;
             rawval <<= decimals;
-            double decimalval = val - Math.Floor(val);
+            var decimalval = val - Math.Floor(val);
             rawval |= (int)((decimalMask + 1) * decimalval);
             return new FixedPointInteger(rawval);
         }
@@ -70,15 +70,15 @@ namespace Nintenlord.Utility
 
         public static FixedPointInteger operator *(FixedPointInteger val, FixedPointInteger val2)
         {
-            long temp = Math.BigMul(val.rawValue, val2.rawValue);
+            var temp = Math.BigMul(val.rawValue, val2.rawValue);
             return new FixedPointInteger((int)(temp >> decimals));
         }
 
         public static FixedPointInteger operator /(FixedPointInteger val, FixedPointInteger val2)
         {
             int quatient;
-            int remainder = Math.DivRem(val.rawValue, val2.rawValue, out quatient);
-            int result = (remainder << decimals) | (quatient / (val2.rawValue >> decimals));
+            var remainder = Math.DivRem(val.rawValue, val2.rawValue, out quatient);
+            var result = (remainder << decimals) | (quatient / (val2.rawValue >> decimals));
             return new FixedPointInteger(result);
         }
 

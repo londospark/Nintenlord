@@ -48,7 +48,7 @@ namespace Nintenlord.Utility.Primitives
             {
                 throw new IndexOutOfRangeException();
             }
-            byte mask = byte.MaxValue;
+            var mask = byte.MaxValue;
             unchecked
             {
                 mask >>= sizeof(byte) * 8 - length;
@@ -62,13 +62,13 @@ namespace Nintenlord.Utility.Primitives
         {
             byte[] result;
 
-            int begIndex = position / 8;
-            int firstByteBits = (8 - position & 0x7) & 0x7;
+            var begIndex = position / 8;
+            var firstByteBits = (8 - position & 0x7) & 0x7;
 
-            int endIndex = (position + length) / 8;
-            int lastByteBits = (position + length) & 0x7;
+            var endIndex = (position + length) / 8;
+            var lastByteBits = (position + length) & 0x7;
 
-            int resultLength = endIndex;
+            var resultLength = endIndex;
 
             if (lastByteBits != 0)
             {
@@ -93,7 +93,7 @@ namespace Nintenlord.Utility.Primitives
                     //endIndex--;
                 }
 
-                for (int j = begIndex; j < endIndex; j++)
+                for (var j = begIndex; j < endIndex; j++)
                 {
                     result[j] = 0xFF;
                 }
@@ -109,19 +109,19 @@ namespace Nintenlord.Utility.Primitives
                 throw new IndexOutOfRangeException();
             if (length == 0) return new byte[0];
 
-            int byteIndex = position / 8;
-            int bitIndex = position % 8;
+            var byteIndex = position / 8;
+            var bitIndex = position % 8;
 
-            int byteLength = length / 8;
-            int bitLength = length % 8;
-            int bitTail = (position + length) % 8;
+            var byteLength = length / 8;
+            var bitLength = length % 8;
+            var bitTail = (position + length) % 8;
 
-            int resultLength = byteLength;
+            var resultLength = byteLength;
             if (bitTail > 0) resultLength++;
             if (bitIndex > 0) resultLength++;
-            byte[] result = new byte[resultLength];
+            var result = new byte[resultLength];
 
-            int toTrim = resultLength - byteLength;
+            var toTrim = resultLength - byteLength;
             if (bitLength > 0) toTrim--;
 
             Array.Copy(i, byteIndex, result, 0, Math.Min(result.Length, i.Length));
@@ -141,8 +141,8 @@ namespace Nintenlord.Utility.Primitives
 
         public static string ToString(this byte[] i, int bytesPerWord)
         {
-            StringBuilder result = new StringBuilder();
-            for (int j = 0; j < i.Length; j++)
+            var result = new StringBuilder();
+            for (var j = 0; j < i.Length; j++)
             {
                 result.Append(i[j].ToHexString("").PadLeft(2, '0'));
                 if (j % bytesPerWord == bytesPerWord - 1)
@@ -173,17 +173,17 @@ namespace Nintenlord.Utility.Primitives
 
         private static byte[] ShiftLeft(this byte[] array, int toShift)
         {
-            int bytesToMove = toShift / 8;
-            int bitsToMove = toShift % 8;
-            byte[] result = new byte[array.Length + bytesToMove + bitsToMove == 0 ? 0 : 1];
+            var bytesToMove = toShift / 8;
+            var bitsToMove = toShift % 8;
+            var result = new byte[array.Length + bytesToMove + bitsToMove == 0 ? 0 : 1];
 
             Array.Copy(array, 0, result, bytesToMove, array.Length);
 
-            byte mask = GetMask(8 - bitsToMove, bitsToMove);
+            var mask = GetMask(8 - bitsToMove, bitsToMove);
             byte temp = 0;
-            for (int i = 0; i < result.Length; i++)
+            for (var i = 0; i < result.Length; i++)
             {
-                byte value = (byte)((result[i] << bitsToMove) | (temp >> (8 - bitsToMove)));
+                var value = (byte)((result[i] << bitsToMove) | (temp >> (8 - bitsToMove)));
                 temp = (byte)(result[i] & mask);
                 result[i] = value;
             }
@@ -196,17 +196,17 @@ namespace Nintenlord.Utility.Primitives
             if (array.Length * 8 <= toShift)
                 return new byte[0];
 
-            int bytesToMove = toShift / 8;
-            int bitsToMove = toShift % 8;
-            byte[] result = new byte[array.Length - bytesToMove];
+            var bytesToMove = toShift / 8;
+            var bitsToMove = toShift % 8;
+            var result = new byte[array.Length - bytesToMove];
 
             Array.Copy(array, bytesToMove, result, 0, result.Length);
 
-            byte mask = GetMask(0, bitsToMove);
+            var mask = GetMask(0, bitsToMove);
             byte temp = 0;
-            for (int i = result.Length - 1; i >= 0; i--)
+            for (var i = result.Length - 1; i >= 0; i--)
             {
-                byte value = (byte)((result[i] >> bitsToMove) | (temp << (8 - bitsToMove)));
+                var value = (byte)((result[i] >> bitsToMove) | (temp << (8 - bitsToMove)));
                 temp = (byte)(result[i] & mask);
                 result[i] = value;
             }
@@ -217,9 +217,9 @@ namespace Nintenlord.Utility.Primitives
 
         public static byte[] And(this byte[] array, byte[] array2)
         {
-            byte[] result = new byte[Math.Max(array.Length, array2.Length)];
-            int index = Math.Min(array.Length, array2.Length);
-            for (int i = 0; i < index; i++)
+            var result = new byte[Math.Max(array.Length, array2.Length)];
+            var index = Math.Min(array.Length, array2.Length);
+            for (var i = 0; i < index; i++)
             {
                 result[i] = (byte)(array[i] & array2[i]);
             }
@@ -227,9 +227,9 @@ namespace Nintenlord.Utility.Primitives
         }
         public static byte[] Or(this byte[] array, byte[] array2)
         {
-            byte[] result = new byte[Math.Max(array.Length, array2.Length)];
-            int index = Math.Min(array.Length, array2.Length);
-            for (int i = 0; i < index; i++)
+            var result = new byte[Math.Max(array.Length, array2.Length)];
+            var index = Math.Min(array.Length, array2.Length);
+            for (var i = 0; i < index; i++)
             {
                 result[i] = (byte)(array[i] | array2[i]);
             }
@@ -246,9 +246,9 @@ namespace Nintenlord.Utility.Primitives
         }
         public static byte[] Xor(this byte[] array, byte[] array2)
         {
-            byte[] result = new byte[Math.Max(array.Length, array2.Length)];
-            int index = Math.Min(array.Length, array2.Length);
-            for (int i = 0; i < index; i++)
+            var result = new byte[Math.Max(array.Length, array2.Length)];
+            var index = Math.Min(array.Length, array2.Length);
+            for (var i = 0; i < index; i++)
             {
                 result[i] = (byte)(array[i] ^ array2[i]);
             }
@@ -264,8 +264,8 @@ namespace Nintenlord.Utility.Primitives
         }
         public static byte[] Neg(this byte[] array)
         {
-            byte[] result = new byte[array.Length];
-            for (int i = 0; i < result.Length; i++)
+            var result = new byte[array.Length];
+            for (var i = 0; i < result.Length; i++)
             {
                 result[i] = (byte)(~array[i]);
             }
@@ -273,31 +273,31 @@ namespace Nintenlord.Utility.Primitives
         }
         public static void AndWith(this byte[] array, byte[] array2)
         {
-            int index = Math.Min(array.Length, array2.Length);
-            for (int i = 0; i < index; i++)
+            var index = Math.Min(array.Length, array2.Length);
+            for (var i = 0; i < index; i++)
             {
                 array[i] = (byte)(array[i] & array2[i]);
             }
         }
         public static void OrWith(this byte[] array, byte[] array2)
         {
-            int index = Math.Min(array.Length, array2.Length);
-            for (int i = 0; i < index; i++)
+            var index = Math.Min(array.Length, array2.Length);
+            for (var i = 0; i < index; i++)
             {
                 array[i] = (byte)(array[i] | array2[i]);
             }
         }
         public static void XorWith(this byte[] array, byte[] array2)
         {
-            int index = Math.Min(array.Length, array2.Length);
-            for (int i = 0; i < index; i++)
+            var index = Math.Min(array.Length, array2.Length);
+            for (var i = 0; i < index; i++)
             {
                 array[i] = (byte)(array[i] ^ array2[i]);
             }
         }
         public static void NegWith(this byte[] array)
         {
-            for (int i = 0; i < array.Length; i++)
+            for (var i = 0; i < array.Length; i++)
             {
                 array[i] = (byte)(~array[i]);
             }
@@ -305,7 +305,7 @@ namespace Nintenlord.Utility.Primitives
 
         public static void WriteTo(this byte[] array, int destination, byte[] source, int length)
         {
-            int sourceIndex = 0;
+            var sourceIndex = 0;
             if (destination + length > array.Length * 8
              || sourceIndex + length > source.Length * 8
              || destination < 0
@@ -314,15 +314,15 @@ namespace Nintenlord.Utility.Primitives
                 throw new IndexOutOfRangeException();
             }
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
-                int destIndex = destination + i;
-                int destByteIndex = destIndex / 8;
-                int destbitIndex = destIndex % 8;
-                int srcByteIndex = i / 8;
-                int srcBitIndex = i % 8;
-                byte srcMask = GetMask(srcBitIndex, 1);
-                byte destMask = GetMask(destbitIndex, 1);
+                var destIndex = destination + i;
+                var destByteIndex = destIndex / 8;
+                var destbitIndex = destIndex % 8;
+                var srcByteIndex = i / 8;
+                var srcBitIndex = i % 8;
+                var srcMask = GetMask(srcBitIndex, 1);
+                var destMask = GetMask(destbitIndex, 1);
                 array[destByteIndex] &= (byte)~destMask;
                 if ((source[srcByteIndex] & srcMask) != 0)
                 {

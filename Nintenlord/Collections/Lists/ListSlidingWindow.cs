@@ -42,7 +42,7 @@ namespace Nintenlord.Collections.Lists
 
         public int IndexOf(T item)
         {
-            for (int i = start; i < end; i++)
+            for (var i = start; i < end; i++)
             {
                 if (EqualityComparer<T>.Default.Equals(items[i], item))
                 {
@@ -99,7 +99,7 @@ namespace Nintenlord.Collections.Lists
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            for (int i = start; i < end; i++)
+            for (var i = start; i < end; i++)
             {
                 array[arrayIndex] = items[i];
                 arrayIndex++;

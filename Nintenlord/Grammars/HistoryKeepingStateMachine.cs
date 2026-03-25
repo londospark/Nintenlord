@@ -67,9 +67,9 @@ namespace Nintenlord.Grammars
                 newState = new TState[currentState.Length - 1];
             }
 
-            int length = Math.Min(newState.Length, currentState.Length);
+            var length = Math.Min(newState.Length, currentState.Length);
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 newState[i] = currentState[i];
             }

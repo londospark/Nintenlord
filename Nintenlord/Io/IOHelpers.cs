@@ -15,7 +15,7 @@ namespace Nintenlord.IO
             }
             else if (!String.IsNullOrEmpty(currentFile))
             {
-                string path = Path.GetDirectoryName(currentFile);
+                var path = Path.GetDirectoryName(currentFile);
                 path = Path.Combine(path, newFile);
                 if (File.Exists(path))
                 {
@@ -27,7 +27,7 @@ namespace Nintenlord.IO
 
         public static char? ReadCharacter(this TextReader reader)
         {
-            int value = reader.Read();
+            var value = reader.Read();
             if (value == -1)
             {
                 return null;
@@ -40,7 +40,7 @@ namespace Nintenlord.IO
 
         public static char? PeekCharacter(this TextReader reader)
         {
-            int value = reader.Peek();
+            var value = reader.Peek();
             if (value == -1)
             {
                 return null;

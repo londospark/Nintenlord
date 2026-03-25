@@ -20,7 +20,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 
         protected override TOut ParseMain(IO.Scanners.IScanner<TIn> scanner, out Match<TIn> match)
         {
-            TOut result = parser.Parse(scanner, out match);
+            var result = parser.Parse(scanner, out match);
             if (!match.Success)
             {
                 match = new Match<TIn>(scanner,

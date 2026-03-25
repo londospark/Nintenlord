@@ -22,7 +22,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
                 match = new Match<T>(scanner, "No token to test.");
                 return default(T);
             }
-            T unit = scanner.Current;
+            var unit = scanner.Current;
             if (comparer(unit))
             {
                 match = new Match<T>(scanner, 1);

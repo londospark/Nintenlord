@@ -20,7 +20,7 @@ namespace Nintenlord.Parser.ParserCombinators
             while (!scanner.IsAtEnd)
             {
                 Match<TIn> latestMatch;
-                TOut prim = toRepeat.Parse(scanner, out latestMatch);
+                var prim = toRepeat.Parse(scanner, out latestMatch);
                 if (latestMatch.Success)
                 {
                     InnerMatch += latestMatch;
