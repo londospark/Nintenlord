@@ -4,9 +4,11 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.Versioning;
 
 namespace Nintenlord.Drawing
 {
+    [SupportedOSPlatform("windows")]
     public static class BitmapHelpers
     {
         private static readonly IDictionary<string, ImageFormat> formats;
@@ -446,6 +448,7 @@ matchFound:
         }
     }
 
+    [SupportedOSPlatform("windows")]
     public sealed class BitmapLocker : IDisposable, IEnumerable<IntPtr>
     {
         public BitmapData BitmapData
