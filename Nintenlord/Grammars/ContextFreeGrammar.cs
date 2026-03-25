@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
 // <copyright file="ContextFreeGrammar.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
@@ -8,40 +8,24 @@ namespace Nintenlord.Grammars
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public sealed class ContextFreeGrammar<T>
     {
-        IDictionary<T, T[][]> productions = default!;
-        T startingSymbol = default!;
-        T[] variables = default!;
-        T[] terminals = default!;
+        private readonly IDictionary<T, T[][]> productions = default!;
+        private readonly T startingSymbol = default!;
+        private readonly T[] variables = default!;
+        private readonly T[] terminals = default!;
 
-        public T[][] this[T variable]
-        {
-            get
-            {
-                return productions[variable];
-            }
-        }
-        public T StartingSymbol
-        {
-            get
-            {
-                return startingSymbol;
-            }
-        }
-        public IEnumerable<T> Variables
-        {
-            get { return variables; }
-        }
-        public IEnumerable<T> Terminals
-        {
-            get { return terminals; }
-        }
+        public T[][] this[T variable] => productions[variable];
+
+        public T StartingSymbol => startingSymbol;
+
+        public IEnumerable<T> Variables => variables;
+
+        public IEnumerable<T> Terminals => terminals;
 
         public T[] DeriveRandom(Random random)
         {

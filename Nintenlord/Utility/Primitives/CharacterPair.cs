@@ -13,20 +13,11 @@ namespace Nintenlord.Utility.Primitives
             this.Second = second;
         }
 
-        public static bool operator ==(CharacterPair a, CharacterPair b)
-        {
-            return a.First == b.First && a.Second == b.Second;
-        }
+        public static bool operator ==(CharacterPair a, CharacterPair b) => a.First == b.First && a.Second == b.Second;
 
-        public static bool operator !=(CharacterPair a, CharacterPair b)
-        {
-            return !(a == b);
-        }
+        public static bool operator !=(CharacterPair a, CharacterPair b) => !(a == b);
 
-        public bool Equals(CharacterPair other)
-        {
-            return other == this;
-        }
+        public bool Equals(CharacterPair other) => other == this;
 
         public override bool Equals(object obj)
         {
@@ -40,9 +31,6 @@ namespace Nintenlord.Utility.Primitives
             }
         }
 
-        public override int GetHashCode()
-        {
-            return (First << 16) + Second;
-        }
+        public override int GetHashCode() => (First << 16) + Second;
     }
 }

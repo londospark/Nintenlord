@@ -1,16 +1,12 @@
 ﻿namespace Nintenlord.Graph
 {
-    using Nintenlord.Utility;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
     public static class GraphHelpers
     {
-        public static bool HasCycle<TNode>(this IGraph<TNode> graph, out List<TNode> cycle)
-        {
-            throw new NotImplementedException();
-        }
+        public static bool HasCycle<TNode>(this IGraph<TNode> graph, out List<TNode> cycle) => throw new NotImplementedException();
 
         /// <summary>
         /// Returns the topological sorting of cycleless graph
@@ -18,12 +14,10 @@
         /// <typeparam name="TNode"></typeparam>
         /// <param name="graph"></param>
         /// <returns></returns>
-        public static IEnumerable<TNode> TopologicalSort<TNode>(this IGraph<TNode> graph)
-        {
-            return graph.DepthFirstTraversalAllNodes(
-                GraphTraversal.DepthFirstTraversalOrdering.PostOrdering)
+        public static IEnumerable<TNode> TopologicalSort<TNode>(this IGraph<TNode> graph) =>
+            graph.DepthFirstTraversalAllNodes(
+                    GraphTraversal.DepthFirstTraversalOrdering.PostOrdering)
                 .Reverse();
-        }
 
         /// <summary>
         /// Returns all nodes in a directed graph with no edges pointing to it.
@@ -46,12 +40,10 @@
             return nodes;
         }
 
-        public static IEnumerable<Tuple<TNode, TNode>> GetEdges<TNode>(this IGraph<TNode> graph)
-        {
-            return from node in graph
-                   from neighbour in graph.GetNeighbours(node)
-                   select Tuple.Create(node, neighbour);
-        }
+        public static IEnumerable<Tuple<TNode, TNode>> GetEdges<TNode>(this IGraph<TNode> graph) =>
+            from node in graph
+            from neighbour in graph.GetNeighbours(node)
+            select Tuple.Create(node, neighbour);
 
         public static bool IsConnected<TNode>(this IGraph<TNode> graph)
         {
@@ -83,9 +75,6 @@
             return index == graph.NodeCount - 1;//return if reached top of transpose
         }
 
-        public static TransposeGraph<TNode> GetTranspose<TNode>(this IGraph<TNode> graph)
-        {
-            return new TransposeGraph<TNode>(graph);
-        }
+        public static TransposeGraph<TNode> GetTranspose<TNode>(this IGraph<TNode> graph) => new(graph);
     }
 }

@@ -14,7 +14,7 @@ namespace Nintenlord.Graph
     /// </summary>
     public class TransposeGraph<TNode> : IGraph<TNode>
     {
-        IGraph<TNode> originalGraph;
+        private readonly IGraph<TNode> originalGraph;
 
         public TransposeGraph(IGraph<TNode> originalGraph)
         {
@@ -23,38 +23,23 @@ namespace Nintenlord.Graph
 
         #region IGraph<TNode> Members
 
-        public int NodeCount
-        {
-            get { return originalGraph.NodeCount; }
-        }
+        public int NodeCount => originalGraph.NodeCount;
 
-        public IEnumerable<TNode> GetNeighbours(TNode node)
-        {
-            return originalGraph.Where(node2 => this.IsEdge(node, node2));
-        }
+        public IEnumerable<TNode> GetNeighbours(TNode node) => originalGraph.Where(node2 => this.IsEdge(node, node2));
 
-        public bool IsEdge(TNode from, TNode to)
-        {
-            return !originalGraph.IsEdge(from, to);
-        }
+        public bool IsEdge(TNode from, TNode to) => !originalGraph.IsEdge(from, to);
 
         #endregion
 
         #region IEnumerable<TNode> Members
 
-        public IEnumerator<TNode> GetEnumerator()
-        {
-            return originalGraph.GetEnumerator();
-        }
+        public IEnumerator<TNode> GetEnumerator() => originalGraph.GetEnumerator();
 
         #endregion
 
         #region IEnumerable Members
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         #endregion
     }

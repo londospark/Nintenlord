@@ -1,4 +1,4 @@
-﻿using Nintenlord.Collections;
+using Nintenlord.Collections;
 using Nintenlord.IO.Scanners;
 using System;
 
@@ -46,24 +46,14 @@ namespace Nintenlord.Parser
         /// First offset after a succesful match.
         /// Offset + Length == OffsetAfter
         /// </summary>
-        public long OffsetAfter
-        {
-            get
-            {
-                return Offset + Length;
-            }
-        }
+        public long OffsetAfter => Offset + Length;
+
         /// <summary>
         /// True if successful matches length was 0.
         /// False if succesful matches length isn't 0.
         /// </summary>
-        public bool Empty
-        {
-            get
-            {
-                return Length == 0;
-            }
-        }
+        public bool Empty => Length == 0;
+
         /// <summary>
         /// Error string of an unsuccesful match.
         /// </summary>
@@ -300,24 +290,19 @@ namespace Nintenlord.Parser
         /// Creates a shallow copy of this match.
         /// </summary>
         /// <returns>A copy of this object.</returns>
-        public object Clone()
-        {
-            return new Match<T>(this);
-        }
+        public object Clone() => new Match<T>(this);
 
         #endregion
 
         #region IEquatable<Match<T>> Members
 
-        public bool Equals(Match<T>? other)
-        {
-            return other is not null
-                && other.Scanner == this.Scanner
-                && other.Success == this.Success
-                && other.Offset == this.Offset
-                && other.Length == this.Length
-                && other.errorString == this.errorString;
-        }
+        public bool Equals(Match<T>? other) =>
+            other is not null
+            && other.Scanner == this.Scanner
+            && other.Success == this.Success
+            && other.Offset == this.Offset
+            && other.Length == this.Length
+            && other.errorString == this.errorString;
 
         #endregion
 
@@ -325,11 +310,9 @@ namespace Nintenlord.Parser
         /// Returns the string representation of this match.
         /// </summary>
         /// <returns>String representation of this match</returns>
-        public override string ToString()
-        {
-            return Success
-                       ? $"Success at {Offset} size {Length}"
-                       : $"Error {this.Error} at {Offset}";
-        }
+        public override string ToString() =>
+            Success
+                ? $"Success at {Offset} size {Length}"
+                : $"Error {this.Error} at {Offset}";
     }
 }

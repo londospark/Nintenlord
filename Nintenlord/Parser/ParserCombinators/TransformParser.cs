@@ -4,8 +4,8 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class TransformParser<TIn, TMiddle, TOut> : Parser<TIn, TOut>
     {
-        IParser<TIn, TMiddle> parser;
-        Converter<TMiddle, TOut> converter;
+        private readonly IParser<TIn, TMiddle> parser;
+        private readonly Converter<TMiddle, TOut> converter;
 
         public TransformParser(IParser<TIn, TMiddle> parser, Converter<TMiddle, TOut> converter)
         {
@@ -24,9 +24,6 @@ namespace Nintenlord.Parser.ParserCombinators
             return match.Success ? converter(middle) : default(TOut);
         }
 
-        public override string ToString()
-        {
-            return parser.ToString();
-        }
+        public override string ToString() => parser.ToString();
     }
 }

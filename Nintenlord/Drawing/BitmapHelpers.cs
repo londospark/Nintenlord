@@ -9,7 +9,7 @@ namespace Nintenlord.Drawing
 {
     public static class BitmapHelpers
     {
-        static IDictionary<string, ImageFormat> formats;
+        private static readonly IDictionary<string, ImageFormat> formats;
 
         static BitmapHelpers()
         {
@@ -68,11 +68,11 @@ namespace Nintenlord.Drawing
                     result.Width = findWhat.Width;
                     result.Height = findWhat.Height;
                     goto matchFound;
-                noMatch:
+noMatch:
                     rowPointer++;
                 }
             }
-        matchFound:
+matchFound:
             return result;
         }
 
@@ -121,10 +121,7 @@ namespace Nintenlord.Drawing
         }
 
         [Obsolete("Use Image.GetPixelFormatSize instead.", true)]
-        public static int BitsPerPixel(PixelFormat pixelFormat)
-        {
-            return Image.GetPixelFormatSize(pixelFormat);
-        }
+        public static int BitsPerPixel(PixelFormat pixelFormat) => Image.GetPixelFormatSize(pixelFormat);
 
         public static void Transpose(ref Rectangle rect)
         {
@@ -162,23 +159,15 @@ namespace Nintenlord.Drawing
             point.X = temp;
         }
 
-        public static bool FitsIn(ref Size size, ref Rectangle rect)
-        {
-            return size.Height >= rect.Bottom &&
-                   size.Width >= rect.Right &&
-                   rect.X >= 0 &&
-                   rect.Y >= 0;
-        }
+        public static bool FitsIn(ref Size size, ref Rectangle rect) =>
+            size.Height >= rect.Bottom &&
+            size.Width >= rect.Right &&
+            rect.X >= 0 &&
+            rect.Y >= 0;
 
-        public static bool IsBigger(ref Size big, ref Size small)
-        {
-            return big.Width >= small.Width && big.Height >= small.Height;
-        }
+        public static bool IsBigger(ref Size big, ref Size small) => big.Width >= small.Width && big.Height >= small.Height;
 
-        public static bool IsSmaller(ref Size big, ref Size small)
-        {
-            return big.Width <= small.Width && big.Height <= small.Height;
-        }
+        public static bool IsSmaller(ref Size big, ref Size small) => big.Width <= small.Width && big.Height <= small.Height;
 
         public static HashSet<Color> GetColors(this Bitmap bitmap)
         {
@@ -208,12 +197,10 @@ namespace Nintenlord.Drawing
             return palette;
         }
 
-        public static ImageFormat GetFormat(string file)
-        {
-            return formats.SingleOrDefault(
+        public static ImageFormat GetFormat(string file) =>
+            formats.SingleOrDefault(
                 x => x.Key.Equals(Path.GetExtension(file))
-                ).Value;
-        }
+            ).Value;
 
         public static ColorPalette InsertColors(this ColorPalette original, Color[] palette)
         {
@@ -231,10 +218,7 @@ namespace Nintenlord.Drawing
             return original;
         }
 
-        public static void InsertColorsToPalette(this Bitmap bitmap, Color[] palette)
-        {
-            bitmap.Palette = bitmap.Palette.InsertColors(palette);
-        }
+        public static void InsertColorsToPalette(this Bitmap bitmap, Color[] palette) => bitmap.Palette = bitmap.Palette.InsertColors(palette);
 
         [Obsolete("Removed a file this method uses :D")]
         public static unsafe Bitmap Quantazase(Bitmap bitmap)
@@ -360,10 +344,7 @@ namespace Nintenlord.Drawing
 
 
 
-        public static IEnumerable<Color> GetPixelEnumerator(this Bitmap bitmap)
-        {
-            return bitmap.GetPixelEnumerator(new Rectangle(Point.Empty, bitmap.Size));
-        }
+        public static IEnumerable<Color> GetPixelEnumerator(this Bitmap bitmap) => bitmap.GetPixelEnumerator(new Rectangle(Point.Empty, bitmap.Size));
 
         public static IEnumerable<Color> GetPixelEnumerator(this Bitmap bitmap, Rectangle area)
         {
@@ -409,10 +390,7 @@ namespace Nintenlord.Drawing
         }
 
 
-        public static IEnumerable<Tuple<Point, Color>> GetPixelAndPosEnumerator(this Bitmap bitmap)
-        {
-            return bitmap.GetPixelAndPosEnumerator(new Rectangle(Point.Empty, bitmap.Size));
-        }
+        public static IEnumerable<Tuple<Point, Color>> GetPixelAndPosEnumerator(this Bitmap bitmap) => bitmap.GetPixelAndPosEnumerator(new Rectangle(Point.Empty, bitmap.Size));
 
         public static IEnumerable<Tuple<Point, Color>> GetPixelAndPosEnumerator(this Bitmap bitmap, Rectangle area)
         {
@@ -475,34 +453,19 @@ namespace Nintenlord.Drawing
             get;
             private set;
         }
-        public int PixelSize
-        {
-            get
-            {
-                return Image.GetPixelFormatSize(BitmapData.PixelFormat) / 8;
-            }
-        }
-        public int PixelByteWidth
-        {
-            get
-            {
-                return PixelSize * BitmapData.Width;
-            }
-        }
-        public IntPtr this[int x, int y]
-        {
-            get
-            {
-                return BitmapData.Scan0
-                    + BitmapData.Stride * y
-                    + PixelSize * x;
-            }
-        }
+        public int PixelSize => Image.GetPixelFormatSize(BitmapData.PixelFormat) / 8;
 
-        private Bitmap bitmap;
-        private ImageLockMode lockMode;
-        private Rectangle areaToLock;
-        private PixelFormat format;
+        public int PixelByteWidth => PixelSize * BitmapData.Width;
+
+        public IntPtr this[int x, int y] =>
+            BitmapData.Scan0
+            + BitmapData.Stride * y
+            + PixelSize * x;
+
+        private readonly Bitmap bitmap;
+        private readonly ImageLockMode lockMode;
+        private readonly Rectangle areaToLock;
+        private readonly PixelFormat format;
 
         public BitmapLocker(Bitmap bitmapToLock, ImageLockMode lockMode)
             : this(bitmapToLock, lockMode, new Rectangle(Point.Empty, bitmapToLock.Size))
@@ -519,21 +482,16 @@ namespace Nintenlord.Drawing
             Lock();
         }
 
-        private void Lock()
-        {
+        private void Lock() =>
             BitmapData =
                 bitmap.LockBits(
-                areaToLock,
-                lockMode,
-                format);
-        }
+                    areaToLock,
+                    lockMode,
+                    format);
 
         #region IDisposable Members
 
-        public void Dispose()
-        {
-            bitmap.UnlockBits(BitmapData);
-        }
+        public void Dispose() => bitmap.UnlockBits(BitmapData);
 
         #endregion
 
@@ -563,10 +521,7 @@ namespace Nintenlord.Drawing
 
         #region IEnumerable Members
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion
     }

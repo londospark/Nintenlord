@@ -5,13 +5,11 @@ namespace Nintenlord.Utility
 {
     public sealed class CanCauseError<T, TError>
     {
-        bool error;
-        T result;
-        TError errorState;
-        public bool CausedError
-        {
-            get { return error; }
-        }
+        private bool error;
+        private T result;
+        private TError errorState;
+        public bool CausedError => error;
+
         public T Result
         {
             get
@@ -54,10 +52,7 @@ namespace Nintenlord.Utility
             return result;
         }
 
-        public static implicit operator CanCauseError<T, TError>(T value)
-        {
-            return NoError(value);
-        }
+        public static implicit operator CanCauseError<T, TError>(T value) => NoError(value);
     }
 
     /// <summary>
@@ -69,13 +64,11 @@ namespace Nintenlord.Utility
         private static readonly Dictionary<string, CanCauseError<T>> cachedErrors
             = new Dictionary<string, CanCauseError<T>>();
 
-        T result;
-        bool error;
-        Lazy<string> errorMessage;
-        public bool CausedError
-        {
-            get { return error; }
-        }
+        private T result;
+        private bool error;
+        private Lazy<string> errorMessage;
+        public bool CausedError => error;
+
         public string ErrorMessage
         {
             get
@@ -105,10 +98,7 @@ namespace Nintenlord.Utility
             }
         }
 
-        public override string ToString()
-        {
-            return error ? string.Format("Error: {0}", errorMessage) : string.Format("Success: {0}", result);
-        }
+        public override string ToString() => error ? string.Format("Error: {0}", errorMessage) : string.Format("Success: {0}", result);
 
         public CanCauseError<TOut> ConvertError<TOut>()
         {
@@ -157,25 +147,13 @@ namespace Nintenlord.Utility
             return result;
         }
 
-        public static implicit operator bool(CanCauseError<T> error)
-        {
-            return error.CausedError;
-        }
+        public static implicit operator bool(CanCauseError<T> error) => error.CausedError;
 
-        public static implicit operator CanCauseError<T>(T value)
-        {
-            return NoError(value);
-        }
+        public static implicit operator CanCauseError<T>(T value) => NoError(value);
 
-        public static explicit operator CanCauseError(CanCauseError<T> error)
-        {
-            return error.CausedError ? CanCauseError.Error(error.errorMessage.Value) : CanCauseError.NoError;
-        }
+        public static explicit operator CanCauseError(CanCauseError<T> error) => error.CausedError ? CanCauseError.Error(error.errorMessage.Value) : CanCauseError.NoError;
 
-        public static explicit operator CanCauseError<T>(CanCauseError error)
-        {
-            return error.CausedError ? CanCauseError<T>.Error(error.ErrorMessage) : CanCauseError<T>.NoError(default(T));
-        }
+        public static explicit operator CanCauseError<T>(CanCauseError error) => error.CausedError ? CanCauseError<T>.Error(error.ErrorMessage) : CanCauseError<T>.NoError(default(T));
     }
 
     /// <summary>
@@ -192,12 +170,10 @@ namespace Nintenlord.Utility
             noError = new CanCauseError { error = false };
         }
 
-        bool error;
-        string errorMessage;
-        public bool CausedError
-        {
-            get { return error; }
-        }
+        private bool error;
+        private string errorMessage;
+        public bool CausedError => error;
+
         public string ErrorMessage
         {
             get
@@ -213,10 +189,7 @@ namespace Nintenlord.Utility
             }
         }
 
-        public static CanCauseError NoError
-        {
-            get { return noError; }
-        }
+        public static CanCauseError NoError => noError;
 
         public static CanCauseError Error(string errorMessages)
         {
@@ -229,20 +202,11 @@ namespace Nintenlord.Utility
             return result;
         }
 
-        public static CanCauseError Error(string errorFormat, params object[] objects)
-        {
-            return Error(string.Format(errorFormat, objects));
-        }
+        public static CanCauseError Error(string errorFormat, params object[] objects) => Error(string.Format(errorFormat, objects));
 
-        public static implicit operator bool(CanCauseError error)
-        {
-            return error.CausedError;
-        }
+        public static implicit operator bool(CanCauseError error) => error.CausedError;
 
-        public override string ToString()
-        {
-            return errorMessage;
-        }
+        public override string ToString() => errorMessage;
     }
 
     public static class CanCauseErrorHelpers
@@ -278,10 +242,8 @@ namespace Nintenlord.Utility
         }
 
         public static CanCauseError<TOut> Select<TIn, TOut>(
-            this CanCauseError<TIn> x, Func<TIn, TOut> f)
-        {
-            return f.Map(x);
-        }
+            this CanCauseError<TIn> x, Func<TIn, TOut> f) =>
+            f.Map(x);
 
         public static CanCauseError<T> Where<T>(this CanCauseError<T> error, Func<T, bool> predicate)
         {
@@ -371,22 +333,15 @@ namespace Nintenlord.Utility
             }
         }
 
-        public static Func<CanCauseError<TIn>, CanCauseError<TOut>> Map<TIn, TOut>(this Func<TIn, TOut> f)
-        {
-            return f.Map;
-        }
+        public static Func<CanCauseError<TIn>, CanCauseError<TOut>> Map<TIn, TOut>(this Func<TIn, TOut> f) => f.Map;
 
         public static Func<CanCauseError<TIn1>, CanCauseError<TIn2>, CanCauseError<TOut>> Map<TIn1, TIn2, TOut>(
-            this Func<TIn1, TIn2, TOut> f)
-        {
-            return f.Map;
-        }
+            this Func<TIn1, TIn2, TOut> f) =>
+            f.Map;
 
         public static CanCauseError<TOut> Map<TIn, TOut>(
-            this Func<TIn, TOut> f, CanCauseError<TIn> x)
-        {
-            return x.CausedError ? x.ConvertError<TOut>() : f(x.Result);
-        }
+            this Func<TIn, TOut> f, CanCauseError<TIn> x) =>
+            x.CausedError ? x.ConvertError<TOut>() : f(x.Result);
 
         public static CanCauseError<TOut> Map<TIn1, TIn2, TOut>(
             this Func<TIn1, TIn2, TOut> f, CanCauseError<TIn1> x, CanCauseError<TIn2> y)
@@ -405,19 +360,15 @@ namespace Nintenlord.Utility
             }
         }
 
-        public static T ValueOrDefault<T>(this CanCauseError<T> error, T defaultValue = default(T))
-        {
-            return error.CausedError
-                       ? defaultValue
-                       : error.Result;
-        }
+        public static T ValueOrDefault<T>(this CanCauseError<T> error, T defaultValue = default(T)) =>
+            error.CausedError
+                ? defaultValue
+                : error.Result;
 
-        public static T ValueOrDefault<T>(this CanCauseError<T> error, Func<T> defaultValue)
-        {
-            return error.CausedError
-                       ? defaultValue()
-                       : error.Result;
-        }
+        public static T ValueOrDefault<T>(this CanCauseError<T> error, Func<T> defaultValue) =>
+            error.CausedError
+                ? defaultValue()
+                : error.Result;
 
         public static CanCauseError<T[]> Flatten<T>(this IEnumerable<CanCauseError<T>> results)
         {
@@ -443,14 +394,12 @@ namespace Nintenlord.Utility
             return firstResult.CausedError ? firstResult : second(firstResult.Result);
         }
 
-        public static Func<TIn, CanCauseError<TOut>> Bind<TIn, TMiddle, TOut>(this Func<TIn, CanCauseError<TMiddle>> first, Func<TMiddle, CanCauseError<TOut>> second)
-        {
-            return x =>
+        public static Func<TIn, CanCauseError<TOut>> Bind<TIn, TMiddle, TOut>(this Func<TIn, CanCauseError<TMiddle>> first, Func<TMiddle, CanCauseError<TOut>> second) =>
+            x =>
             {
                 var firstRes = first(x);
                 return firstRes.CausedError ? firstRes.ConvertError<TOut>() : second(firstRes.Result);
             };
-        }
 
         public static CanCauseError<T> Bind<T>(this IEnumerable<Func<T, CanCauseError<T>>> functions, T start)
         {

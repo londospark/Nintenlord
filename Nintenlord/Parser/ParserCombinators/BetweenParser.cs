@@ -4,9 +4,9 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class BetweenParser<TIn, TStart, TEnd, TOut> : Parser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut> valueParser;
-        readonly IParser<TIn, TStart> startParser;
-        readonly IParser<TIn, TEnd> endParser;
+        private readonly IParser<TIn, TOut> valueParser;
+        private readonly IParser<TIn, TStart> startParser;
+        private readonly IParser<TIn, TEnd> endParser;
 
         public BetweenParser(IParser<TIn, TStart> startParser, IParser<TIn, TOut> valueParser, IParser<TIn, TEnd> endParser)
         {
@@ -51,9 +51,6 @@ namespace Nintenlord.Parser.ParserCombinators
             return result;
         }
 
-        public override string ToString()
-        {
-            return string.Format("({1}{0}{2})", valueParser, startParser, endParser);
-        }
+        public override string ToString() => string.Format("({1}{0}{2})", valueParser, startParser, endParser);
     }
 }

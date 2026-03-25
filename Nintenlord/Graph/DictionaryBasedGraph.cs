@@ -14,7 +14,7 @@ namespace Nintenlord.Graph
     /// </summary>
     public sealed class DictionaryBasedGraph<TNode> : IGraph<TNode>
     {
-        readonly IDictionary<TNode, IEnumerable<TNode>> neighbours;
+        private readonly IDictionary<TNode, IEnumerable<TNode>> neighbours;
 
         public DictionaryBasedGraph(IDictionary<TNode, IEnumerable<TNode>> neighbours)
         {
@@ -23,38 +23,23 @@ namespace Nintenlord.Graph
 
         #region IGraph<T> Members
 
-        public int NodeCount
-        {
-            get { return neighbours.Count; }
-        }
+        public int NodeCount => neighbours.Count;
 
-        public IEnumerable<TNode> GetNeighbours(TNode node)
-        {
-            return neighbours[node];
-        }
+        public IEnumerable<TNode> GetNeighbours(TNode node) => neighbours[node];
 
-        public bool IsEdge(TNode node1, TNode node2)
-        {
-            return neighbours[node1].Contains(node2);
-        }
+        public bool IsEdge(TNode node1, TNode node2) => neighbours[node1].Contains(node2);
 
         #endregion
 
         #region IEnumerable<T> Members
 
-        public IEnumerator<TNode> GetEnumerator()
-        {
-            return neighbours.Keys.GetEnumerator();
-        }
+        public IEnumerator<TNode> GetEnumerator() => neighbours.Keys.GetEnumerator();
 
         #endregion
 
         #region IEnumerable Members
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         #endregion
     }

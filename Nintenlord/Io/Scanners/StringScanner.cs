@@ -5,10 +5,10 @@ namespace Nintenlord.IO.Scanners
 {
     public sealed class StringScanner : IStoringScanner<char>
     {
-        string s;
-        int i;
-        int length;
-        int startIndex;
+        private readonly string s;
+        private int i;
+        private readonly int length;
+        private readonly int startIndex;
 
 
         public StringScanner(string s) : this(s, 0, s.Length)
@@ -29,21 +29,12 @@ namespace Nintenlord.IO.Scanners
 
         #region IScanner<char> Members
 
-        public bool IsAtEnd
-        {
-            get { return i - startIndex >= length; }
-        }
+        public bool IsAtEnd => i - startIndex >= length;
 
         public long Offset
         {
-            get
-            {
-                return i - startIndex;
-            }
-            set
-            {
-                i = (int)(value - startIndex);
-            }
+            get => i - startIndex;
+            set => i = (int)(value - startIndex);
         }
 
         public bool MoveNext()
@@ -54,28 +45,13 @@ namespace Nintenlord.IO.Scanners
             return newIndex < startIndex + length;
         }
 
-        public char Current
-        {
-            get
-            {
-                return s[i];
-            }
-        }
+        public char Current => s[i];
 
-        public bool CanSeek
-        {
-            get { return true; }
-        }
+        public bool CanSeek => true;
 
-        public IEnumerable<char> Substring(long Offset, int Length)
-        {
-            return s.Substring((int)Offset, length);
-        }
+        public IEnumerable<char> Substring(long Offset, int Length) => s.Substring((int)Offset, length);
 
-        public bool CanTakeSubstring
-        {
-            get { return true; }
-        }
+        public bool CanTakeSubstring => true;
 
         #endregion
 
@@ -99,14 +75,8 @@ namespace Nintenlord.IO.Scanners
         #endregion
 
 
-        public bool IsStored(long offset)
-        {
-            return offset < length && offset >= 0;
-        }
+        public bool IsStored(long offset) => offset < length && offset >= 0;
 
-        public bool IsStored(long offset, long length)
-        {
-            return offset + length <= this.length && offset >= 0;
-        }
+        public bool IsStored(long offset, long length) => offset + length <= this.length && offset >= 0;
     }
 }

@@ -1,4 +1,4 @@
-﻿using Nintenlord.IO.Scanners;
+using Nintenlord.IO.Scanners;
 using System;
 
 namespace Nintenlord.Parser.CharacterParsers

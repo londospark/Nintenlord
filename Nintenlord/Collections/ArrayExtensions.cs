@@ -6,21 +6,12 @@ namespace Nintenlord.Collections
 {
     public static class ArrayExtensions
     {
-        public static int IndexOf<T>(this T[] array, Predicate<T> match)
-        {
-            return Array.FindIndex(array, match);
-        }
+        public static int IndexOf<T>(this T[] array, Predicate<T> match) => Array.FindIndex(array, match);
 
-        public static int LastIndexOf<T>(this T[] array, Predicate<T> match)
-        {
-            return Array.LastIndexOf(array, match);
-        }
+        public static int LastIndexOf<T>(this T[] array, Predicate<T> match) => Array.LastIndexOf(array, match);
 
 
-        public static int IndexOf<T>(this T[] array, T[] toFind)
-        {
-            return array.IndexOf<T>(toFind, EqualityComparer<T>.Default);
-        }
+        public static int IndexOf<T>(this T[] array, T[] toFind) => array.IndexOf<T>(toFind, EqualityComparer<T>.Default);
 
         public static int IndexOf<T>(this T[] array, T[] toFind, IEqualityComparer<T> eq)
         {
@@ -44,20 +35,11 @@ namespace Nintenlord.Collections
         }
 
 
-        public static bool ContainsAnyOf<T>(this T[] array, T[] toContain)
-        {
-            return array.ContainsAnyOf(toContain, EqualityComparer<T>.Default);
-        }
+        public static bool ContainsAnyOf<T>(this T[] array, T[] toContain) => array.ContainsAnyOf(toContain, EqualityComparer<T>.Default);
 
-        public static bool ContainsAnyOf<T>(this T[] array, T[] toContain, IEqualityComparer<T> eq)
-        {
-            return array.Any(t => toContain.Any(t1 => eq.Equals(t, t1)));
-        }
+        public static bool ContainsAnyOf<T>(this T[] array, T[] toContain, IEqualityComparer<T> eq) => array.Any(t => toContain.Any(t1 => eq.Equals(t, t1)));
 
-        public static bool Equals<T>(this T[] array1, int index1, T[] array2, int index2, int length)
-        {
-            return array1.Equals(index1, array2, index2, length, EqualityComparer<T>.Default);
-        }
+        public static bool Equals<T>(this T[] array1, int index1, T[] array2, int index2, int length) => array1.Equals(index1, array2, index2, length, EqualityComparer<T>.Default);
 
         public static bool Equals<T>(this T[] array1, int index1, T[] array2, int index2, int length, IEqualityComparer<T> eq)
         {
@@ -91,20 +73,11 @@ namespace Nintenlord.Collections
             Array.Copy(temp, 0, array, to, length);
         }
 
-        public static T[] GetArray<T>(this T item)
-        {
-            return new[] { item };
-        }
+        public static T[] GetArray<T>(this T item) => new[] { item };
 
-        public static T[] GetArray<T>(params T[] items)
-        {
-            return items;
-        }
+        public static T[] GetArray<T>(params T[] items) => items;
 
-        public static T[] GetRange<T>(this T[] array, int index)
-        {
-            return array.GetRange(index, array.Length - index);
-        }
+        public static T[] GetRange<T>(this T[] array, int index) => array.GetRange(index, array.Length - index);
 
         public static T[] GetRange<T>(this T[] array, int index, int length)
         {
@@ -121,10 +94,7 @@ namespace Nintenlord.Collections
             }
         }
 
-        public static int Total(this int[] array)
-        {
-            return array.Aggregate(1, (current, item) => current * item);
-        }
+        public static int Total(this int[] array) => array.Aggregate(1, (current, item) => current * item);
 
         public static int AmountOfSame<T>(T[] array1, int index1, T[] array2, int index2)
         {

@@ -4,8 +4,8 @@ namespace Nintenlord.RandomDistributions
 {
     public sealed class FormulaeDistribution<T1, TResult> : IDistribution<TResult>
     {
-        readonly Func<T1, TResult> formulae;
-        readonly IDistribution<T1> baseDistribution;
+        private readonly Func<T1, TResult> formulae;
+        private readonly IDistribution<T1> baseDistribution;
 
         public FormulaeDistribution(IDistribution<T1> baseDistribution, Func<T1, TResult> formulae)
         {
@@ -15,19 +15,16 @@ namespace Nintenlord.RandomDistributions
 
         #region IDistribution<T2> Members
 
-        public TResult NextValue()
-        {
-            return formulae(baseDistribution.NextValue());
-        }
+        public TResult NextValue() => formulae(baseDistribution.NextValue());
 
         #endregion
     }
 
     public sealed class FormulaeDistribution<T1, T2, TResult> : IDistribution<TResult>
     {
-        readonly Func<T1, T2, TResult> formulae;
-        readonly IDistribution<T1> baseDistribution1;
-        readonly IDistribution<T2> baseDistribution2;
+        private readonly Func<T1, T2, TResult> formulae;
+        private readonly IDistribution<T1> baseDistribution1;
+        private readonly IDistribution<T2> baseDistribution2;
 
         public FormulaeDistribution(
             IDistribution<T1> baseDistribution1,
@@ -41,20 +38,17 @@ namespace Nintenlord.RandomDistributions
 
         #region IDistribution<T2> Members
 
-        public TResult NextValue()
-        {
-            return formulae(baseDistribution1.NextValue(), baseDistribution2.NextValue());
-        }
+        public TResult NextValue() => formulae(baseDistribution1.NextValue(), baseDistribution2.NextValue());
 
         #endregion
     }
 
     public sealed class FormulaeDistribution<T1, T2, T3, TResult> : IDistribution<TResult>
     {
-        readonly Func<T1, T2, T3, TResult> formulae;
-        readonly IDistribution<T1> baseDistribution1;
-        readonly IDistribution<T2> baseDistribution2;
-        readonly IDistribution<T3> baseDistribution3;
+        private readonly Func<T1, T2, T3, TResult> formulae;
+        private readonly IDistribution<T1> baseDistribution1;
+        private readonly IDistribution<T2> baseDistribution2;
+        private readonly IDistribution<T3> baseDistribution3;
 
         public FormulaeDistribution(
             IDistribution<T1> baseDistribution1,
@@ -70,14 +64,12 @@ namespace Nintenlord.RandomDistributions
 
         #region IDistribution<T2> Members
 
-        public TResult NextValue()
-        {
-            return formulae(
+        public TResult NextValue() =>
+            formulae(
                 baseDistribution1.NextValue(),
                 baseDistribution2.NextValue(),
                 baseDistribution3.NextValue()
-                );
-        }
+            );
 
         #endregion
     }

@@ -5,10 +5,7 @@ namespace Nintenlord.Collections.Lists
 {
     public static class ListExtensions
     {
-        public static void BubbleSort<T>(this IList<T> list) where T : IComparable<T>
-        {
-            list.BubbleSort<T>(Comparer<T>.Default);
-        }
+        public static void BubbleSort<T>(this IList<T> list) where T : IComparable<T> => list.BubbleSort<T>(Comparer<T>.Default);
 
         public static void BubbleSort<T>(this IList<T> list, IComparer<T> comp)
         {
@@ -28,10 +25,7 @@ namespace Nintenlord.Collections.Lists
         }
 
 
-        public static void SelectionSort<T>(this IList<T> list) where T : IComparable<T>
-        {
-            list.SelectionSort(Comparer<T>.Default);
-        }
+        public static void SelectionSort<T>(this IList<T> list) where T : IComparable<T> => list.SelectionSort(Comparer<T>.Default);
 
         public static void SelectionSort<T>(this IList<T> list, IComparer<T> comp)
         {
@@ -53,10 +47,7 @@ namespace Nintenlord.Collections.Lists
         }
 
 
-        public static void InsertionSort<T>(this IList<T> list) where T : IComparable<T>
-        {
-            list.InsertionSort(Comparer<T>.Default);
-        }
+        public static void InsertionSort<T>(this IList<T> list) where T : IComparable<T> => list.InsertionSort(Comparer<T>.Default);
 
         public static void InsertionSort<T>(this IList<T> list, IComparer<T> comp)
         {
@@ -76,10 +67,7 @@ namespace Nintenlord.Collections.Lists
         }
 
 
-        public static void ShellSort<T>(this IList<T> list) where T : IComparable<T>
-        {
-            list.ShellSort(Comparer<T>.Default);
-        }
+        public static void ShellSort<T>(this IList<T> list) where T : IComparable<T> => list.ShellSort(Comparer<T>.Default);
 
         public static void ShellSort<T>(this IList<T> list, IComparer<T> comp)
         {
@@ -102,10 +90,7 @@ namespace Nintenlord.Collections.Lists
         }
 
 
-        public static void CombSort<T>(this IList<T> list) where T : IComparable<T>
-        {
-            list.CombSort(Comparer<T>.Default);
-        }
+        public static void CombSort<T>(this IList<T> list) where T : IComparable<T> => list.CombSort(Comparer<T>.Default);
 
         public static void CombSort<T>(this IList<T> list, IComparer<T> comp)
         {
@@ -129,10 +114,7 @@ namespace Nintenlord.Collections.Lists
         }
 
 
-        public static void MergeSort<T>(this IList<T> list) where T : IComparable<T>
-        {
-            list.MergeSort(Comparer<T>.Default);
-        }
+        public static void MergeSort<T>(this IList<T> list) where T : IComparable<T> => list.MergeSort(Comparer<T>.Default);
 
         public static void MergeSort<T>(this IList<T> list, IComparer<T> comp)
         {

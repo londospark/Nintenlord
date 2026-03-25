@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace Nintenlord.Collections.DataChange
     /// <typeparam name="T">Type whose array is to be changed</typeparam>
     public sealed class DataChange<T> : IDataChange<T>
     {
-        SortedList<int, T[]> dataToChange;
+        private readonly SortedList<int, T[]> dataToChange;
 
         public int LastOffset
         {
@@ -33,13 +33,7 @@ namespace Nintenlord.Collections.DataChange
 
         }
 
-        public bool ChangesAnything
-        {
-            get
-            {
-                return dataToChange.Count != 0;
-            }
-        }
+        public bool ChangesAnything => dataToChange.Count != 0;
 
         /// <summary>
         /// Creates a new DataChange.
@@ -49,10 +43,7 @@ namespace Nintenlord.Collections.DataChange
             dataToChange = new SortedList<int, T[]>();
         }
 
-        public void AddChangedData(int offset, T[] data)
-        {
-            this.AddChangedData(offset, data, 0, data.Length);
-        }
+        public void AddChangedData(int offset, T[] data) => this.AddChangedData(offset, data, 0, data.Length);
 
         public void AddChangedData(int offset, T[] data, int index, int count)
         {
@@ -98,12 +89,10 @@ namespace Nintenlord.Collections.DataChange
         /// <param name="offset"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        private IEnumerable<int> GetIntersectingKeys(int offset, int count)
-        {
-            return from item in (IEnumerable<KeyValuePair<int, T[]>>)this
-                   where Intersects(offset, count, item.Key, item.Value.Length)
-                   select item.Key;
-        }
+        private IEnumerable<int> GetIntersectingKeys(int offset, int count) =>
+            from item in (IEnumerable<KeyValuePair<int, T[]>>)this
+            where Intersects(offset, count, item.Key, item.Value.Length)
+            select item.Key;
 
         public void Apply(ref T[] data)
         {
@@ -145,22 +134,14 @@ namespace Nintenlord.Collections.DataChange
             return text.ToString();
         }
 
-        public int AmountOfChanges
-        {
-            get
-            {
-                return dataToChange.Values.Sum(item => item.Length);
-            }
-        }
+        public int AmountOfChanges => dataToChange.Values.Sum(item => item.Length);
 
-        public bool Equals(IDataChange<T>? other)
-        {
-            throw new NotImplementedException();
-        }
+        public bool Equals(IDataChange<T>? other) => throw new NotImplementedException();
 
         public bool Equals(T[]? other)
         {
-            if (other is null) return false;
+            if (other is null)
+                return false;
             IEqualityComparer<T> comp = EqualityComparer<T>.Default;
 
             return !(from item in dataToChange
@@ -171,37 +152,28 @@ namespace Nintenlord.Collections.DataChange
 
         #region IEnumerable<T> Members
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return new ChangeEnumerator(this);
-        }
+        public IEnumerator<T> GetEnumerator() => new ChangeEnumerator(this);
 
         #endregion
 
         #region IEnumerable Members
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         #endregion
 
         #region IEnumerable<KeyValuePair<int,T[]>> Members
 
-        IEnumerator<KeyValuePair<int, T[]>> IEnumerable<KeyValuePair<int, T[]>>.GetEnumerator()
-        {
-            return dataToChange.GetEnumerator();
-        }
+        IEnumerator<KeyValuePair<int, T[]>> IEnumerable<KeyValuePair<int, T[]>>.GetEnumerator() => dataToChange.GetEnumerator();
 
         #endregion
 
         private class ChangeEnumerator : IEnumerator<T>
         {
-            IEnumerator<KeyValuePair<int, T[]>> enume;
-            DataChange<T> parent;
-            int index;
-            bool moveNext;
+            private readonly IEnumerator<KeyValuePair<int, T[]>> enume;
+            private DataChange<T> parent;
+            private int index;
+            private bool moveNext;
 
             public ChangeEnumerator(DataChange<T> parent)
             {
@@ -212,10 +184,7 @@ namespace Nintenlord.Collections.DataChange
 
             #region IEnumerator<T> Members
 
-            public T Current
-            {
-                get { return enume.Current.Value[index]; }
-            }
+            public T Current => enume.Current.Value[index];
 
             #endregion
 
@@ -232,10 +201,7 @@ namespace Nintenlord.Collections.DataChange
 
             #region IEnumerator Members
 
-            object IEnumerator.Current
-            {
-                get { return this.Current; }
-            }
+            object IEnumerator.Current => this.Current;
 
             public bool MoveNext()
             {
@@ -247,7 +213,8 @@ namespace Nintenlord.Collections.DataChange
                         moveNext = false;
                         return true;
                     }
-                    else return false;
+                    else
+                        return false;
                 }
                 else
                 {
@@ -300,10 +267,7 @@ namespace Nintenlord.Collections.DataChange
         #region IDataChange<T> Members
 
 
-        public void Clear()
-        {
-            dataToChange.Clear();
-        }
+        public void Clear() => dataToChange.Clear();
 
         #endregion
     }

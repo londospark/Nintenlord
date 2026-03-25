@@ -31,10 +31,7 @@ namespace Nintenlord.Utility.Primitives
             }
         }
 
-        public static bool IsInRange(this float val, float min, float max)
-        {
-            return val >= min && val <= max;
-        }
+        public static bool IsInRange(this float val, float min, float max) => val >= min && val <= max;
 
         public static IEnumerable<float> GetFloats(int n)
         {

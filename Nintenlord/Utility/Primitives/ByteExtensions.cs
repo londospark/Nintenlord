@@ -20,26 +20,15 @@ namespace Nintenlord.Utility.Primitives
             }
         }
 
-        public static bool IsInRange(this byte i, byte min, byte max)
-        {
-            return i <= max && i >= min;
-        }
+        public static bool IsInRange(this byte i, byte min, byte max) => i <= max && i >= min;
 
-        public static int Clamp(this byte i, byte min, byte max)
-        {
-            return i < min ? min :
-                   i > max ? max : i;
-        }
+        public static int Clamp(this byte i, byte min, byte max) =>
+            i < min ? min :
+            i > max ? max : i;
 
-        public static string ToHexString(this byte i, string prefix)
-        {
-            return prefix + Convert.ToString(i, 16).ToUpper();
-        }
+        public static string ToHexString(this byte i, string prefix) => prefix + Convert.ToString(i, 16).ToUpper();
 
-        public static byte GetBits(this byte i, int position, int length)
-        {
-            return (byte)(i & GetMask(position, length));
-        }
+        public static byte GetBits(this byte i, int position, int length) => (byte)(i & GetMask(position, length));
 
 
         public static byte GetMask(int position, int length)
@@ -107,7 +96,8 @@ namespace Nintenlord.Utility.Primitives
         {
             if (position < 0 || length < 0 || position + length > i.Length * 8)
                 throw new IndexOutOfRangeException();
-            if (length == 0) return new byte[0];
+            if (length == 0)
+                return new byte[0];
 
             var byteIndex = position / 8;
             var bitIndex = position % 8;
@@ -117,12 +107,15 @@ namespace Nintenlord.Utility.Primitives
             var bitTail = (position + length) % 8;
 
             var resultLength = byteLength;
-            if (bitTail > 0) resultLength++;
-            if (bitIndex > 0) resultLength++;
+            if (bitTail > 0)
+                resultLength++;
+            if (bitIndex > 0)
+                resultLength++;
             var result = new byte[resultLength];
 
             var toTrim = resultLength - byteLength;
-            if (bitLength > 0) toTrim--;
+            if (bitLength > 0)
+                toTrim--;
 
             Array.Copy(i, byteIndex, result, 0, Math.Min(result.Length, i.Length));
 

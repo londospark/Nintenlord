@@ -12,14 +12,14 @@ namespace Nintenlord.Collections
     /// <typeparam name="TValue">Type of the value to use.</typeparam>
     public class SkipList<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        Random random;
-        int maxLevel;
-        double propability;
-        IComparer<TKey> comparer;
-        SkipListNode<TKey, TValue> head;
+        private readonly Random random;
+        private readonly int maxLevel;
+        private readonly double propability;
+        private readonly IComparer<TKey> comparer;
+        private readonly SkipListNode<TKey, TValue> head;
 
-        int currentMaxLevel;
-        int count;
+        private int currentMaxLevel;
+        private int count;
 
         /// <summary>
         /// Constructs a new instance of skiplist.
@@ -60,8 +60,8 @@ namespace Nintenlord.Collections
 
         private class SkipListEnumarator : IEnumerator<KeyValuePair<TKey, TValue>>
         {
-            SkipListNode<TKey, TValue> currentNode;
-            SkipList<TKey, TValue> list;
+            private SkipListNode<TKey, TValue> currentNode;
+            private SkipList<TKey, TValue> list;
 
             public SkipListEnumarator(SkipList<TKey, TValue> list)
             {
@@ -71,10 +71,7 @@ namespace Nintenlord.Collections
 
             #region IEnumerator<T> Members
 
-            public KeyValuePair<TKey, TValue> Current
-            {
-                get { return (KeyValuePair<TKey, TValue>)currentNode; }
-            }
+            public KeyValuePair<TKey, TValue> Current => (KeyValuePair<TKey, TValue>)currentNode;
 
             #endregion
 
@@ -90,10 +87,7 @@ namespace Nintenlord.Collections
 
             #region IEnumerator Members
 
-            object IEnumerator.Current
-            {
-                get { return currentNode.Value; }
-            }
+            object IEnumerator.Current => currentNode.Value;
 
             public bool MoveNext()
             {
@@ -108,29 +102,20 @@ namespace Nintenlord.Collections
                 }
             }
 
-            public void Reset()
-            {
-                currentNode = list.head;
-            }
+            public void Reset() => currentNode = list.head;
 
             #endregion
         }
 
         #region IEnumerable<KeyValuePair<TKey, TValue>> Members
 
-        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
-        {
-            return new SkipListEnumarator(this);
-        }
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => new SkipListEnumarator(this);
 
         #endregion
 
         #region IEnumerable Members
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion
 
@@ -156,20 +141,11 @@ namespace Nintenlord.Collections
             }
         }
 
-        public int Count
-        {
-            get { return count; }
-        }
+        public int Count => count;
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
 
-        void ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue> item)
-        {
-            this.Add(item.Key, item.Value);
-        }
+        void ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue> item) => this.Add(item.Key, item.Value);
 
         bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> item)
         {
@@ -196,10 +172,7 @@ namespace Nintenlord.Collections
 
         #region IDictionary<TKey,TValue> Members
 
-        public void Add(TKey key, TValue value)
-        {
-            this.Insert(key, value, true);
-        }
+        public void Add(TKey key, TValue value) => this.Insert(key, value, true);
 
         protected void Insert(TKey key, TValue value, bool addNew)
         {
@@ -266,10 +239,7 @@ namespace Nintenlord.Collections
             return comparer.Compare(currentNode.Key, key) == 0 ? currentNode : null;
         }
 
-        public bool ContainsKey(TKey key)
-        {
-            return GetNode(key) != null;
-        }
+        public bool ContainsKey(TKey key) => GetNode(key) != null;
 
         public bool Remove(TKey key)
         {
@@ -304,7 +274,8 @@ namespace Nintenlord.Collections
                 }
                 return true;
             }
-            else return false;
+            else
+                return false;
         }
 
         public bool TryGetValue(TKey key, out TValue value)
@@ -366,10 +337,7 @@ namespace Nintenlord.Collections
                     throw new KeyNotFoundException("Key not found.");
                 }
             }
-            set
-            {
-                Insert(key, value, false);
-            }
+            set => Insert(key, value, false);
         }
 
         #endregion
@@ -380,10 +348,7 @@ namespace Nintenlord.Collections
         /// <param name="propability">A propability between values 0 and 1.</param>
         /// <param name="capacity">Amount of items skiplist will be storing.</param>
         /// <returns>The recomended max level for skiplist with passed propability and capacity.</returns>
-        public static int RecommendedMaxLevel(double propability, int capacity)
-        {
-            return (int)(-Math.Log(2 * capacity) / Math.Log(propability));
-        }
+        public static int RecommendedMaxLevel(double propability, int capacity) => (int)(-Math.Log(2 * capacity) / Math.Log(propability));
 
         /// <summary>
         /// Calculates the recommended probapility to use for constructing a new skiplist.
@@ -391,9 +356,6 @@ namespace Nintenlord.Collections
         /// <param name="maxLevel">Maximun level for skiplist to use.</param>
         /// <param name="capacity">Amount of items skiplist will be storing.</param>
         /// <returns>The recommended probapility for skiplist with passes values.</returns>
-        public static double RecommendedProbapility(int maxLevel, int capacity)
-        {
-            return Math.Pow(2 * capacity, 1 / (double)maxLevel);
-        }
+        public static double RecommendedProbapility(int maxLevel, int capacity) => Math.Pow(2 * capacity, 1 / (double)maxLevel);
     }
 }

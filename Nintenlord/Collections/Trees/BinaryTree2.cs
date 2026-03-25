@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -43,10 +43,7 @@ namespace Nintenlord.Collections.Trees
             this.MaxDepth = 1;
         }
 
-        public bool Contains(T item)
-        {
-            return this.Any(item2 => EqualityComparer<T>.Default.Equals(item, item2));
-        }
+        public bool Contains(T item) => this.Any(item2 => EqualityComparer<T>.Default.Equals(item, item2));
 
         public void CopyTo(T[] array, int arrayIndex)
         {
@@ -57,26 +54,17 @@ namespace Nintenlord.Collections.Trees
             }
         }
 
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
         #region IEnumerable<T> Members
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return ((IValuedTree<T>)Head).BreadthFirstEnumerator().GetEnumerator();
-        }
+        public IEnumerator<T> GetEnumerator() => ((IValuedTree<T>)Head).BreadthFirstEnumerator().GetEnumerator();
 
         #endregion
 
         #region IEnumerable Members
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         #endregion
 

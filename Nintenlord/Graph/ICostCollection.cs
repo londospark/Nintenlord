@@ -1,4 +1,4 @@
-﻿namespace Nintenlord.Graph
+namespace Nintenlord.Graph
 {
     public interface ICostCollection<in TNode>
     {

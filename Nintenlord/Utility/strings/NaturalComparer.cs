@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Nintenlord.Utility.Strings
@@ -11,8 +11,10 @@ namespace Nintenlord.Utility.Strings
 
         public int Compare(string? x, string? y)
         {
-            if (x is null) return y is null ? 0 : -1;
-            if (y is null) return 1;
+            if (x is null)
+                return y is null ? 0 : -1;
+            if (y is null)
+                return 1;
             var length = Math.Min(x.Length, y.Length);
 
             for (var i = 0; i < length; i++)

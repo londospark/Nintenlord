@@ -1,4 +1,4 @@
-﻿namespace Nintenlord.RandomDistributions
+namespace Nintenlord.RandomDistributions
 {
     public interface IDistribution<out T>
     {

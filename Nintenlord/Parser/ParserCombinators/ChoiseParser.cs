@@ -7,7 +7,7 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class ChoiseParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut>[] options;
+        private readonly IParser<TIn, TOut>[] options;
 
         public ChoiseParser(IEnumerable<IParser<TIn, TOut>> options)
         {
@@ -33,9 +33,6 @@ namespace Nintenlord.Parser.ParserCombinators
             return default(TOut);
         }
 
-        public override string ToString()
-        {
-            return options.ToElementWiseString("|", "(", ")");
-        }
+        public override string ToString() => options.ToElementWiseString("|", "(", ")");
     }
 }

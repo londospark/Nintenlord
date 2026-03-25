@@ -1,4 +1,4 @@
-﻿using Nintenlord.Collections;
+using Nintenlord.Collections;
 using System.Collections.Generic;
 using System.Linq;
 

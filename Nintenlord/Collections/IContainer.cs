@@ -1,9 +1,15 @@
-﻿namespace Nintenlord.Collections
+namespace Nintenlord.Collections
 {
     public interface IContainer<in T>
     {
-        int Count { get; }
-        bool IsReadOnly { get; }
+        int Count
+        {
+            get;
+        }
+        bool IsReadOnly
+        {
+            get;
+        }
         void Add(T item);
         bool Contains(T item);
         bool Remove(T item);

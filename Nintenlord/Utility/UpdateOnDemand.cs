@@ -13,10 +13,10 @@ namespace Nintenlord.Utility
     /// </summary>
     public sealed class UpdateOnDemand<T>
     {
-        T item;
-        bool update;
-        readonly Func<T> valueFactory;
-        object lockObject = new object();
+        private T item;
+        private bool update;
+        private readonly Func<T> valueFactory;
+        private readonly object lockObject = new object();
 
         public T Value
         {
@@ -51,14 +51,8 @@ namespace Nintenlord.Utility
             item = startValue;
         }
 
-        public void NeedsUpdate()
-        {
-            update = true;
-        }
+        public void NeedsUpdate() => update = true;
 
-        public static implicit operator UpdateOnDemand<T>(T item)
-        {
-            return new UpdateOnDemand<T>(() => item, item);
-        }
+        public static implicit operator UpdateOnDemand<T>(T item) => new(() => item, item);
     }
 }

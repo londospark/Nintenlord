@@ -16,8 +16,8 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
     /// </summary>
     public sealed class SequenceParser<T, TOut> : Parser<T, TOut>
     {
-        readonly T[] sequence;
-        readonly IEqualityComparer<T> equalityComparer;
+        private readonly T[] sequence;
+        private readonly IEqualityComparer<T> equalityComparer;
 
         public SequenceParser(IEnumerable<T> sequenceToFind, IEqualityComparer<T> equalityComparer)
         {

@@ -4,8 +4,8 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class OptionalParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly TOut defaultVat;
-        readonly IParser<TIn, TOut> parser;
+        private readonly TOut defaultVat;
+        private readonly IParser<TIn, TOut> parser;
 
         public OptionalParser(IParser<TIn, TOut> parser, TOut defaultVat = default(TOut))
         {

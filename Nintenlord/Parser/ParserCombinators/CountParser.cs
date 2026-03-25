@@ -6,8 +6,8 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class CountParser<TIn, TOut> : RepeatingParser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut> parser;
-        readonly int count;
+        private readonly IParser<TIn, TOut> parser;
+        private readonly int count;
 
         public CountParser(IParser<TIn, TOut> parser, int count)
         {

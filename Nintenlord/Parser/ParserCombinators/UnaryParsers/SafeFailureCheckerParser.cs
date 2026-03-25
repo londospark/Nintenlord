@@ -5,8 +5,8 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 {
     public sealed class SafeFailureCheckerParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut> parser;
-        readonly string errorText;
+        private readonly IParser<TIn, TOut> parser;
+        private readonly string errorText;
 
         public SafeFailureCheckerParser(IParser<TIn, TOut> parserToCheck, string errorText = "Safety check failed. Failing parser advanced.")
         {

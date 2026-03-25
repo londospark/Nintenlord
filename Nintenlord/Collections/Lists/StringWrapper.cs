@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Nintenlord.Collections.Lists
 {
     public sealed class StringWrapper : IList<char>
     {
-        string baseString;
+        private readonly string baseString;
 
         public StringWrapper(string baseString)
         {
@@ -15,51 +14,27 @@ namespace Nintenlord.Collections.Lists
 
         #region IList<char> Members
 
-        public int IndexOf(char item)
-        {
-            return baseString.IndexOf(item);
-        }
+        public int IndexOf(char item) => baseString.IndexOf(item);
 
-        public void Insert(int index, char item)
-        {
-            throw new NotSupportedException();
-        }
+        public void Insert(int index, char item) => throw new NotSupportedException();
 
-        public void RemoveAt(int index)
-        {
-            throw new NotSupportedException();
-        }
+        public void RemoveAt(int index) => throw new NotSupportedException();
 
         public char this[int index]
         {
-            get
-            {
-                return baseString[index];
-            }
-            set
-            {
-                throw new NotSupportedException();
-            }
+            get => baseString[index];
+            set => throw new NotSupportedException();
         }
 
         #endregion
 
         #region ICollection<char> Members
 
-        public void Add(char item)
-        {
-            throw new NotSupportedException();
-        }
+        public void Add(char item) => throw new NotSupportedException();
 
-        public void Clear()
-        {
-            throw new NotSupportedException();
-        }
+        public void Clear() => throw new NotSupportedException();
 
-        public bool Contains(char item)
-        {
-            return baseString.Contains(item);
-        }
+        public bool Contains(char item) => baseString.Contains(item);
 
         public void CopyTo(char[] array, int arrayIndex)
         {
@@ -69,38 +44,23 @@ namespace Nintenlord.Collections.Lists
             }
         }
 
-        public int Count
-        {
-            get { return baseString.Length; }
-        }
+        public int Count => baseString.Length;
 
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
-        public bool Remove(char item)
-        {
-            throw new NotSupportedException();
-        }
+        public bool Remove(char item) => throw new NotSupportedException();
 
         #endregion
 
         #region IEnumerable<char> Members
 
-        public IEnumerator<char> GetEnumerator()
-        {
-            return baseString.GetEnumerator();
-        }
+        public IEnumerator<char> GetEnumerator() => baseString.GetEnumerator();
 
         #endregion
 
         #region IEnumerable Members
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return baseString.GetEnumerator();
-        }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => baseString.GetEnumerator();
 
         #endregion
     }

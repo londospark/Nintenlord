@@ -18,14 +18,11 @@ namespace Nintenlord.Grammars
             }
 
             public static readonly Input Return = new Input(true, default(TInput));
-            public static Input GetMove(TInput toMove)
-            {
-                return new Input(false, toMove);
-            }
+            public static Input GetMove(TInput toMove) => new(false, toMove);
         }
 
-        TState[] startState;
-        IStateMachine<TState, TInput> stateMachine;
+        private readonly TState[] startState;
+        private readonly IStateMachine<TState, TInput> stateMachine;
 
         public HistoryKeepingStateMachine(IStateMachine<TState, TInput> stateMachine)
         {
@@ -35,21 +32,13 @@ namespace Nintenlord.Grammars
 
         #region IStateMachine<TState[],TInput> Members
 
-        public TState[] StartState
-        {
-            get { return startState; }
-        }
+        public TState[] StartState => startState;
 
-        public IEnumerable<TState[]> GetStates()
-        {
+        public IEnumerable<TState[]> GetStates() => throw
             //Yeah
-            throw new NotImplementedException();
-        }
+            new NotImplementedException();
 
-        public bool IsFinalState(TState[] state)
-        {
-            return stateMachine.IsFinalState(state[state.Length - 1]);
-        }
+        public bool IsFinalState(TState[] state) => stateMachine.IsFinalState(state[state.Length - 1]);
 
         public TState[] Transition(TState[] currentState, Input input)
         {

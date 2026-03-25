@@ -29,9 +29,6 @@ namespace Nintenlord.Utility
             }
         }
 
-        public static T Cast<T>(this object item)
-        {
-            return (T)item;
-        }
+        public static T Cast<T>(this object item) => (T)item;
     }
 }

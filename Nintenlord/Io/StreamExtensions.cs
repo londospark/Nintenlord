@@ -5,10 +5,7 @@ namespace Nintenlord.IO
 {
     public static class StreamExtensions
     {
-        public static bool IsAtEnd(this Stream current)
-        {
-            return current.Position >= current.Length;
-        }
+        public static bool IsAtEnd(this Stream current) => current.Position >= current.Length;
 
         public static IEnumerable<string> LineEnumerator(this TextReader reader)
         {

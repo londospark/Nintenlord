@@ -5,25 +5,18 @@ namespace Nintenlord.Geometry.Vectors
     [StructLayout(LayoutKind.Explicit, Pack = 2, Size = 2)]
     public struct Color5bpc : IPrimitiveVector<ushort>, IPrimitiveVector<short>, IRGBColor
     {
-        [FieldOffset(0)]
-        ushort value;
+        [FieldOffset(0)] private ushort value;
 
-        const int Shift = sizeof(byte) - 5;
-        const int Mask = 0x1F;
-        const int Size = 5;
+        private const int Shift = sizeof(byte) - 5;
+        private const int Mask = 0x1F;
+        private const int Size = 5;
 
         #region IPrimitiveVector<ushort> Members
 
         ushort IPrimitiveVector<ushort>.Primitive
         {
-            get
-            {
-                return value;
-            }
-            set
-            {
-                this.value = value;
-            }
+            get => value;
+            set => this.value = value;
         }
 
         #endregion
@@ -32,14 +25,8 @@ namespace Nintenlord.Geometry.Vectors
 
         short IPrimitiveVector<short>.Primitive
         {
-            get
-            {
-                return (short)value;
-            }
-            set
-            {
-                this.value = (ushort)value;
-            }
+            get => (short)value;
+            set => this.value = (ushort)value;
         }
 
         #endregion
@@ -49,10 +36,7 @@ namespace Nintenlord.Geometry.Vectors
 
         public int R
         {
-            get
-            {
-                return value & 0x1F;
-            }
+            get => value & 0x1F;
             set
             {
                 int newValue = this.value;
@@ -64,10 +48,7 @@ namespace Nintenlord.Geometry.Vectors
 
         public int G
         {
-            get
-            {
-                return value >> 5 & 0x1F;
-            }
+            get => value >> 5 & 0x1F;
             set
             {
                 int newValue = this.value;
@@ -79,10 +60,7 @@ namespace Nintenlord.Geometry.Vectors
 
         public int B
         {
-            get
-            {
-                return value >> 10 & 0x1F;
-            }
+            get => value >> 10 & 0x1F;
             set
             {
                 int newValue = this.value;

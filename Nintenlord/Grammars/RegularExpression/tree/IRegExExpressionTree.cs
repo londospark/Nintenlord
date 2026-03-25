@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
 // <copyright file="RegExExpressionTree.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
@@ -13,6 +13,9 @@ namespace Nintenlord.Grammars.RegularExpression.Tree
     /// </summary>
     public interface IRegExExpressionTree<TLetter> : ITree<IRegExExpressionTree<TLetter>>
     {
-        RegExNodeTypes Type { get; }
+        RegExNodeTypes Type
+        {
+            get;
+        }
     }
 }

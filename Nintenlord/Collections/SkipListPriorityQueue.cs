@@ -6,14 +6,14 @@ namespace Nintenlord.Collections
 {
     public class SkipListPriorityQueue<TPriority, TValue> : IPriorityQueue<TPriority, TValue>
     {
-        Random random;
-        int maxLevel;
-        int currentMaxLevel;
-        double propability;
-        int count;
-        int version;
-        IComparer<TPriority> comparer;
-        SkipListNode<TPriority, TValue> head;
+        private readonly Random random;
+        private readonly int maxLevel;
+        private int currentMaxLevel;
+        private readonly double propability;
+        private int count;
+        private int version;
+        private readonly IComparer<TPriority> comparer;
+        private readonly SkipListNode<TPriority, TValue> head;
 
         public SkipListPriorityQueue()
             : this(100, Comparer<TPriority>.Default, 0.5, new Random())
@@ -107,8 +107,6 @@ namespace Nintenlord.Collections
                     currentNode = currentNode[level];
                 toUpdate[level] = currentNode;
             }
-
-            currentNode = currentNode[0];
 
             var newLevel = this.NewLevel();
             var newNode =
@@ -295,23 +293,19 @@ namespace Nintenlord.Collections
             if (count == 0)
                 yield break;
 
-            var current = head;
-            do
+            var current = head[0];
+            while (current != head)
             {
-                current = current[0];
                 yield return new KeyValuePair<TPriority, TValue>(current.Key, current.Value);
+                current = current[0];
             }
-            while (current != null);
         }
 
         #endregion
 
         #region IEnumerable Members
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         #endregion
 
@@ -325,20 +319,11 @@ namespace Nintenlord.Collections
             }
         }
 
-        public int Count
-        {
-            get { return count; }
-        }
+        public int Count => count;
 
-        public bool IsSynchronized
-        {
-            get { return false; }
-        }
+        public bool IsSynchronized => false;
 
-        public object SyncRoot
-        {
-            get { return this; }
-        }
+        public object SyncRoot => this;
 
         #endregion
 

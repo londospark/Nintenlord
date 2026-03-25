@@ -4,7 +4,7 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class SkipMany1Parser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut> toRepeat;
+        private readonly IParser<TIn, TOut> toRepeat;
 
         public SkipMany1Parser(IParser<TIn, TOut> toRepeat)
         {
@@ -32,7 +32,8 @@ namespace Nintenlord.Parser.ParserCombinators
                     {
                         match += latestMatch;
                     }
-                    else break;
+                    else
+                        break;
                 }
             }
 

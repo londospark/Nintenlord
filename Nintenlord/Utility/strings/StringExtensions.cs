@@ -11,27 +11,18 @@ namespace Nintenlord.Utility.Strings
     /// </summary>
     public static class StringExtensions
     {
-        public static bool IsLable(this string parameter)
-        {
+        public static bool IsLable(this string parameter) =>
             //return parameter.StartsWith("@") || parameter.EndsWith(":");
-            return parameter.EndsWith(":");
-        }
-        public static bool IsHexNumber(this string parameter)
-        {
-            return (parameter.StartsWith("0x") || parameter.StartsWith("$"));
-        }
-        public static bool IsHexByte(this string parameter)
-        {
-            return parameter.StartsWith("0x");
-        }
-        public static bool IsHexWord(this string parameter)
-        {
-            return parameter.StartsWith("$");
-        }
-        public static bool IsBinary(this string parameter)
-        {
-            return parameter.EndsWith("b", StringComparison.OrdinalIgnoreCase);
-        }
+            parameter.EndsWith(":");
+
+        public static bool IsHexNumber(this string parameter) => (parameter.StartsWith("0x") || parameter.StartsWith("$"));
+
+        public static bool IsHexByte(this string parameter) => parameter.StartsWith("0x");
+
+        public static bool IsHexWord(this string parameter) => parameter.StartsWith("$");
+
+        public static bool IsBinary(this string parameter) => parameter.EndsWith("b", StringComparison.OrdinalIgnoreCase);
+
         public static bool IsValidNumber(this string parameter)
         {
             if (parameter.Length == 0)
@@ -83,22 +74,13 @@ namespace Nintenlord.Utility.Strings
             return true;
         }
 
-        public static bool ContainsWhiteSpace(this string text)
-        {
-            return text.Contains(char.IsWhiteSpace);
-        }
-        public static bool ContainsNonWhiteSpace(this string text)
-        {
-            return text.Contains(x => !char.IsWhiteSpace(x));
-        }
-        public static bool ContainsAnyOf(this string text, char[] toContain)
-        {
-            return text.Contains(toContain.Contains);
-        }
-        public static bool Contains(this string text, Predicate<char> test)
-        {
-            return text.Any(t => test(t));
-        }
+        public static bool ContainsWhiteSpace(this string text) => text.Contains(char.IsWhiteSpace);
+
+        public static bool ContainsNonWhiteSpace(this string text) => text.Contains(x => !char.IsWhiteSpace(x));
+
+        public static bool ContainsAnyOf(this string text, char[] toContain) => text.Contains(toContain.Contains);
+
+        public static bool Contains(this string text, Predicate<char> test) => text.Any(t => test(t));
 
 
         public static bool TryGetValue(this string s, out int value)
@@ -109,7 +91,8 @@ namespace Nintenlord.Utility.Strings
                 value = s.GetValue();
                 return true;
             }
-            else return false;
+            else
+                return false;
         }
 
         public static bool Same(string a, int index1, string b, int index2, int length)
@@ -158,11 +141,10 @@ namespace Nintenlord.Utility.Strings
 
             return code;
         }
-        public static string GetLableName(this string parameter)
-        {
+        public static string GetLableName(this string parameter) =>
             //return parameter.Trim('@', ':');
-            return parameter.TrimEnd(':');
-        }
+            parameter.TrimEnd(':');
+
         public static int[] GetIndexes(this string text, string toFind)
         {
             var results = new List<int>(text.Length);
@@ -193,7 +175,8 @@ namespace Nintenlord.Utility.Strings
         public static int LastIndexOf(this string text, Predicate<char> match)
         {
             int i;
-            for (i = text.Length - 1; i >= 0 && match(text[i]); i--) ;
+            for (i = text.Length - 1; i >= 0 && match(text[i]); i--)
+                ;
             return i;
         }
 
@@ -340,10 +323,7 @@ namespace Nintenlord.Utility.Strings
         }
 
 
-        public static int Amount(this string text, char value)
-        {
-            return text.Count(character => character == value);
-        }
+        public static int Amount(this string text, char value) => text.Count(character => character == value);
 
         public static int Amount(this string text, char value, int start, int length)
         {
@@ -422,19 +402,13 @@ namespace Nintenlord.Utility.Strings
             }
         }
 
-        public static StringBuilder Remove(this StringBuilder bldr, int length)
-        {
-            return bldr.Remove(0, length);
-        }
-        public static StringBuilder RemoveFromEnd(this StringBuilder bldr, int length)
-        {
-            return bldr.Remove(bldr.Length - length, length);
-        }
+        public static StringBuilder Remove(this StringBuilder bldr, int length) => bldr.Remove(0, length);
+
+        public static StringBuilder RemoveFromEnd(this StringBuilder bldr, int length) => bldr.Remove(bldr.Length - length, length);
+
         [Obsolete("Use stringBuilder.Clear() instead", true)]
-        public static StringBuilder RemoveAll(this StringBuilder bldr)
-        {
-            return bldr.Remove(0, bldr.Length);
-        }
+        public static StringBuilder RemoveAll(this StringBuilder bldr) => bldr.Remove(0, bldr.Length);
+
         public static StringBuilder Substring(this StringBuilder bldr, int index, int length)
         {
             var subBldr = new StringBuilder(length);
@@ -445,11 +419,9 @@ namespace Nintenlord.Utility.Strings
             return subBldr;
         }
 
-        public static bool FirstNonWhiteSpaceIs(this string s, char c)
-        {
-            return (from t in s
-                    where !Char.IsWhiteSpace(t)
-                    select t == c).FirstOrDefault();
-        }
+        public static bool FirstNonWhiteSpaceIs(this string s, char c) =>
+            (from t in s
+                where !Char.IsWhiteSpace(t)
+                select t == c).FirstOrDefault();
     }
 }

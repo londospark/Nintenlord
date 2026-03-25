@@ -5,7 +5,8 @@ namespace Nintenlord.Utility
     public struct FixedPointInteger : IEquatable<FixedPointInteger>, IComparable<FixedPointInteger>//, IConvertible
     {
         #region Static
-        static readonly int[] masks;
+
+        private static readonly int[] masks;
 
         static FixedPointInteger()
         {
@@ -21,26 +22,20 @@ namespace Nintenlord.Utility
             decimalMask = masks[decimals];
         }
 
-        static readonly int decimals;
-        static readonly int decimalMask;
+        private static readonly int decimals;
+        private static readonly int decimalMask;
         #endregion
 
-        readonly int rawValue;
+        private readonly int rawValue;
 
         private FixedPointInteger(int rawVal)
         {
             rawValue = rawVal;
         }
 
-        public static explicit operator int(FixedPointInteger val)
-        {
-            return val.rawValue >> decimals;
-        }
+        public static explicit operator int(FixedPointInteger val) => val.rawValue >> decimals;
 
-        public static implicit operator FixedPointInteger(int val)
-        {
-            return new FixedPointInteger(val << decimals);
-        }
+        public static implicit operator FixedPointInteger(int val) => new(val << decimals);
 
         public static explicit operator float(FixedPointInteger val)
         {
@@ -58,15 +53,9 @@ namespace Nintenlord.Utility
             return new FixedPointInteger(rawval);
         }
 
-        public static FixedPointInteger operator +(FixedPointInteger val, FixedPointInteger val2)
-        {
-            return new FixedPointInteger(val.rawValue + val2.rawValue);
-        }
+        public static FixedPointInteger operator +(FixedPointInteger val, FixedPointInteger val2) => new(val.rawValue + val2.rawValue);
 
-        public static FixedPointInteger operator -(FixedPointInteger val, FixedPointInteger val2)
-        {
-            return new FixedPointInteger(val.rawValue - val2.rawValue);
-        }
+        public static FixedPointInteger operator -(FixedPointInteger val, FixedPointInteger val2) => new(val.rawValue - val2.rawValue);
 
         public static FixedPointInteger operator *(FixedPointInteger val, FixedPointInteger val2)
         {
@@ -82,47 +71,26 @@ namespace Nintenlord.Utility
             return new FixedPointInteger(result);
         }
 
-        public static FixedPointInteger operator <<(FixedPointInteger val, int val2)
-        {
-            return new FixedPointInteger(val.rawValue << val2);
-        }
+        public static FixedPointInteger operator <<(FixedPointInteger val, int val2) => new(val.rawValue << val2);
 
-        public static FixedPointInteger operator >>(FixedPointInteger val, int val2)
-        {
-            return new FixedPointInteger(val.rawValue >> val2);
-        }
+        public static FixedPointInteger operator >>(FixedPointInteger val, int val2) => new(val.rawValue >> val2);
 
-        public static FixedPointInteger operator &(FixedPointInteger val, FixedPointInteger val2)
-        {
-            return new FixedPointInteger(val.rawValue & val2.rawValue);
-        }
+        public static FixedPointInteger operator &(FixedPointInteger val, FixedPointInteger val2) => new(val.rawValue & val2.rawValue);
 
-        public static FixedPointInteger operator |(FixedPointInteger val, FixedPointInteger val2)
-        {
-            return new FixedPointInteger(val.rawValue | val2.rawValue);
-        }
+        public static FixedPointInteger operator |(FixedPointInteger val, FixedPointInteger val2) => new(val.rawValue | val2.rawValue);
 
-        public static FixedPointInteger operator ^(FixedPointInteger val, FixedPointInteger val2)
-        {
-            return new FixedPointInteger(val.rawValue ^ val2.rawValue);
-        }
+        public static FixedPointInteger operator ^(FixedPointInteger val, FixedPointInteger val2) => new(val.rawValue ^ val2.rawValue);
 
 
         #region IEquatable<FixedPointInteger> Members
 
-        public bool Equals(FixedPointInteger other)
-        {
-            return this.CompareTo(other) == 0;
-        }
+        public bool Equals(FixedPointInteger other) => this.CompareTo(other) == 0;
 
         #endregion
 
         #region IComparable<FixedPointInteger> Members
 
-        public int CompareTo(FixedPointInteger other)
-        {
-            return this.rawValue - other.rawValue;
-        }
+        public int CompareTo(FixedPointInteger other) => this.rawValue - other.rawValue;
 
         #endregion
 
@@ -138,17 +106,12 @@ namespace Nintenlord.Utility
             }
         }
 
-        public override int GetHashCode()
-        {
-            return rawValue;
-        }
+        public override int GetHashCode() => rawValue;
 
-        public override string ToString()
-        {
+        public override string ToString() =>
             //return Convert.ToString(rawValue, 16);
             //return rawValue.ToString();
-            return ((float)this).ToString();
-        }
+            ((float)this).ToString();
 
         #region IConvertible Members
 

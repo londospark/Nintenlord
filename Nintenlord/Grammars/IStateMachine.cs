@@ -4,7 +4,10 @@ namespace Nintenlord.Grammars
 {
     public interface IStateMachine<TState, in TInput>
     {
-        TState StartState { get; }
+        TState StartState
+        {
+            get;
+        }
 
         IEnumerable<TState> GetStates();
         bool IsFinalState(TState state);
@@ -15,10 +18,8 @@ namespace Nintenlord.Grammars
     {
         public static IEnumerable<TState> RunUntilFinalState<TState, TInput>(
             this IStateMachine<TState, TInput> machine,
-            IEnumerable<TInput> input)
-        {
-            return RunUntilFinalState(machine, input, machine.StartState);
-        }
+            IEnumerable<TInput> input) =>
+            RunUntilFinalState(machine, input, machine.StartState);
 
         public static IEnumerable<TState> RunUntilFinalState<TState, TInput>(
             this IStateMachine<TState, TInput> machine,
@@ -39,9 +40,7 @@ namespace Nintenlord.Grammars
         }
 
         public static HistoryKeepingStateMachine<TState, TInput>
-            GetHistoryKeeping<TState, TInput>(this IStateMachine<TState, TInput> machine)
-        {
-            return new HistoryKeepingStateMachine<TState, TInput>(machine);
-        }
+            GetHistoryKeeping<TState, TInput>(this IStateMachine<TState, TInput> machine) =>
+            new(machine);
     }
 }

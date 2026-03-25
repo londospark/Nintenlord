@@ -14,7 +14,7 @@ namespace Nintenlord.Parser
     /// </summary>
     public sealed class LazyParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly Lazy<IParser<TIn, TOut>> mainParser;
+        private readonly Lazy<IParser<TIn, TOut>> mainParser;
 
         public LazyParser(Lazy<IParser<TIn, TOut>> mainParser)
         {
@@ -26,9 +26,6 @@ namespace Nintenlord.Parser
             this.mainParser = new Lazy<IParser<TIn, TOut>>(parserFactory);
         }
 
-        protected override TOut ParseMain(IScanner<TIn> scanner, out Match<TIn> match)
-        {
-            return mainParser.Value.Parse(scanner, out match);
-        }
+        protected override TOut ParseMain(IScanner<TIn> scanner, out Match<TIn> match) => mainParser.Value.Parse(scanner, out match);
     }
 }

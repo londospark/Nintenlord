@@ -1,4 +1,4 @@
-﻿namespace Nintenlord.Graph
+namespace Nintenlord.Graph
 {
     using System;
     using System.Collections.Generic;

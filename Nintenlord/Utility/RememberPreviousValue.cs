@@ -15,23 +15,14 @@ namespace Nintenlord.Utility
     {
         public T Current
         {
-            get
-            {
-                return current;
-            }
+            get => current;
             set
             {
                 previous = current;
                 current = value;
             }
         }
-        public T Previous
-        {
-            get
-            {
-                return previous;
-            }
-        }
+        public T Previous => previous;
 
         private T current;
         private T previous;
@@ -42,29 +33,14 @@ namespace Nintenlord.Utility
             previous = default(T);
         }
 
-        public TOut Apply<TOut>(Func<T, T, TOut> difference)
-        {
-            return difference(current, previous);
-        }
+        public TOut Apply<TOut>(Func<T, T, TOut> difference) => difference(current, previous);
 
-        public void RestorePrevious()
-        {
-            current = previous;
-        }
+        public void RestorePrevious() => current = previous;
 
-        public static implicit operator RememberPreviousValue<T>(T value)
-        {
-            return new RememberPreviousValue<T>(value);
-        }
+        public static implicit operator RememberPreviousValue<T>(T value) => new(value);
 
-        public static explicit operator T(RememberPreviousValue<T> value)
-        {
-            return value.current;
-        }
+        public static explicit operator T(RememberPreviousValue<T> value) => value.current;
 
-        public override string ToString()
-        {
-            return string.Format("Current: {0}, Previous: {1}", current, previous);
-        }
+        public override string ToString() => string.Format("Current: {0}, Previous: {1}", current, previous);
     }
 }

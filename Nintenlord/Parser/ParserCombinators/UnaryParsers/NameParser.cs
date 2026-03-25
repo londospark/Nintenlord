@@ -4,8 +4,8 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 {
     public sealed class NameParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly string name;
-        readonly IParser<TIn, TOut> parser;
+        private readonly string name;
+        private readonly IParser<TIn, TOut> parser;
 
         public NameParser(IParser<TIn, TOut> parser, string name)
         {
@@ -31,9 +31,6 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
             return result;
         }
 
-        public override string ToString()
-        {
-            return name;
-        }
+        public override string ToString() => name;
     }
 }

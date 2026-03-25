@@ -6,8 +6,8 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class ManyTillParser<TIn, TEnd, TOut> : RepeatingParser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut> results;
-        readonly IParser<TIn, TEnd> ender;
+        private readonly IParser<TIn, TOut> results;
+        private readonly IParser<TIn, TEnd> ender;
 
         public ManyTillParser(IParser<TIn, TOut> results, IParser<TIn, TEnd> ender)
         {

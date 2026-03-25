@@ -8,7 +8,7 @@ namespace Nintenlord.Collections.Dictionaries
         List<KeyValuePair<TKey, TValue>>,
         IDictionary<TKey, TValue>
     {
-        IEqualityComparer<TKey> comparer;
+        private readonly IEqualityComparer<TKey> comparer;
 
         public ArrayDictionary()
             : this(EqualityComparer<TKey>.Default)
@@ -58,10 +58,7 @@ namespace Nintenlord.Collections.Dictionaries
             this.Add(new KeyValuePair<TKey, TValue>(key, value));
         }
 
-        public bool ContainsKey(TKey key)
-        {
-            return this.Any(item => comparer.Equals(item.Key, key));
-        }
+        public bool ContainsKey(TKey key) => this.Any(item => comparer.Equals(item.Key, key));
 
         public ICollection<TKey> Keys
         {

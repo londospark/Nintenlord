@@ -13,10 +13,10 @@ namespace Nintenlord.Collections.Lists
     /// <typeparam name="T">Type of items in collection</typeparam>
     public sealed class LinkedArrayList<T> : ICollection<T>, IList<T>
     {
-        T[] items;
-        int count;
-        int firstReservedIndex;//The first reserved index
-        int firstFreeIndex;//The first free index
+        private T[] items;
+        private int count;
+        private int firstReservedIndex;//The first reserved index
+        private int firstFreeIndex;//The first free index
 
         public T First
         {
@@ -339,7 +339,8 @@ namespace Nintenlord.Collections.Lists
                 return index.IsInRangeHO(firstReservedIndex, items.Length)
                     || index.IsInRangeHO(0, firstFreeIndex);
             }
-            else return false;
+            else
+                return false;
         }
 
         private IEnumerator<T> InternalGetEnumerator(int start, int end)
@@ -366,10 +367,7 @@ namespace Nintenlord.Collections.Lists
 
         #region ICollection<T> Members
 
-        public void Add(T item)
-        {
-            AddLast(item);
-        }
+        public void Add(T item) => AddLast(item);
 
         public void Clear()
         {
@@ -379,10 +377,7 @@ namespace Nintenlord.Collections.Lists
             Array.Clear(items, 0, items.Length);
         }
 
-        public bool Contains(T item)
-        {
-            return Find(item) >= 0;
-        }
+        public bool Contains(T item) => Find(item) >= 0;
 
         public void CopyTo(T[] array, int arrayIndex)
         {
@@ -393,15 +388,9 @@ namespace Nintenlord.Collections.Lists
             }
         }
 
-        public int Count
-        {
-            get { return count; }
-        }
+        public int Count => count;
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
 
         public bool Remove(T item)
         {
@@ -415,35 +404,24 @@ namespace Nintenlord.Collections.Lists
 
         #region IEnumerable<T> Members
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return InternalGetEnumerator(firstReservedIndex, firstFreeIndex);
-        }
+        public IEnumerator<T> GetEnumerator() => InternalGetEnumerator(firstReservedIndex, firstFreeIndex);
 
-        public IEnumerator<T> GetEnumerator(int start, int length)
-        {
-            return InternalGetEnumerator(
+        public IEnumerator<T> GetEnumerator(int start, int length) =>
+            InternalGetEnumerator(
                 ToInternalIndex(start),
                 ToInternalIndex(length));
-        }
 
         #endregion
 
         #region IEnumerable Members
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion
 
         #region IList<T> Members
 
-        public int IndexOf(T item)
-        {
-            return ToRealIndex(Find(item));
-        }
+        public int IndexOf(T item) => ToRealIndex(Find(item));
 
         public void Insert(int index, T item)
         {

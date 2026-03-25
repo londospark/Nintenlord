@@ -2,22 +2,15 @@
 {
     public struct FilePosition
     {
-        readonly string file;
-        readonly int line;
-        readonly int column;
+        private readonly string file;
+        private readonly int line;
+        private readonly int column;
 
-        public int Line
-        {
-            get { return line; }
-        }
-        public int Column
-        {
-            get { return column; }
-        }
-        public string File
-        {
-            get { return file; }
-        }
+        public int Line => line;
+
+        public int Column => column;
+
+        public string File => file;
 
         public FilePosition(string file, int line, int column)
         {
@@ -26,14 +19,8 @@
             this.column = column;
         }
 
-        public static FilePosition BeginningPosition(string file)
-        {
-            return new FilePosition(file, 1, 1);
-        }
+        public static FilePosition BeginningPosition(string file) => new(file, 1, 1);
 
-        public override string ToString()
-        {
-            return string.Format("File {0}, Line {1}, Column {2}", System.IO.Path.GetFileName(file), line, column);
-        }
+        public override string ToString() => string.Format("File {0}, Line {1}, Column {2}", System.IO.Path.GetFileName(file), line, column);
     }
 }

@@ -8,15 +8,9 @@ namespace Nintenlord.Utility.Primitives
     /// </summary>
     public static class IntegerExtensions
     {
-        public static bool IsInRange(this int i, int min, int max)
-        {
-            return i <= max && i >= min;
-        }
+        public static bool IsInRange(this int i, int min, int max) => i <= max && i >= min;
 
-        public static bool IsInRangeHO(this int i, int min, int max)
-        {
-            return i < max && i >= min;
-        }
+        public static bool IsInRangeHO(this int i, int min, int max) => i < max && i >= min;
 
         public static void Clamp(ref int i, int min, int max)
         {
@@ -29,11 +23,9 @@ namespace Nintenlord.Utility.Primitives
                 i = max;
             }
         }
-        public static int Clamp(this int i, int min, int max)
-        {
-            return i < min ? min :
-                   i > max ? max : i;
-        }
+        public static int Clamp(this int i, int min, int max) =>
+            i < min ? min :
+            i > max ? max : i;
 
         public static int ToMod(this int i, int mod)
         {
@@ -52,23 +44,13 @@ namespace Nintenlord.Utility.Primitives
             }
         }
 
-        public static string ToHexString(this int i, string prefix)
-        {
-            return ToHexString(i, prefix, "");
-        }
-        public static string ToHexString(this int i, string prefix, string postfix)
-        {
-            return prefix + Convert.ToString(i, 16).ToUpper() + postfix;
-        }
+        public static string ToHexString(this int i, string prefix) => ToHexString(i, prefix, "");
 
-        public static string ToBinString(this int i, string postfix)
-        {
-            return ToBinString(i, "", postfix);
-        }
-        public static string ToBinString(this int i, string prefix, string postfix)
-        {
-            return prefix + Convert.ToString(i, 2) + postfix;
-        }
+        public static string ToHexString(this int i, string prefix, string postfix) => prefix + Convert.ToString(i, 16).ToUpper() + postfix;
+
+        public static string ToBinString(this int i, string postfix) => ToBinString(i, "", postfix);
+
+        public static string ToBinString(this int i, string prefix, string postfix) => prefix + Convert.ToString(i, 2) + postfix;
 
         public static bool Intersects(int index1, int length1, int index2, int length2)
         {
@@ -97,7 +79,8 @@ namespace Nintenlord.Utility.Primitives
 
         public static int TrailingZeroCount(this int value)
         {
-            if (value == 0) return 32;
+            if (value == 0)
+                return 32;
 
             var result = 0;
 
@@ -132,7 +115,8 @@ namespace Nintenlord.Utility.Primitives
 
         public static int LeadingZeroCount(this int value)
         {
-            if (value == 0) return 32;
+            if (value == 0)
+                return 32;
 
             var result = 0;
 
@@ -167,7 +151,8 @@ namespace Nintenlord.Utility.Primitives
 
         public static int TrailingZeroCount(this long value)
         {
-            if (value == 0) return 64;
+            if (value == 0)
+                return 64;
 
             var result = 0;
 
@@ -207,7 +192,8 @@ namespace Nintenlord.Utility.Primitives
 
         public static int LeadingZeroCount(this ulong value)
         {
-            if (value == 0) return 64;
+            if (value == 0)
+                return 64;
 
             var result = 0;
 
@@ -270,9 +256,6 @@ namespace Nintenlord.Utility.Primitives
             }
         }
 
-        public static int Lerp(int min, int max, double val, MidpointRounding roundingMode)
-        {
-            return min + (int)Math.Round((max - min) * val, roundingMode);
-        }
+        public static int Lerp(int min, int max, double val, MidpointRounding roundingMode) => min + (int)Math.Round((max - min) * val, roundingMode);
     }
 }

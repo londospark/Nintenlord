@@ -12,7 +12,7 @@ namespace Nintenlord.Collections.DataChange
         /// <summary>
         /// Foreach (x,l) in indexes: x >= 0 && l > 0 && next(x) > x + l;
         /// </summary>
-        SortedDictionary<int, int> indexes;
+        private SortedDictionary<int, int> indexes;
 
         public IndexOverlay()
         {
@@ -21,28 +21,13 @@ namespace Nintenlord.Collections.DataChange
 
         #region IIndexOverlay Members
 
-        public bool ContainsIndexes
-        {
-            get { return indexes.Count > 0; }
-        }
+        public bool ContainsIndexes => indexes.Count > 0;
 
-        public int AmountOfIndexes
-        {
-            get
-            {
-                return indexes.Values.Sum();
-            }
-        }
+        public int AmountOfIndexes => indexes.Values.Sum();
 
-        public int FirstIndex
-        {
-            get { return indexes.Keys.First(); }
-        }
+        public int FirstIndex => indexes.Keys.First();
 
-        public int LastIndex
-        {
-            get { return indexes.Last().Apply((x, y) => x + y); }
-        }
+        public int LastIndex => indexes.Last().Apply((x, y) => x + y);
 
         public bool ContainsIndex(int index)
         {
@@ -220,10 +205,7 @@ namespace Nintenlord.Collections.DataChange
             return result;
         }
 
-        public KeyValuePair<int, int>[] GetIndexAreas()
-        {
-            return indexes.ToArray();
-        }
+        public KeyValuePair<int, int>[] GetIndexAreas() => indexes.ToArray();
 
         public bool ContainsAnyIndex(int index, int length)
         {
@@ -259,10 +241,7 @@ namespace Nintenlord.Collections.DataChange
             return endLeft != -1 && (endLeft <= index && LastIndexOf(endLeft) >= index + length);
         }
 
-        public IEnumerator<KeyValuePair<int, int>> GetRanges(int min, int max)
-        {
-            return indexes.Where(range => range.Key >= min && range.Key + range.Value <= max).GetEnumerator();
-        }
+        public IEnumerator<KeyValuePair<int, int>> GetRanges(int min, int max) => indexes.Where(range => range.Key >= min && range.Key + range.Value <= max).GetEnumerator();
 
         IEnumerator<int> IIndexOverlay.GetEnumerator(int min, int max)
         {
@@ -281,28 +260,19 @@ namespace Nintenlord.Collections.DataChange
 
         #region IEnumerable<int> Members
 
-        public IEnumerator<int> GetEnumerator()
-        {
-            return ((IIndexOverlay)this).GetEnumerator(FirstIndex, LastIndex);
-        }
+        public IEnumerator<int> GetEnumerator() => ((IIndexOverlay)this).GetEnumerator(FirstIndex, LastIndex);
 
         #endregion
 
         #region IEnumerable Members
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         #endregion
 
         #region IEnumerable<KeyValuePair<int,int>> Members
 
-        IEnumerator<KeyValuePair<int, int>> IEnumerable<KeyValuePair<int, int>>.GetEnumerator()
-        {
-            return indexes.GetEnumerator();
-        }
+        IEnumerator<KeyValuePair<int, int>> IEnumerable<KeyValuePair<int, int>>.GetEnumerator() => indexes.GetEnumerator();
 
         #endregion
 
@@ -355,17 +325,12 @@ namespace Nintenlord.Collections.DataChange
             return items;
         }
 
-        private int LastIndexOf(int index)
-        {
-            return indexes[index] + index;
-        }
+        private int LastIndexOf(int index) => indexes[index] + index;
 
-        private bool IsContained(int index, int inIndex)
-        {
-            return inIndex != -1
-                && inIndex <= index
-                && index < LastIndexOf(inIndex);
-        }
+        private bool IsContained(int index, int inIndex) =>
+            inIndex != -1
+            && inIndex <= index
+            && index < LastIndexOf(inIndex);
 
         public override string ToString()
         {

@@ -6,17 +6,14 @@ using System.Runtime.Serialization;
 namespace Nintenlord.Collections.Dictionaries
 {
     [Serializable]
-    class SerializableDictionary<Tkey, TValue> : ISerializable
+    internal class SerializableDictionary<Tkey, TValue> : ISerializable
     {
         private const string TypeName = "Type";
         private const string ValuesName = "Values";
 
-        IDictionary<Tkey, TValue> baseDictionary;
+        private IDictionary<Tkey, TValue> baseDictionary;
 
-        public IDictionary<Tkey, TValue> Base
-        {
-            get { return baseDictionary; }
-        }
+        public IDictionary<Tkey, TValue> Base => baseDictionary;
 
         public SerializableDictionary()
         {

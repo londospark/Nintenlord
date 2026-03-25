@@ -15,22 +15,13 @@ namespace Nintenlord.Collections.Trees
     /// </summary>
     public sealed class RoseTree<T> : IValuedTree<T>
     {
-        readonly RoseTree<T>[] children;
-        readonly T value;
-        readonly bool hasValue;
+        private readonly RoseTree<T>[] children;
+        private readonly T value;
+        private readonly bool hasValue;
 
-        public RoseTree<T> this[int index]
-        {
-            get
-            {
-                return children[index];
-            }
-        }
+        public RoseTree<T> this[int index] => children[index];
 
-        public int BranchCount
-        {
-            get { return children.Length; }
-        }
+        public int BranchCount => children.Length;
 
 
         public RoseTree(IEnumerable<RoseTree<T>> children)
@@ -61,28 +52,16 @@ namespace Nintenlord.Collections.Trees
             }
         }
 
-        public bool HasValue
-        {
-            get
-            {
-                return hasValue;
-            }
-        }
+        public bool HasValue => hasValue;
 
         #endregion
 
         #region ITree<IValuedTree<T>> Members
 
-        public IEnumerable<IValuedTree<T>> GetChildren()
-        {
-            return children;
-        }
+        public IEnumerable<IValuedTree<T>> GetChildren() => children;
 
         #endregion
 
-        public static RoseTree<T> GetRoseTree(Func<T, IEnumerable<T>> getChildren, T top)
-        {
-            return new RoseTree<T>(getChildren(top).Select(x => GetRoseTree(getChildren, x)), top);
-        }
+        public static RoseTree<T> GetRoseTree(Func<T, IEnumerable<T>> getChildren, T top) => new(getChildren(top).Select(x => GetRoseTree(getChildren, x)), top);
     }
 }

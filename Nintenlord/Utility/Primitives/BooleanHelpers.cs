@@ -2,15 +2,9 @@
 {
     public static class BooleanHelpers
     {
-        public static bool Eq(this bool a, bool b)
-        {
-            return a == b;
-        }
+        public static bool Eq(this bool a, bool b) => a == b;
 
-        public static bool Imp(this bool a, bool b)
-        {
-            return !a || b;
-        }
+        public static bool Imp(this bool a, bool b) => !a || b;
     }
 }
 

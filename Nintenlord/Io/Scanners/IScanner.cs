@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Nintenlord.IO.Scanners
@@ -12,23 +12,35 @@ namespace Nintenlord.IO.Scanners
         /// <summary>
         /// True if scanner has run out of tokens and calls to MoveNext and Current are invalid, else false.
         /// </summary>
-        bool IsAtEnd { get; }
+        bool IsAtEnd
+        {
+            get;
+        }
 
         /// <summary>
         /// Gets or sets the current offset. Setting is only allowed if CanSeek == True.
         /// </summary>
         /// <exception cref="NotSupportedException">If setting is not allowed.</exception>
-        long Offset { get; set; }
+        long Offset
+        {
+            get; set;
+        }
 
         /// <summary>
         /// True if offset can be set, else false.
         /// </summary>
-        bool CanSeek { get; }
+        bool CanSeek
+        {
+            get;
+        }
 
         /// <summary>
         /// Current token on the stream.
         /// </summary>
-        T Current { get; }
+        T Current
+        {
+            get;
+        }
 
         /// <summary>
         /// Moves scanner to the next token.

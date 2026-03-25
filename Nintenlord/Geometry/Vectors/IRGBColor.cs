@@ -1,4 +1,4 @@
-﻿namespace Nintenlord.Geometry.Vectors
+namespace Nintenlord.Geometry.Vectors
 {
     public interface IRGBColor
     {

@@ -2,12 +2,9 @@
 
 namespace Nintenlord.Utility.Strings
 {
-    static class RegexHelper
+    internal static class RegexHelper
     {
-        public static string[] Substrings(this Group group)
-        {
-            return Substrings(group.Captures);
-        }
+        public static string[] Substrings(this Group group) => Substrings(group.Captures);
 
         public static string[] Substrings(this CaptureCollection collection)
         {

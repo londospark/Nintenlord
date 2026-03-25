@@ -5,11 +5,11 @@ namespace Nintenlord.Collections.Lists
 {
     public sealed class ListSlidingWindow<T> : IList<T>
     {
-        readonly IList<T> items;
-        readonly int windowSize;
+        private readonly IList<T> items;
+        private readonly int windowSize;
 
-        int start;
-        int end;
+        private int start;
+        private int end;
 
         public ListSlidingWindow(int windowSize, IList<T> listToWrap)
         {
@@ -19,15 +19,9 @@ namespace Nintenlord.Collections.Lists
             end = 0;
         }
 
-        public IList<T> Items
-        {
-            get { return items; }
-        }
+        public IList<T> Items => items;
 
-        public int WindowSize
-        {
-            get { return windowSize; }
-        }
+        public int WindowSize => windowSize;
 
         public void Advance()
         {
@@ -52,15 +46,9 @@ namespace Nintenlord.Collections.Lists
             return -1;
         }
 
-        public void Insert(int index, T item)
-        {
-            throw new NotSupportedException();
-        }
+        public void Insert(int index, T item) => throw new NotSupportedException();
 
-        public void RemoveAt(int index)
-        {
-            throw new NotSupportedException();
-        }
+        public void RemoveAt(int index) => throw new NotSupportedException();
 
         public T this[int index]
         {
@@ -72,30 +60,18 @@ namespace Nintenlord.Collections.Lists
                 }
                 return items[start + index];
             }
-            set
-            {
-                throw new NotSupportedException();
-            }
+            set => throw new NotSupportedException();
         }
 
         #endregion
 
         #region ICollection<T> Members
 
-        public void Add(T item)
-        {
-            throw new NotSupportedException();
-        }
+        public void Add(T item) => throw new NotSupportedException();
 
-        public void Clear()
-        {
-            throw new NotSupportedException();
-        }
+        public void Clear() => throw new NotSupportedException();
 
-        public bool Contains(T item)
-        {
-            return IndexOf(item) != -1;
-        }
+        public bool Contains(T item) => IndexOf(item) != -1;
 
         public void CopyTo(T[] array, int arrayIndex)
         {
@@ -106,38 +82,23 @@ namespace Nintenlord.Collections.Lists
             }
         }
 
-        public int Count
-        {
-            get { return end - start; }
-        }
+        public int Count => end - start;
 
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
-        public bool Remove(T item)
-        {
-            throw new NotSupportedException();
-        }
+        public bool Remove(T item) => throw new NotSupportedException();
 
         #endregion
 
         #region IEnumerable<T> Members
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return new SublistEnumerator<T>(items, start, end - start);
-        }
+        public IEnumerator<T> GetEnumerator() => new SublistEnumerator<T>(items, start, end - start);
 
         #endregion
 
         #region IEnumerable Members
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion
     }

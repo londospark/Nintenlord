@@ -5,7 +5,7 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
 {
     public sealed class OrParser<TIn, TOut> : Parser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut> first, second;
+        private readonly IParser<TIn, TOut> first, second;
 
         public OrParser(IParser<TIn, TOut> first, IParser<TIn, TOut> second)
         {
@@ -39,9 +39,6 @@ namespace Nintenlord.Parser.ParserCombinators.BinaryParsers
             return result;
         }
 
-        public override string ToString()
-        {
-            return string.Format("({0})|({1})", first, second);
-        }
+        public override string ToString() => string.Format("({0})|({1})", first, second);
     }
 }

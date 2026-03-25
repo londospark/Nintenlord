@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
 // <copyright file="PushdownAutomata.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
@@ -14,11 +14,11 @@ namespace Nintenlord.Grammars
     /// </summary>
     public class DeterministicPushdownAutomata<TStackSymbol, TState, TLetter>
     {
-        Stack<TStackSymbol> stack;
-        Dictionary<Tuple<TState, TLetter, TStackSymbol>, Tuple<TState, TStackSymbol[]>> transitions;
-        Dictionary<Tuple<TState, TStackSymbol>, Tuple<TState, TStackSymbol[]>> epsilonTransitions;
-        TStackSymbol stackStartSymbol = default!;
-        TState startingState = default!;
+        private readonly Stack<TStackSymbol> stack;
+        private readonly Dictionary<Tuple<TState, TLetter, TStackSymbol>, Tuple<TState, TStackSymbol[]>> transitions;
+        private readonly Dictionary<Tuple<TState, TStackSymbol>, Tuple<TState, TStackSymbol[]>> epsilonTransitions;
+        private readonly TStackSymbol stackStartSymbol = default!;
+        private readonly TState startingState = default!;
 
         public DeterministicPushdownAutomata()
         {

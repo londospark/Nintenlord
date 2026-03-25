@@ -5,7 +5,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 {
     public sealed class NoneOfParser<T> : Parser<T, T>
     {
-        ICollection<T> invalidValues;
+        private readonly ICollection<T> invalidValues;
 
         public NoneOfParser(ICollection<T> invalidValues)
         {

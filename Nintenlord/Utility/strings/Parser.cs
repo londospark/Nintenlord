@@ -8,8 +8,8 @@ namespace Nintenlord.Utility.Strings
 {
     public class Parser
     {
-        static Dictionary<string, Func<int, int, int>> binaryOperators;
-        static Dictionary<string, Func<int, int>> unaryOperators;
+        private static readonly Dictionary<string, Func<int, int, int>> binaryOperators;
+        private static readonly Dictionary<string, Func<int, int>> unaryOperators;
 
         static Parser()
         {
@@ -29,11 +29,9 @@ namespace Nintenlord.Utility.Strings
             unaryOperators["-"] = x => -x;
         }
 
-        public static string[] ShuntingYardAlgorithm(string s)
-        {
-            return ShuntingYardAlgorithm(s, new OperatorComparer(),
+        public static string[] ShuntingYardAlgorithm(string s) =>
+            ShuntingYardAlgorithm(s, new OperatorComparer(),
                 x => binaryOperators.ContainsKey(x), x => x.IsHexDigit() || x == 'x');
-        }
 
         public static string[] ShuntingYardAlgorithm(string s, IComparer<string> operatorComparer,
             Predicate<string> isOperator, Predicate<char> isValue)
@@ -116,10 +114,7 @@ namespace Nintenlord.Utility.Strings
         {
             #region IComparer<char> Members
 
-            public int Compare(string x, string y)
-            {
-                return OperatorComparer.SCompare(x, y);
-            }
+            public int Compare(string x, string y) => OperatorComparer.SCompare(x, y);
 
             #endregion
 
@@ -129,7 +124,8 @@ namespace Nintenlord.Utility.Strings
                 {
                     if (IsLog(y))
                         return 0;
-                    else return -1;
+                    else
+                        return -1;
                 }
                 else if (IsAdd(x))
                 {
@@ -137,7 +133,8 @@ namespace Nintenlord.Utility.Strings
                         return 1;
                     if (IsAdd(y))
                         return 0;
-                    else return -1;
+                    else
+                        return -1;
                 }
                 else if (IsMul(x))
                 {
@@ -145,48 +142,33 @@ namespace Nintenlord.Utility.Strings
                         return 0;
                     if (IsParent(y))
                         return -1;
-                    else return 1;
+                    else
+                        return 1;
                 }
                 else//x is ( or )
                 {
                     if (IsParent(y))
                         return 0;
-                    else return 1;
+                    else
+                        return 1;
                 }
             }
-            private static bool IsParent(string c)
-            {
-                return c == "(" || c == ")";
-            }
+            private static bool IsParent(string c) => c == "(" || c == ")";
 
-            private static bool IsAdd(string c)
-            {
-                return c == "+" || c == "-";
-            }
+            private static bool IsAdd(string c) => c == "+" || c == "-";
 
-            private static bool IsMul(string c)
-            {
-                return c == "*" || c == "/" || c == "%";
-            }
+            private static bool IsMul(string c) => c == "*" || c == "/" || c == "%";
 
-            private static bool IsLog(string c)
-            {
-                return c == "&" || c == "|" || c == "^";
-            }
+            private static bool IsLog(string c) => c == "&" || c == "|" || c == "^";
         }
 
 
-        public static int EvaluateReversePolishNotation(string[] s)
-        {
-            return EvaluateReversePolishNotation(s, 0, s.Length);
-        }
+        public static int EvaluateReversePolishNotation(string[] s) => EvaluateReversePolishNotation(s, 0, s.Length);
 
-        public static int EvaluateReversePolishNotation(string[] s, int index, int length)
-        {
-            return EvaluateReversePolishNotation(
+        public static int EvaluateReversePolishNotation(string[] s, int index, int length) =>
+            EvaluateReversePolishNotation(
                 s, index, length, binaryOperators, unaryOperators, x => x.GetValue()
-                );
-        }
+            );
 
         private static TOutput EvaluateReversePolishNotation<TOutput, TInput>(
             TInput[] s, int index, int length,
@@ -255,11 +237,16 @@ namespace Nintenlord.Utility.Strings
             {
                 var c = code[i];
                 var split = false;
-                if (c == '[') vectorDepth++;
-                else if (c == ']') vectorDepth--;
-                else if (c == '(') parenthDepth++;
-                else if (c == ')') parenthDepth--;
-                else if (c == '"') quote = !quote;
+                if (c == '[')
+                    vectorDepth++;
+                else if (c == ']')
+                    vectorDepth--;
+                else if (c == '(')
+                    parenthDepth++;
+                else if (c == ')')
+                    parenthDepth--;
+                else if (c == '"')
+                    quote = !quote;
                 else if (Char.IsWhiteSpace(c) &&
                     parenthDepth <= 0 &&
                     !quote &&

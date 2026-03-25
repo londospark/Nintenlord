@@ -18,24 +18,18 @@ namespace Nintenlord.Utility
             this.array = new T[arrayLength];
         }
 
-        public DirtyBufferUser GetUser()
-        {
-            return new DirtyBufferUser(this);
-        }
+        public DirtyBufferUser GetUser() => new(this);
 
         public struct DirtyBufferUser : IDisposable, IEnumerable<T>
         {
-            private SharedDirtyBuffer<T> listToUse;
+            private readonly SharedDirtyBuffer<T> listToUse;
 
             public T this[int index]
             {
-                get { return listToUse.array[index]; }
-                set { listToUse.array[index] = value; }
+                get => listToUse.array[index];
+                set => listToUse.array[index] = value;
             }
-            public int Length
-            {
-                get { return listToUse.array.Length; }
-            }
+            public int Length => listToUse.array.Length;
 
             public DirtyBufferUser(SharedDirtyBuffer<T> listToUse)
             {
@@ -47,10 +41,7 @@ namespace Nintenlord.Utility
 
             #region IDisposable Members
 
-            public void Dispose()
-            {
-                listToUse.InUse = false;
-            }
+            public void Dispose() => listToUse.InUse = false;
 
             #endregion
 
@@ -69,10 +60,7 @@ namespace Nintenlord.Utility
 
             #region IEnumerable Members
 
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-            {
-                return this.GetEnumerator();
-            }
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => this.GetEnumerator();
 
             #endregion
         }

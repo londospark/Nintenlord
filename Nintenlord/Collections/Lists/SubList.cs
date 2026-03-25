@@ -42,15 +42,9 @@ namespace Nintenlord.Collections.Lists
             return -1;
         }
 
-        public void Insert(int Index, T item)
-        {
-            throw new NotSupportedException();
-        }
+        public void Insert(int Index, T item) => throw new NotSupportedException();
 
-        public void RemoveAt(int Index)
-        {
-            throw new NotSupportedException();
-        }
+        public void RemoveAt(int Index) => throw new NotSupportedException();
 
         public T this[int Index]
         {
@@ -62,30 +56,18 @@ namespace Nintenlord.Collections.Lists
                 }
                 return MainList[this.Index + Index];
             }
-            set
-            {
-                throw new NotSupportedException();
-            }
+            set => throw new NotSupportedException();
         }
 
         #endregion
 
         #region ICollection<T> Members
 
-        public void Add(T item)
-        {
-            throw new NotSupportedException();
-        }
+        public void Add(T item) => throw new NotSupportedException();
 
-        public void Clear()
-        {
-            throw new NotSupportedException();
-        }
+        public void Clear() => throw new NotSupportedException();
 
-        public bool Contains(T item)
-        {
-            return IndexOf(item) != -1;
-        }
+        public bool Contains(T item) => IndexOf(item) != -1;
 
         public void CopyTo(T[] array, int arrayIndex)
         {
@@ -95,38 +77,23 @@ namespace Nintenlord.Collections.Lists
             }
         }
 
-        public int Count
-        {
-            get { return Length; }
-        }
+        public int Count => Length;
 
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
-        public bool Remove(T item)
-        {
-            throw new NotSupportedException();
-        }
+        public bool Remove(T item) => throw new NotSupportedException();
 
         #endregion
 
         #region IEnumerable<T> Members
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return new SublistEnumerator<T>(MainList, Index, Length);
-        }
+        public IEnumerator<T> GetEnumerator() => new SublistEnumerator<T>(MainList, Index, Length);
 
         #endregion
 
         #region IEnumerable Members
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         #endregion
 

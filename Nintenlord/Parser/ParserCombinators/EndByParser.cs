@@ -6,8 +6,8 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class EndByParser<TIn, TEnd, TOut> : RepeatingParser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut> results;
-        readonly IParser<TIn, TEnd> separator;
+        private readonly IParser<TIn, TOut> results;
+        private readonly IParser<TIn, TEnd> separator;
 
         public EndByParser(IParser<TIn, TOut> results, IParser<TIn, TEnd> separator)
         {
@@ -30,7 +30,8 @@ namespace Nintenlord.Parser.ParserCombinators
                     InnerMatch += latestMatch;
                     yield return outRes;
                 }
-                else yield break;
+                else
+                    yield break;
 
                 separator.Parse(scanner, out latestMatch);
                 InnerMatch += latestMatch;

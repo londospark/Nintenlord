@@ -1,4 +1,4 @@
-﻿namespace Nintenlord.Graph
+namespace Nintenlord.Graph
 {
     /// <summary>
     /// A graph where edges can be set and removed.

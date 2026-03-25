@@ -9,10 +9,8 @@ namespace Nintenlord.Graph.PathFinding
     public static class A_Star
     {
         public static List<TNode> GetPath<TNode>(TNode start, TNode goal,
-            IWeighedGraph<TNode> map, IHeurestic<TNode> heurestics)
-        {
-            return GetPath(start, goal, map, heurestics, EqualityComparer<TNode>.Default);
-        }
+            IWeighedGraph<TNode> map, IHeurestic<TNode> heurestics) =>
+            GetPath(start, goal, map, heurestics, EqualityComparer<TNode>.Default);
 
         public static List<TNode> GetPath<TNode>(TNode start, TNode goal,
             IWeighedGraph<TNode> map, IHeurestic<TNode> heurestics, IEqualityComparer<TNode> nodeComparer)

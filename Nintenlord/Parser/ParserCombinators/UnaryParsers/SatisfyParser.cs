@@ -5,7 +5,7 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
 {
     public sealed class SatisfyParser<T> : Parser<T, T>
     {
-        readonly Predicate<T> comparer;
+        private readonly Predicate<T> comparer;
 
         public SatisfyParser(Predicate<T> comparer)
         {
@@ -36,9 +36,6 @@ namespace Nintenlord.Parser.ParserCombinators.UnaryParsers
             }
         }
 
-        public override string ToString()
-        {
-            return "Predicate";
-        }
+        public override string ToString() => "Predicate";
     }
 }

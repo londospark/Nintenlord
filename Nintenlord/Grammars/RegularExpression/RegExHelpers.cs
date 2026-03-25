@@ -10,7 +10,6 @@ namespace Nintenlord.Grammars.RegularExpression
     using Nintenlord.Grammars.RegularExpression.Tree;
     using Nintenlord.Graph;
     using Nintenlord.Graph.PathFinding;
-    using Nintenlord.Utility;
     using Nintenlord.Utility.Primitives;
     using System;
     using System.Collections.Generic;
@@ -239,66 +238,66 @@ namespace Nintenlord.Grammars.RegularExpression
                     return exp;//No change
 
                 case RegExNodeTypes.Choise:
-                    {
-                        var first = exp.GetChildren().First();
-                        var second = exp.GetChildren().Last();
+                {
+                    var first = exp.GetChildren().First();
+                    var second = exp.GetChildren().Last();
 
-                        if (IsEmpty(first))
-                        {
-                            return second; //empty + r = r
-                        }
-                        else if (IsEmpty(second))
-                        {
-                            return first; //r + empty = r
-                        }
+                    if (IsEmpty(first))
+                    {
+                        return second; //empty + r = r
                     }
-                    return exp;//No change
+                    else if (IsEmpty(second))
+                    {
+                        return first; //r + empty = r
+                    }
+                }
+                return exp;//No change
 
                 case RegExNodeTypes.Concatenation:
+                {
+                    var first = exp.GetChildren().First();
+                    var second = exp.GetChildren().Last();
+
+                    if (IsEmpty(first))
                     {
-                        var first = exp.GetChildren().First();
-                        var second = exp.GetChildren().Last();
-
-                        if (IsEmpty(first))
-                        {
-                            return first; //empty r = empty
-                        }
-                        else if (IsEmpty(second))
-                        {
-                            return second; //r empty = empty
-                        }
-
-                        if (IsEmptyWord(first))
-                        {
-                            return second; //epsilon r = r
-                        }
-                        else if (IsEmptyWord(second))
-                        {
-                            return first; //r epsilon = r
-                        }
-
-                        if (first.Type == RegExNodeTypes.Choise)
-                        {
-                            var first2 = first.GetChildren().First();
-                            var second2 = first.GetChildren().Last();
-
-                            return new Choise<TLetter>(
-                                new Concatenation<TLetter>(first2, second),
-                                new Concatenation<TLetter>(second2, second)
-                                );//(s + t) r = s r + t r
-                        }
-                        else if (second.Type == RegExNodeTypes.Choise)
-                        {
-                            var first2 = second.GetChildren().First();
-                            var second2 = second.GetChildren().Last();
-
-                            return new Choise<TLetter>(
-                                new Concatenation<TLetter>(first, first2),
-                                new Concatenation<TLetter>(first, second2)
-                                );//r (s + t) r = r s + r t
-                        }
+                        return first; //empty r = empty
                     }
-                    return exp;//No change
+                    else if (IsEmpty(second))
+                    {
+                        return second; //r empty = empty
+                    }
+
+                    if (IsEmptyWord(first))
+                    {
+                        return second; //epsilon r = r
+                    }
+                    else if (IsEmptyWord(second))
+                    {
+                        return first; //r epsilon = r
+                    }
+
+                    if (first.Type == RegExNodeTypes.Choise)
+                    {
+                        var first2 = first.GetChildren().First();
+                        var second2 = first.GetChildren().Last();
+
+                        return new Choise<TLetter>(
+                            new Concatenation<TLetter>(first2, second),
+                            new Concatenation<TLetter>(second2, second)
+                            );//(s + t) r = s r + t r
+                    }
+                    else if (second.Type == RegExNodeTypes.Choise)
+                    {
+                        var first2 = second.GetChildren().First();
+                        var second2 = second.GetChildren().Last();
+
+                        return new Choise<TLetter>(
+                            new Concatenation<TLetter>(first, first2),
+                            new Concatenation<TLetter>(first, second2)
+                            );//r (s + t) r = r s + r t
+                    }
+                }
+                return exp;//No change
                 default:
                     throw new ArgumentException();
             }
@@ -413,52 +412,32 @@ namespace Nintenlord.Grammars.RegularExpression
                     final);
             }
 
-            public HashSet<TState> EpsClosure(TState state)
-            {
-                return Dijkstra_algorithm.GetConnectedNodes(state, this, EqualityComparer<TState>.Default);
-            }
+            public HashSet<TState> EpsClosure(TState state) => Dijkstra_algorithm.GetConnectedNodes(state, this, EqualityComparer<TState>.Default);
 
-            public HashSet<TState> ReachableStates(TState state, TLetter letter)
-            {
-                throw new NotImplementedException();
-            }
+            public HashSet<TState> ReachableStates(TState state, TLetter letter) => throw new NotImplementedException();
 
             #region IGraph<TState> Members
 
-            public int NodeCount
-            {
-                get { throw new NotImplementedException(); }
-            }
+            public int NodeCount => throw new NotImplementedException();
 
-            public IEnumerable<TState> GetNeighbours(TState node)
-            {
-                return from item in epsilonTransitions
-                       where EqualityComparer<TState>.Default.Equals(item.Item1, node)
-                       select item.Item2;
-            }
+            public IEnumerable<TState> GetNeighbours(TState node) =>
+                from item in epsilonTransitions
+                where EqualityComparer<TState>.Default.Equals(item.Item1, node)
+                select item.Item2;
 
-            public bool IsEdge(TState node1, TState node2)
-            {
-                return epsilonTransitions.Contains(Tuple.Create(node1, node2));
-            }
+            public bool IsEdge(TState node1, TState node2) => epsilonTransitions.Contains(Tuple.Create(node1, node2));
 
             #endregion
 
             #region IEnumerable<TState> Members
 
-            public IEnumerator<TState> GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
+            public IEnumerator<TState> GetEnumerator() => throw new NotImplementedException();
 
             #endregion
 
             #region IEnumerable Members
 
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => throw new NotImplementedException();
 
             #endregion
         }

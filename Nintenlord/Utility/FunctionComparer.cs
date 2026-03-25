@@ -5,7 +5,7 @@ namespace Nintenlord.Utility
 {
     public class FunctionComparer<T> : IComparer<T>
     {
-        Func<T, int> valueFunction;
+        private readonly Func<T, int> valueFunction;
 
         public FunctionComparer(Func<T, int> valueFunction)
         {
@@ -14,16 +14,10 @@ namespace Nintenlord.Utility
 
         #region IComparer<Node> Members
 
-        public int Compare(T? x, T? y)
-        {
-            return valueFunction(x!) - valueFunction(y!);
-        }
+        public int Compare(T? x, T? y) => valueFunction(x!) - valueFunction(y!);
 
         #endregion
 
-        public static explicit operator FunctionComparer<T>(Func<T, int> valueFunction)
-        {
-            return new FunctionComparer<T>(valueFunction);
-        }
+        public static explicit operator FunctionComparer<T>(Func<T, int> valueFunction) => new(valueFunction);
     }
 }

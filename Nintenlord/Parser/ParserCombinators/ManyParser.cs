@@ -6,7 +6,7 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class ManyParser<TIn, TOut> : RepeatingParser<TIn, TOut>
     {
-        readonly IParser<TIn, TOut> toRepeat;
+        private readonly IParser<TIn, TOut> toRepeat;
 
         public ManyParser(IParser<TIn, TOut> toRepeat)
         {
@@ -33,9 +33,6 @@ namespace Nintenlord.Parser.ParserCombinators
             }
         }
 
-        public override string ToString()
-        {
-            return string.Format("({0})*", toRepeat);
-        }
+        public override string ToString() => string.Format("({0})*", toRepeat);
     }
 }

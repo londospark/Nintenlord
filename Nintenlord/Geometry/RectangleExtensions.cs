@@ -150,11 +150,9 @@ namespace Nintenlord.Geometry
             return null;
         }
 
-        public static bool RangesCollide(int min1, int max1, int min2, int max2)
-        {
-            return min1 <= min2 && max1 >= max2 ||
-                   min1.IsInRange(min2, max2) ||
-                   max1.IsInRange(min2, max2);
-        }
+        public static bool RangesCollide(int min1, int max1, int min2, int max2) =>
+            min1 <= min2 && max1 >= max2 ||
+            min1.IsInRange(min2, max2) ||
+            max1.IsInRange(min2, max2);
     }
 }

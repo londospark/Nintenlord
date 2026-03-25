@@ -12,16 +12,17 @@ namespace Nintenlord.Utility
         /// <summary>
         /// Name of the object. Must not change in equals mind
         /// </summary>
-        T Name { get; }
+        T Name
+        {
+            get;
+        }
     }
 
     public static class NamedHelper
     {
         public static Dictionary<T, TNamed> GetDictionary<T, TNamed>(this IEnumerable<TNamed> named)
-            where TNamed : INamed<T>
-        {
-            return named.ToDictionary(item => item.Name);
-        }
+            where TNamed : INamed<T> =>
+            named.ToDictionary(item => item.Name);
 
         public static bool AllAreUnique<T, TNamed>(IEnumerable<TNamed> items)
             where TNamed : INamed<T>
@@ -39,16 +40,14 @@ namespace Nintenlord.Utility
         }
 
         public static IEnumerable<KeyValuePair<T, TNamed>> GetEnumerator<T, TNamed>(this IEnumerable<TNamed> named)
-            where TNamed : INamed<T>
-        {
-            return named.Select(item => new KeyValuePair<T, TNamed>(item.Name, item));
-        }
+            where TNamed : INamed<T> =>
+            named.Select(item => new KeyValuePair<T, TNamed>(item.Name, item));
 
         public class NamedEqualityComparer<T, TNamed>
             : IEqualityComparer<TNamed>
             where TNamed : INamed<T>
         {
-            IEqualityComparer<T> coreComp;
+            private readonly IEqualityComparer<T> coreComp;
 
             public NamedEqualityComparer()
                 : this(EqualityComparer<T>.Default)
@@ -63,15 +62,9 @@ namespace Nintenlord.Utility
 
             #region IEqualityComparer<NamedT> Members
 
-            public bool Equals(TNamed x, TNamed y)
-            {
-                return coreComp.Equals(x.Name, y.Name);
-            }
+            public bool Equals(TNamed x, TNamed y) => coreComp.Equals(x.Name, y.Name);
 
-            public int GetHashCode(TNamed obj)
-            {
-                return coreComp.GetHashCode(obj.Name);
-            }
+            public int GetHashCode(TNamed obj) => coreComp.GetHashCode(obj.Name);
 
             #endregion
         }

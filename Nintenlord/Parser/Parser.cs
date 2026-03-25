@@ -32,24 +32,12 @@ namespace Nintenlord.Parser
 
         public event EventHandler<ParsingEventArgs<TIn, TOut>> ParseEvent;
 
-        public override string ToString()
-        {
-            return this.GetType().Name;
-        }
+        public override string ToString() => this.GetType().Name;
 
-        public static OrParser<TIn, TOut> operator |(Parser<TIn, TOut> p1, IParser<TIn, TOut> p2)
-        {
-            return new OrParser<TIn, TOut>(p1, p2);
-        }
+        public static OrParser<TIn, TOut> operator |(Parser<TIn, TOut> p1, IParser<TIn, TOut> p2) => new(p1, p2);
 
-        public static OrParser<TIn, TOut> operator |(Parser<TIn, TOut> p1, Parser<TIn, TOut> p2)
-        {
-            return new OrParser<TIn, TOut>(p1, p2);
-        }
+        public static OrParser<TIn, TOut> operator |(Parser<TIn, TOut> p1, Parser<TIn, TOut> p2) => new(p1, p2);
 
-        public static OrParser<TIn, TOut> operator |(IParser<TIn, TOut> p1, Parser<TIn, TOut> p2)
-        {
-            return new OrParser<TIn, TOut>(p1, p2);
-        }
+        public static OrParser<TIn, TOut> operator |(IParser<TIn, TOut> p1, Parser<TIn, TOut> p2) => new(p1, p2);
     }
 }

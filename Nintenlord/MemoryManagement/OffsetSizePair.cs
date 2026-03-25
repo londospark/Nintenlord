@@ -1,4 +1,4 @@
-﻿using Nintenlord.Utility.Primitives;
+using Nintenlord.Utility.Primitives;
 using System;
 using System.Collections.Generic;
 
@@ -18,20 +18,15 @@ namespace Nintenlord.MemoryManagement
 
         #region IEquatable<OffsetSizePair> Members
 
-        public bool Equals(OffsetSizePair other)
-        {
-            return this.Offset == other.Offset &&
-                this.Size == other.Size;
-        }
+        public bool Equals(OffsetSizePair other) =>
+            this.Offset == other.Offset &&
+            this.Size == other.Size;
 
         #endregion
 
         #region IComparable<OffsetSizePair> Members
 
-        public int CompareTo(OffsetSizePair other)
-        {
-            return this.Offset - other.Offset;
-        }
+        public int CompareTo(OffsetSizePair other) => this.Offset - other.Offset;
 
         #endregion
 
@@ -49,10 +44,7 @@ namespace Nintenlord.MemoryManagement
 
         #region IEnumerable Members
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion
 
@@ -64,7 +56,7 @@ namespace Nintenlord.MemoryManagement
         public override string ToString() => $"Offset: ${Offset.ToHexString("")} Size: 0x{Size.ToHexString("")}";
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="memory">Needs to be sorted and non-negative.</param>
         /// <returns></returns>

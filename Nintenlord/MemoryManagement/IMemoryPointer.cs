@@ -1,12 +1,21 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Nintenlord.MemoryManagement
 {
     public interface IMemoryPointer
     {
-        bool IsNull { get; }
-        int Offset { get; }
-        int Size { get; }
+        bool IsNull
+        {
+            get;
+        }
+        int Offset
+        {
+            get;
+        }
+        int Size
+        {
+            get;
+        }
     }
 
     public sealed class BySizeComparer : IComparer<IMemoryPointer>, IEqualityComparer<IMemoryPointer>
@@ -15,8 +24,10 @@ namespace Nintenlord.MemoryManagement
 
         public int Compare(IMemoryPointer? x, IMemoryPointer? y)
         {
-            if (x is null) return y is null ? 0 : -1;
-            if (y is null) return 1;
+            if (x is null)
+                return y is null ? 0 : -1;
+            if (y is null)
+                return 1;
             return x.Size - y.Size;
         }
 
@@ -26,15 +37,14 @@ namespace Nintenlord.MemoryManagement
 
         public bool Equals(IMemoryPointer? x, IMemoryPointer? y)
         {
-            if (x is null) return y is null;
-            if (y is null) return false;
+            if (x is null)
+                return y is null;
+            if (y is null)
+                return false;
             return x.Size - y.Size == 0;
         }
 
-        public int GetHashCode(IMemoryPointer obj)
-        {
-            return obj?.Size ?? 0;
-        }
+        public int GetHashCode(IMemoryPointer obj) => obj?.Size ?? 0;
 
         #endregion
     }
@@ -45,8 +55,10 @@ namespace Nintenlord.MemoryManagement
 
         public int Compare(IMemoryPointer? x, IMemoryPointer? y)
         {
-            if (x is null) return y is null ? 0 : -1;
-            if (y is null) return 1;
+            if (x is null)
+                return y is null ? 0 : -1;
+            if (y is null)
+                return 1;
             return x.Offset - y.Offset;
         }
 
@@ -56,15 +68,14 @@ namespace Nintenlord.MemoryManagement
 
         public bool Equals(IMemoryPointer? x, IMemoryPointer? y)
         {
-            if (x is null) return y is null;
-            if (y is null) return false;
+            if (x is null)
+                return y is null;
+            if (y is null)
+                return false;
             return x.Offset - y.Offset == 0;
         }
 
-        public int GetHashCode(IMemoryPointer obj)
-        {
-            return obj?.Offset ?? 0;
-        }
+        public int GetHashCode(IMemoryPointer obj) => obj?.Offset ?? 0;
 
         #endregion
     }

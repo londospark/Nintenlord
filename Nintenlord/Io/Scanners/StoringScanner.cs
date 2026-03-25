@@ -5,10 +5,10 @@ namespace Nintenlord.IO.Scanners
 {
     public sealed class StoringScanner<T> : IStoringScanner<T>
     {
-        IScanner<T> nonStoringScanner;
-        List<T> generatedItems;
-        long startOffset;
-        long offset;
+        private readonly IScanner<T> nonStoringScanner;
+        private readonly List<T> generatedItems;
+        private readonly long startOffset;
+        private long offset;
 
         public StoringScanner(IScanner<T> scanner)
         {
@@ -31,15 +31,9 @@ namespace Nintenlord.IO.Scanners
             }
         }
 
-        public bool IsStored(long offset)
-        {
-            return IsStored(offset, 1);
-        }
+        public bool IsStored(long offset) => IsStored(offset, 1);
 
-        public bool IsStored(long offset, long length)
-        {
-            return startOffset <= offset && offset + length <= startOffset + generatedItems.Count;
-        }
+        public bool IsStored(long offset, long length) => startOffset <= offset && offset + length <= startOffset + generatedItems.Count;
 
         public bool IsAtEnd
         {
@@ -49,7 +43,7 @@ namespace Nintenlord.IO.Scanners
 
         public long Offset
         {
-            get { return offset; }
+            get => offset;
             set
             {
                 offset = value;
@@ -58,10 +52,7 @@ namespace Nintenlord.IO.Scanners
             }
         }
 
-        public bool CanSeek
-        {
-            get { return true; }
-        }
+        public bool CanSeek => true;
 
         public T Current
         {

@@ -11,15 +11,9 @@ namespace Nintenlord.Collections
     /// </summary>
     public static class CollectionExtensions
     {
-        public static bool Or(this IEnumerable<bool> collection)
-        {
-            return collection.Any(x => x);
-        }
+        public static bool Or(this IEnumerable<bool> collection) => collection.Any(x => x);
 
-        public static bool And(this IEnumerable<bool> collection)
-        {
-            return collection.All(x => x);
-        }
+        public static bool And(this IEnumerable<bool> collection) => collection.All(x => x);
 
         public static T Max<T>(this IEnumerable<T> collection) where T : IComparable<T>
         {
@@ -135,7 +129,7 @@ namespace Nintenlord.Collections
 
         public static TValue GetValue<TKey, TValue>(this IEnumerable<Dictionary<TKey, TValue>> scopes, TKey kay)
         {
-            TValue result = default(TValue);
+            var result = default(TValue);
 
             foreach (var item in scopes)
             {
@@ -147,10 +141,7 @@ namespace Nintenlord.Collections
             return result;
         }
 
-        public static bool ContainsKey<TKey, TValue>(this IEnumerable<Dictionary<TKey, TValue>> scopes, TKey kay)
-        {
-            return scopes.Any(item => item.ContainsKey(kay));
-        }
+        public static bool ContainsKey<TKey, TValue>(this IEnumerable<Dictionary<TKey, TValue>> scopes, TKey kay) => scopes.Any(item => item.ContainsKey(kay));
 
         public static bool TryGetKey<TKey, TValue>(this IEnumerable<Dictionary<TKey, TValue>> scopes, TKey kay, out TValue value)
         {
@@ -168,15 +159,9 @@ namespace Nintenlord.Collections
             return result;
         }
 
-        public static bool Contains<T>(this IEnumerable<T> array, Predicate<T> test)
-        {
-            return array.Any(item2 => test(item2));
-        }
+        public static bool Contains<T>(this IEnumerable<T> array, Predicate<T> test) => array.Any(item2 => test(item2));
 
-        public static int AmountOf<T>(this IEnumerable<T> array, T item)
-        {
-            return array.Count(item2 => item.Equals(item2));
-        }
+        public static int AmountOf<T>(this IEnumerable<T> array, T item) => array.Count(item2 => item.Equals(item2));
 
         public static string GetString(this IEnumerable<char> enume)
         {
@@ -244,7 +229,8 @@ namespace Nintenlord.Collections
                     {
                         moveFirstToNext = false;
                     }
-                    else break;
+                    else
+                        break;
                 }
 
                 if (moveSecondToNext)
@@ -253,7 +239,8 @@ namespace Nintenlord.Collections
                     {
                         moveSecondToNext = false;
                     }
-                    else break;
+                    else
+                        break;
                 }
 
                 if (comp.Compare(enume1.Current, enume2.Current) <= 0)
@@ -318,7 +305,8 @@ namespace Nintenlord.Collections
                     {
                         moveFirstToNext = false;
                     }
-                    else break;
+                    else
+                        break;
                 }
 
                 if (moveSecondToNext)
@@ -327,7 +315,8 @@ namespace Nintenlord.Collections
                     {
                         moveSecondToNext = false;
                     }
-                    else break;
+                    else
+                        break;
                 }
 
                 if (comp(enume1.Current, enume2.Current) <= 0)
@@ -376,10 +365,8 @@ namespace Nintenlord.Collections
         /// <param name="list2">Ordered enumerable.</param>
         /// <returns>Ordered enumerable containing all items of passed enumerators.</returns>
         public static IEnumerable<T> OrderedUnion<T>(this IEnumerable<T> list1, IEnumerable<T> list2)
-            where T : IComparable<T>
-        {
-            return list1.OrderedUnion(list2, Comparer<T>.Default);
-        }
+            where T : IComparable<T> =>
+            list1.OrderedUnion(list2, Comparer<T>.Default);
 
         public static IEnumerable<T> Repeat<T>(this IEnumerable<T> toRepeat)
         {
@@ -436,10 +423,7 @@ namespace Nintenlord.Collections
             }
             return count;
         }
-        public static int GetEqualsInBeginning<T>(this IList<T> a, IList<T> b)
-        {
-            return a.GetEqualsInBeginning(b, EqualityComparer<T>.Default);
-        }
+        public static int GetEqualsInBeginning<T>(this IList<T> a, IList<T> b) => a.GetEqualsInBeginning(b, EqualityComparer<T>.Default);
 
 
         public static IndexOverlay GetOverlay<T>(this IDictionary<int, T> dict, Func<T, int> measurement)
@@ -480,25 +464,14 @@ namespace Nintenlord.Collections
         }
 
         public static IEnumerable<T> Flatten<T, TEnumarable>(this IEnumerable<TEnumarable> collection)
-            where TEnumarable : IEnumerable<T>
-        {
-            return collection.SelectMany(x => x);
-        }
+            where TEnumarable : IEnumerable<T> =>
+            collection.SelectMany(x => x);
 
-        public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<T>> collection)
-        {
-            return collection.SelectMany(x => x);
-        }
+        public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<T>> collection) => collection.SelectMany(x => x);
 
-        public static IEnumerable<TOut> ConvertAll<TIn, TOut>(this IEnumerable<TIn> enume, Func<TIn, TOut> conversion)
-        {
-            return enume.Select(conversion);
-        }
+        public static IEnumerable<TOut> ConvertAll<TIn, TOut>(this IEnumerable<TIn> enume, Func<TIn, TOut> conversion) => enume.Select(conversion);
 
-        public static IEnumerable<T> Concat<T>(this IEnumerable<T> collection, params T[] args)
-        {
-            return collection.Concat((IEnumerable<T>)args);
-        }
+        public static IEnumerable<T> Concat<T>(this IEnumerable<T> collection, params T[] args) => collection.Concat((IEnumerable<T>)args);
 
         public static IEnumerable<Tuple<T, T>> GetPairs<T>(this IEnumerable<T> enume)
         {

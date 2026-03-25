@@ -1,13 +1,25 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Nintenlord.Collections.DataChange
 {
     public interface IIndexOverlay : IEnumerable<int>, IEnumerable<KeyValuePair<int, int>>
     {
-        bool ContainsIndexes { get; }
-        int AmountOfIndexes { get; }
-        int LastIndex { get; }
-        int FirstIndex { get; }
+        bool ContainsIndexes
+        {
+            get;
+        }
+        int AmountOfIndexes
+        {
+            get;
+        }
+        int LastIndex
+        {
+            get;
+        }
+        int FirstIndex
+        {
+            get;
+        }
 
         bool ContainsIndex(int index);
         bool ContainsAnyIndex(int index, int length);

@@ -6,8 +6,8 @@ namespace Nintenlord.Parser.ParserCombinators
 {
     public sealed class SeparatedBy1Parser<TIn, TSeb, TOut> : RepeatingParser<TIn, TOut>
     {
-        readonly IParser<TIn, TSeb> separator;
-        readonly IParser<TIn, TOut> results;
+        private readonly IParser<TIn, TSeb> separator;
+        private readonly IParser<TIn, TOut> results;
 
         public SeparatedBy1Parser(IParser<TIn, TSeb> separator, IParser<TIn, TOut> results)
         {
@@ -32,7 +32,8 @@ namespace Nintenlord.Parser.ParserCombinators
                     separator.Parse(scanner, out latestMatch);
                     if (latestMatch.Success)
                         InnerMatch += latestMatch;
-                    else yield break;
+                    else
+                        yield break;
 
                     prim = results.Parse(scanner, out latestMatch);
                     InnerMatch += latestMatch;

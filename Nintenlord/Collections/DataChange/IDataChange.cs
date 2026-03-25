@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Nintenlord.Collections.DataChange
@@ -12,23 +12,35 @@ namespace Nintenlord.Collections.DataChange
         /// <summary>
         /// Returns false if Apply doesn't change the data, else true
         /// </summary>
-        bool ChangesAnything { get; }
+        bool ChangesAnything
+        {
+            get;
+        }
 
         /// <summary>
         /// Returns the amount of changed indexes.
         /// </summary>
-        int AmountOfChanges { get; }
+        int AmountOfChanges
+        {
+            get;
+        }
         /// <summary>
         /// Throws exception if ChangesAnything == false.
         /// Else returns the first offset this instance changes.
         /// </summary>
-        int FirstOffset { get; }
+        int FirstOffset
+        {
+            get;
+        }
 
         /// <summary>
         /// Throws exception if ChangesAnything == false.
         /// Else returns the last changed offset + 1.
         /// </summary>
-        int LastOffset { get; }
+        int LastOffset
+        {
+            get;
+        }
 
         /// <summary>
         /// Adds new change. If old change and new change overlap, new overwrites

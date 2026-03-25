@@ -1,4 +1,4 @@
-﻿namespace Nintenlord.Utility
+namespace Nintenlord.Utility
 {
     public interface IInitiadable
     {

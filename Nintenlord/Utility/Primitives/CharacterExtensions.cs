@@ -1,4 +1,4 @@
-﻿namespace Nintenlord.Utility.Primitives
+namespace Nintenlord.Utility.Primitives
 {
     public static class CharacterExtensions
     {

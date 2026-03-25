@@ -4,9 +4,9 @@ namespace Nintenlord.RandomDistributions
 {
     public sealed class WeibullDistribution : IDistribution<double>
     {
-        readonly UniformDistribution dist;
-        readonly double alpha;
-        readonly double lambda;
+        private readonly UniformDistribution dist;
+        private readonly double alpha;
+        private readonly double lambda;
 
         public WeibullDistribution(Random random, double alpha, double lambda)
         {
@@ -17,10 +17,7 @@ namespace Nintenlord.RandomDistributions
 
         #region IDistribution<double> Members
 
-        public double NextValue()
-        {
-            return Math.Pow(-Math.Log(1 - dist.NextValue()) / lambda, 1 / alpha);
-        }
+        public double NextValue() => Math.Pow(-Math.Log(1 - dist.NextValue()) / lambda, 1 / alpha);
 
         #endregion
     }

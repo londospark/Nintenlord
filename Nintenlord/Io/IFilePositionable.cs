@@ -1,7 +1,10 @@
-﻿namespace Nintenlord.IO
+namespace Nintenlord.IO
 {
     public interface IFilePositionable
     {
-        FilePosition Position { get; }
+        FilePosition Position
+        {
+            get;
+        }
     }
 }
