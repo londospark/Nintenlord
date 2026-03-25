@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -27,6 +28,7 @@ namespace Nintenlord.Collections.Dictionaries
 
         #region ISerializable Members
 
+        [RequiresUnreferencedCode("Uses formatter-based serialization which is not AOT-compatible")]
         public SerializableDictionary(SerializationInfo info, StreamingContext context)
         {
             var dictType = info.GetValue(TypeName, typeof(Type)) as Type;
