@@ -314,7 +314,7 @@ namespace Nintenlord.Collections.DataChange
                 }
                 else
                 {
-                    if (start + length > item)
+                    if (start + length <= item)
                     {
                         break;
                     }

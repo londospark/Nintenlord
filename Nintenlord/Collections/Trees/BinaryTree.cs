@@ -78,7 +78,7 @@ namespace Nintenlord.Collections.Trees
         public static implicit operator Dictionary<T, bool[]>(BinaryTree<T> tree)
         {
             var dict = new Dictionary<T, bool[]>();
-            tree.Head.AddLeafValues(dict, new bool[] { });
+            tree.Head.AddLeafValues(dict, new List<bool>());
             return dict;
         }
     }
